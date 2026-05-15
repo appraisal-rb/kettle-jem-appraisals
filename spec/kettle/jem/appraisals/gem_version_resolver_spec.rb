@@ -1,20 +1,18 @@
 # frozen_string_literal: true
 
 RSpec.describe Kettle::Jem::Appraisals::GemVersionResolver do
-  let(:floor_resolver) { instance_double(Kettle::Jem::GemRubyFloor::Resolver) }
-  let(:resolver) { described_class.new(floor_resolver: floor_resolver) }
+  let(:ruby_gems_resolver) { instance_double(Kettle::Jem::RubyGemsResolver, cache: {}) }
+  let(:resolver) { described_class.new(resolver: ruby_gems_resolver) }
   let(:raw_versions) do
     [
-      {"number" => "6.0.0", "ruby_version" => ">= 2.5.0", "created_at" => "2020-01-01T00:00:00.000Z", "prerelease" => false},
-      {"number" => "6.1.0", "ruby_version" => ">= 2.5.0", "created_at" => "2020-02-01T00:00:00.000Z", "prerelease" => false},
-      {"number" => "6.1.1", "ruby_version" => ">= 2.5.0", "created_at" => "2020-03-01T00:00:00.000Z", "prerelease" => false},
-      {"number" => "7.0.0", "ruby_version" => ">= 2.7.0", "created_at" => "2021-01-01T00:00:00.000Z", "prerelease" => false},
-      {"number" => "7.1.0.beta1", "ruby_version" => ">= 2.7.0", "created_at" => "2021-02-01T00:00:00.000Z", "prerelease" => true},
+      {number: "6.1.0", ruby_version: ">= 2.5.0", created_at: "2020-02-01T00:00:00.000Z", prerelease: false},
+      {number: "6.1.1", ruby_version: ">= 2.5.0", created_at: "2020-03-01T00:00:00.000Z", prerelease: false},
     ]
   end
 
   before do
-    allow(floor_resolver).to receive(:fetch_versions).with("rails").and_return(raw_versions)
+    allow(ruby_gems_resolver).to receive(:versions).with("rails", include_prerelease: false, requirements: [">= 6.1", "< 7.0"]).and_return(raw_versions)
+    allow(ruby_gems_resolver).to receive(:minor_versions_by_major).with("rails", requirements: [">= 6.1", "< 7.0"]).and_return([{major: 6, minors: %w[6.1]}])
   end
 
   describe "#versions" do

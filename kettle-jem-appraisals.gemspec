@@ -85,8 +85,7 @@ Gem::Specification.new do |spec|
   spec.executables = ["kettle-jem-appraisals"]
 
   # Runtime dependencies
-  spec.add_dependency("kettle-dev", ">= 2.0")
-  spec.add_dependency("kettle-jem", ">= 1.0")
+  spec.add_dependency("kettle-jem", ">= 7.0")
 
   # Utilities
   spec.add_dependency("version_gem", "~> 1.1", ">= 1.1.9")
@@ -109,6 +108,7 @@ Gem::Specification.new do |spec|
 
   # Tasks
   spec.add_development_dependency("rake", "~> 13.0")
+  spec.add_development_dependency("kettle-dev", ">= 2.0")
 
   # Debugging
   spec.add_development_dependency("require_bench", "~> 1.0", ">= 1.0.4")            # ruby >= 2.2.0
