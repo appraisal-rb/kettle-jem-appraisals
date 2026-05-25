@@ -11,6 +11,32 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       expect { cli.run }.to output(include("/home/pboling/src/kettle-rb/demo")).to_stderr.and raise_error(SystemExit)
     end
 
+    it "reads runtime dependencies from a loaded gemspec object in scaffold mode" do
+      Dir.mktmpdir do |project_dir|
+        File.write(File.join(project_dir, "demo.gemspec"), <<~GEMSPEC)
+          Gem::Specification.new do |spec|
+            spec.name = "demo"
+            spec.version = "0.1.0"
+            spec.summary = "demo"
+            spec.authors = ["Test User"]
+            spec.email = ["test@example.com"]
+            spec.required_ruby_version = ">= 3.2"
+            spec.add_dependency "runtime_dep", ">= 1"
+            spec.add_development_dependency "dev_dep", ">= 1"
+            # spec.add_dependency "commented_dep"
+          end
+        GEMSPEC
+
+        cli = described_class.new(["--scaffold"], project_dir: project_dir)
+
+        cli.run
+
+        config = YAML.load_file(File.join(project_dir, ".kettle-jem.yml"))
+        tier1 = config.fetch("appraisal_matrix").fetch("gems").fetch("tier1")
+        expect(tier1).to eq([{"name" => "runtime_dep"}])
+      end
+    end
+
     it "passes requirements through to patch-mode selection and unions include_versions into the matrix" do
       Dir.mktmpdir do |project_dir|
         File.write(File.join(project_dir, ".kettle-jem.yml"), <<~YAML)

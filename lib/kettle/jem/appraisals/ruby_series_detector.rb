@@ -9,7 +9,12 @@ module Kettle
       #   by the +setup-ruby+ GitHub Action. Any gem's +min_ruby+ below this is clamped up.
       #
       # Re-exported from active Kettle/Jem's appraisal metadata policy.
-      MINIMUM_RUBY_FLOOR = Kettle::Jem::APPRAISAL_MINIMUM_RUBY_FLOOR
+      MINIMUM_RUBY_FLOOR =
+        if Kettle::Jem.const_defined?(:APPRAISAL_MINIMUM_RUBY_FLOOR)
+          Kettle::Jem::APPRAISAL_MINIMUM_RUBY_FLOOR
+        else
+          Gem::Version.new("2.3")
+        end
 
       # Derives Ruby series buckets from the +min_ruby+ seams across gem versions.
       #

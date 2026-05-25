@@ -3,6 +3,8 @@
 require "yaml"
 require "fileutils"
 require "set"
+require "rubygems/specification"
+require "kettle/dev"
 
 module Kettle
   module Jem
@@ -339,18 +341,7 @@ module Kettle
         end
 
         def extract_runtime_deps(gemspec_path)
-          # Use kettle-dev's gemspec reader if available, otherwise parse manually
-          content = File.read(gemspec_path)
-          deps = []
-          content.each_line do |line|
-            stripped = line.lstrip
-            next if stripped.start_with?("#")
-
-            if (match = stripped.match(/add_(?:runtime_)?dependency\s*\(?\s*["']([^"']+)["']/))
-              deps << match[1]
-            end
-          end
-          deps.uniq
+          load_gemspec(gemspec_path).runtime_dependencies.map(&:name).uniq
         end
 
         def fresh?(matrix)
@@ -376,13 +367,15 @@ module Kettle
 
         # Extracts the project's min_ruby from its gemspec (used as a floor).
         def detect_project_min_ruby
-          gemspec_path = find_gemspec
-          return unless gemspec_path
+          min_ruby = Kettle::Dev::GemSpecReader.load(project_dir)[:min_ruby]
+          Gem::Version.new(min_ruby) if min_ruby
+        end
 
-          content = File.read(gemspec_path)
-          if (match = content.match(/required_ruby_version.*?>=.*?(\d+\.\d+)/))
-            Gem::Version.new(match[1])
-          end
+        def load_gemspec(gemspec_path)
+          spec = Gem::Specification.load(gemspec_path)
+          return spec if spec
+
+          raise Gem::InvalidSpecificationException, "Unable to load gemspec: #{gemspec_path}"
         end
 
         # Builds the matrix using optimal bucket assignments.
