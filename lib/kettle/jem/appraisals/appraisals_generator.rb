@@ -33,14 +33,19 @@ module Kettle
 
             matrix.each do |entry|
               lines << "appraise #{entry[:name].inspect} do"
-              lines << "  eval_gemfile #{entry[:tier1_gemfile].inspect}" if entry[:tier1_gemfile]
-              lines << "  eval_gemfile #{entry[:tier2_gemfile].inspect}" if entry[:tier2_gemfile]
-              lines << "  eval_gemfile #{entry[:x_std_libs_gemfile].inspect}" if entry[:x_std_libs_gemfile]
+              lines << "  eval_gemfile #{appraisal_eval_path(entry[:tier1_gemfile]).inspect}" if entry[:tier1_gemfile]
+              lines << "  eval_gemfile #{appraisal_eval_path(entry[:tier2_gemfile]).inspect}" if entry[:tier2_gemfile]
+              lines << "  eval_gemfile #{appraisal_eval_path(entry[:x_std_libs_gemfile]).inspect}" if entry[:x_std_libs_gemfile]
               lines << "end"
               lines << ""
             end
 
+            lines.pop while lines.last == ""
             "#{lines.join("\n")}\n"
+          end
+
+          def appraisal_eval_path(path)
+            path.to_s.delete_prefix("gemfiles/")
           end
         end
       end

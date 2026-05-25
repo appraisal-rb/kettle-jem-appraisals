@@ -4,7 +4,6 @@ require "yaml"
 require "fileutils"
 require "set"
 require "rubygems/specification"
-require "kettle/dev"
 
 module Kettle
   module Jem
@@ -367,7 +366,7 @@ module Kettle
 
         # Extracts the project's min_ruby from its gemspec (used as a floor).
         def detect_project_min_ruby
-          min_ruby = Kettle::Dev::GemSpecReader.load(project_dir)[:min_ruby]
+          min_ruby = Kettle::Jem::GemSpecReader.load(project_dir)[:min_ruby]
           Gem::Version.new(min_ruby) if min_ruby
         end
 

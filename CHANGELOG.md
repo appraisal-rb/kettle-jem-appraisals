@@ -33,7 +33,10 @@ Please file a bug if you notice a violation of semantic versioning.
 ### Fixed
 
 - Replaced ad hoc gemspec parsing in the CLI with real gemspec loading and
-  `Kettle::Dev::GemSpecReader` metadata for project Ruby floors.
+  `Kettle::Jem::GemSpecReader` metadata from the active local `kettle-jem`.
+- Generated Appraisals now strip the leading `gemfiles/` path segment so
+  Appraisal2 resolves modular gemfiles from the correct root.
+- Generated Appraisals no longer end with an extra blank line.
 - Kept Ruby series detection compatible with released `kettle-jem` versions
   that do not yet export the appraisal minimum Ruby floor constant.
 
