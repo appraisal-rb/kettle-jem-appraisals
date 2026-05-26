@@ -50,5 +50,16 @@ RSpec.describe Kettle::Jem::Appraisals::AppraisalsGenerator do
       expect(content).to include('appraise "ruby-3-2" do')
       expect(content).not_to include('appraise "kja-ar-7-1-oa-2-1-r3"')
     end
+
+    it "emits shared support gemfiles before x-stdlib gemfiles" do
+      content = described_class.generate([
+        matrix.first.merge(extra_gemfiles: ["gemfiles/modular/activerecord_support.gemfile"]),
+      ])
+
+      expect(content).to include(
+        "  eval_gemfile \"modular/activerecord_support.gemfile\"\n" \
+          "  eval_gemfile \"modular/x_std_libs/r3/libs.gemfile\"",
+      )
+    end
   end
 end

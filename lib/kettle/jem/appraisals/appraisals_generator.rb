@@ -22,6 +22,7 @@ module Kettle
           #     kettle-jem appraisal such as +"ruby-3-2"+.
           #   * +:tier1_gemfile+ — relative path to the tier1 modular gemfile
           #   * +:tier2_gemfile+ — relative path to the tier2 modular gemfile (or +nil+)
+          #   * +:extra_gemfiles+ — optional shared support gemfiles
           #   * +:x_std_libs_gemfile+ — relative path to the x_std_libs gemfile
           #   * +:ruby_series+ — the Ruby series bucket name
           # @return [String] the complete Appraisals file content
@@ -38,7 +39,12 @@ module Kettle
               lines << "appraise #{effective_appraisal_name(entry).inspect} do"
               lines << "  eval_gemfile #{appraisal_eval_path(entry[:tier1_gemfile]).inspect}" if entry[:tier1_gemfile]
               lines << "  eval_gemfile #{appraisal_eval_path(entry[:tier2_gemfile]).inspect}" if entry[:tier2_gemfile]
-              lines << "  eval_gemfile #{appraisal_eval_path(entry[:x_std_libs_gemfile]).inspect}" if entry[:x_std_libs_gemfile]
+              Array(entry[:extra_gemfiles]).each do |path|
+                lines << "  eval_gemfile #{appraisal_eval_path(path).inspect}"
+              end
+              if entry[:x_std_libs_gemfile]
+                lines << "  eval_gemfile #{appraisal_eval_path(entry[:x_std_libs_gemfile]).inspect}"
+              end
               lines << "end"
               lines << ""
             end

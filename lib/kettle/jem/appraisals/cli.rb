@@ -263,7 +263,8 @@ module Kettle
             gemfile_gen,
             sub_resolver,
           )
-          annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges)
+          annotate_extra_gemfiles(appraisal_entries, matrix_extra_gemfiles(matrix))
+          annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges, matrix)
 
           puts "  📊 Generated #{appraisal_entries.size} appraisal entries"
 
@@ -437,6 +438,7 @@ module Kettle
 
                 entries << {
                   name: GemAbbreviations.appraisal_name(t1_name, t1_ver, nil, nil, rs),
+                  tier1_version: t1_ver,
                   tier1_gemfile: t1_gemfile,
                   tier2_gemfile: nil,
                   x_std_libs_gemfile: x_std_libs_gemfile,
@@ -478,6 +480,8 @@ module Kettle
 
                     entries << {
                       name: GemAbbreviations.appraisal_name(t1_name, t1_ver, t2_name, t2_ver, rs),
+                      tier1_version: t1_ver,
+                      tier2_version: t2_ver,
                       tier1_gemfile: t1_gemfile,
                       tier2_gemfile: t2_gemfile,
                       x_std_libs_gemfile: x_std_libs_gemfile,
@@ -584,16 +588,67 @@ module Kettle
           values.compact.uniq.sort_by { |version| Gem::Version.new(version) }
         end
 
-        def annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges)
+        def annotate_extra_gemfiles(appraisal_entries, extra_gemfiles)
+          return if extra_gemfiles.empty?
+
+          appraisal_entries.each do |entry|
+            entry[:extra_gemfiles] = extra_gemfiles
+          end
+        end
+
+        def matrix_extra_gemfiles(matrix)
+          Array(matrix["appraisal_gemfiles"] || matrix["appraisal_eval_gemfiles"]).filter_map do |path|
+            normalized = path.to_s.strip.sub(%r{\Agemfiles/}, "")
+            normalized unless normalized.empty?
+          end.uniq
+        end
+
+        def annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges, matrix = {})
+          policy = standard_appraisal_collapse_policy(matrix)
           by_standard = appraisal_entries.group_by do |entry|
             standard_appraisal_name(entry, bucket_ranges)
           end
           by_standard.each do |standard_name, entries|
             next if standard_name.nil?
-            next unless entries.one?
 
-            entries.first[:appraisal_name] = standard_name
+            collapsible_entry = standard_appraisal_collapse_entry(entries, policy)
+            collapsible_entry[:appraisal_name] = standard_name if collapsible_entry
           end
+        end
+
+        def standard_appraisal_collapse_policy(matrix)
+          value = if matrix.is_a?(Hash)
+            matrix.dig("collapse", "standard_appraisals") ||
+              matrix["standard_appraisal_role"] ||
+              matrix["standard_appraisal_collapse"]
+          end
+          normalized = value.to_s.strip.downcase.tr("-", "_")
+          return :required if %w[required runtime runtime_dependency dependency substrate].include?(normalized)
+          return :none if %w[none false off no never].include?(normalized)
+
+          :unique
+        end
+
+        def standard_appraisal_collapse_entry(entries, policy)
+          return nil if policy == :none
+          return entries.first if entries.one?
+          return nil unless policy == :required
+
+          entries.max_by do |entry|
+            [
+              version_sort_key(entry[:tier1_version]),
+              version_sort_key(entry[:tier2_version]),
+              entry[:name].to_s,
+            ]
+          end
+        end
+
+        def version_sort_key(version)
+          return Gem::Version.new("0") if version.to_s.empty?
+
+          Gem::Version.new(version.to_s)
+        rescue ArgumentError
+          Gem::Version.new("0")
         end
 
         def standard_appraisal_name(entry, bucket_ranges)

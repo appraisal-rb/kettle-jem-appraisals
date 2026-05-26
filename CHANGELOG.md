@@ -38,6 +38,13 @@ Please file a bug if you notice a violation of semantic versioning.
 - Ruby bucket detection now honors `.kettle-jem.yml` `ruby.test_minimum`, so
   collapsed appraisals do not target standard Ruby appraisals below the
   templated CI floor.
+- Added a configurable standard appraisal collapse policy for projects whose
+  matrixed dependency is required by the normal test suite; duplicate Ruby
+  buckets can now collapse the newest compatible entry onto the standard
+  `ruby-X-Y` appraisal while keeping older compatibility entries separate.
+- Generated Appraisals can now include shared support gemfiles, so framework
+  matrices that need adapter/setup dependencies do not have to use a separate
+  kettle-jem framework matrix just to compose those dependencies.
 - Replaced ad hoc gemspec parsing in the CLI with real gemspec loading and
   `Kettle::Jem::GemSpecReader` metadata from the active local `kettle-jem`.
 - Generated Appraisals now strip the leading `gemfiles/` path segment so

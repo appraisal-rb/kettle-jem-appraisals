@@ -24,8 +24,8 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
     it "keeps generated names when multiple entries target the same standard appraisal" do
       cli = described_class.new([])
       entries = [
-        {name: "kja-ar-6-0-r2.6", ruby_series: "r2.6"},
-        {name: "kja-ar-6-1-r2.6", ruby_series: "r2.6"},
+        {name: "kja-ar-6-0-r2.6", ruby_series: "r2.6", tier1_version: "6.0"},
+        {name: "kja-ar-6-1-r2.6", ruby_series: "r2.6", tier1_version: "6.1"},
       ]
       bucket_ranges = {
         "r2.6" => {floor: Gem::Version.new("2.5"), ceiling: Gem::Version.new("2.6")},
@@ -34,6 +34,72 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       cli.send(:annotate_standard_appraisal_collapses, entries, bucket_ranges)
 
       expect(entries).to all(satisfy { |entry| !entry.key?(:appraisal_name) })
+    end
+
+    it "collapses the newest duplicate bucket entry when standard appraisals are required" do
+      cli = described_class.new([])
+      entries = [
+        {name: "kja-ar-6-0-r2.6", ruby_series: "r2.6", tier1_version: "6.0"},
+        {name: "kja-ar-6-1-r2.6", ruby_series: "r2.6", tier1_version: "6.1"},
+      ]
+      bucket_ranges = {
+        "r2.6" => {floor: Gem::Version.new("2.5"), ceiling: Gem::Version.new("2.6")},
+      }
+
+      cli.send(
+        :annotate_standard_appraisal_collapses,
+        entries,
+        bucket_ranges,
+        {"standard_appraisal_role" => "runtime_dependency"},
+      )
+
+      expect(entries).to include(include(name: "kja-ar-6-1-r2.6", appraisal_name: "ruby-2-5"))
+      expect(entries.find { |entry| entry[:name] == "kja-ar-6-0-r2.6" }).not_to include(:appraisal_name)
+    end
+
+    it "can disable standard appraisal collapse entirely" do
+      cli = described_class.new([])
+      entries = [
+        {name: "kja-ar-8-0-r3", ruby_series: "r3", tier1_version: "8.0"},
+      ]
+      bucket_ranges = {
+        "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")},
+      }
+
+      cli.send(
+        :annotate_standard_appraisal_collapses,
+        entries,
+        bucket_ranges,
+        {"standard_appraisal_collapse" => "none"},
+      )
+
+      expect(entries).to all(satisfy { |entry| !entry.key?(:appraisal_name) })
+    end
+  end
+
+  describe "shared appraisal gemfiles" do
+    it "normalizes shared support gemfiles configured for generated entries" do
+      cli = described_class.new([])
+      matrix = {
+        "appraisal_gemfiles" => [
+          "gemfiles/modular/activerecord_support.gemfile",
+          "modular/activerecord_support.gemfile",
+          "",
+        ],
+      }
+
+      expect(cli.send(:matrix_extra_gemfiles, matrix)).to eq(["modular/activerecord_support.gemfile"])
+    end
+
+    it "annotates generated entries with shared support gemfiles" do
+      cli = described_class.new([])
+      entries = [{name: "kja-ar-6-0-r2.6"}]
+
+      cli.send(:annotate_extra_gemfiles, entries, ["modular/activerecord_support.gemfile"])
+
+      expect(entries).to eq([
+        {name: "kja-ar-6-0-r2.6", extra_gemfiles: ["modular/activerecord_support.gemfile"]},
+      ])
     end
   end
 
