@@ -41,5 +41,14 @@ RSpec.describe Kettle::Jem::Appraisals::AppraisalsGenerator do
       expect(content).to include('appraise "kja-ar-7-1-oa-2-1-r3"')
       expect(content).to include('appraise "kja-sq-5-0-oa-2-1-r3"')
     end
+
+    it "can emit a standard appraisal name for collapsed entries" do
+      content = described_class.generate([
+        matrix.first.merge(appraisal_name: "ruby-3-2"),
+      ])
+
+      expect(content).to include('appraise "ruby-3-2" do')
+      expect(content).not_to include('appraise "kja-ar-7-1-oa-2-1-r3"')
+    end
   end
 end

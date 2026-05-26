@@ -208,7 +208,7 @@ module Kettle
           # The full seam set determines the bucket landscape — modes only affect
           # which versions we TEST, not which Ruby ranges exist.
           series_detector = RubySeriesDetector.new(resolver: resolver)
-          project_min_ruby = detect_project_min_ruby
+          project_min_ruby = detect_project_min_ruby(config)
 
           # Build full-version gem configs for seam detection
           all_versions_by_gem = {}
@@ -263,6 +263,7 @@ module Kettle
             gemfile_gen,
             sub_resolver,
           )
+          annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges)
 
           puts "  📊 Generated #{appraisal_entries.size} appraisal entries"
 
@@ -365,9 +366,14 @@ module Kettle
         end
 
         # Extracts the project's min_ruby from its gemspec (used as a floor).
-        def detect_project_min_ruby
+        def detect_project_min_ruby(config = load_config)
+          floors = []
           min_ruby = Kettle::Jem::GemSpecReader.load(project_dir)[:min_ruby]
-          Gem::Version.new(min_ruby) if min_ruby
+          floors << Gem::Version.new(min_ruby) if min_ruby
+
+          test_minimum = config.dig("ruby", "test_minimum")
+          floors << Gem::Version.new(test_minimum.to_s) if test_minimum
+          floors.max
         end
 
         def load_gemspec(gemspec_path)
@@ -576,6 +582,30 @@ module Kettle
 
         def sort_versions(values)
           values.compact.uniq.sort_by { |version| Gem::Version.new(version) }
+        end
+
+        def annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges)
+          by_standard = appraisal_entries.group_by do |entry|
+            standard_appraisal_name(entry, bucket_ranges)
+          end
+          by_standard.each do |standard_name, entries|
+            next if standard_name.nil?
+            next unless entries.one?
+
+            entries.first[:appraisal_name] = standard_name
+          end
+        end
+
+        def standard_appraisal_name(entry, bucket_ranges)
+          floor = bucket_ranges.dig(entry[:ruby_series], :floor)
+          return unless floor
+
+          segments = floor.segments
+          major = segments[0]
+          minor = segments[1] || 0
+          return unless major && minor
+
+          "ruby-#{major}-#{minor}"
         end
       end
     end

@@ -3,6 +3,60 @@
 require "tmpdir"
 
 RSpec.describe Kettle::Jem::Appraisals::CLI do
+  describe "standard appraisal collapse annotation" do
+    it "collapses unique bucket targets onto standard ruby appraisals" do
+      cli = described_class.new([])
+      entries = [
+        {name: "kja-ar-8-0-r3", ruby_series: "r3"},
+        {name: "kja-ar-7-2-r3.1", ruby_series: "r3.1"},
+      ]
+      bucket_ranges = {
+        "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")},
+        "r3.1" => {floor: Gem::Version.new("3.0"), ceiling: Gem::Version.new("3.1")},
+      }
+
+      cli.send(:annotate_standard_appraisal_collapses, entries, bucket_ranges)
+
+      expect(entries).to include(include(name: "kja-ar-8-0-r3", appraisal_name: "ruby-3-2"))
+      expect(entries).to include(include(name: "kja-ar-7-2-r3.1", appraisal_name: "ruby-3-0"))
+    end
+
+    it "keeps generated names when multiple entries target the same standard appraisal" do
+      cli = described_class.new([])
+      entries = [
+        {name: "kja-ar-6-0-r2.6", ruby_series: "r2.6"},
+        {name: "kja-ar-6-1-r2.6", ruby_series: "r2.6"},
+      ]
+      bucket_ranges = {
+        "r2.6" => {floor: Gem::Version.new("2.5"), ceiling: Gem::Version.new("2.6")},
+      }
+
+      cli.send(:annotate_standard_appraisal_collapses, entries, bucket_ranges)
+
+      expect(entries).to all(satisfy { |entry| !entry.key?(:appraisal_name) })
+    end
+  end
+
+  describe "project Ruby floor detection" do
+    it "uses the higher of gemspec required_ruby_version and ruby.test_minimum" do
+      Dir.mktmpdir do |project_dir|
+        File.write(File.join(project_dir, "demo.gemspec"), <<~GEMSPEC)
+          Gem::Specification.new do |spec|
+            spec.name = "demo"
+            spec.version = "0.1.0"
+            spec.summary = "demo"
+            spec.required_ruby_version = ">= 2.3"
+          end
+        GEMSPEC
+        cli = described_class.new([], project_dir: project_dir)
+
+        floor = cli.send(:detect_project_min_ruby, {"ruby" => {"test_minimum" => "2.4"}})
+
+        expect(floor).to eq(Gem::Version.new("2.4"))
+      end
+    end
+  end
+
   describe "#run" do
     it "normalizes scaffold-mode project paths in missing gemspec output" do
       cli = described_class.new(["--scaffold"], project_dir: "/var/home/pboling/src/kettle-rb/demo")

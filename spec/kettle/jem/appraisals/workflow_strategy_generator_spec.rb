@@ -80,6 +80,16 @@ RSpec.describe Kettle::Jem::Appraisals::WorkflowStrategyGenerator do
       end
     end
 
+    it "uses a collapsed standard appraisal name when provided" do
+      entries = [
+        appraisal_entries.first.merge(appraisal_name: "ruby-2-4"),
+      ]
+
+      result = generator.generate(entries)
+
+      expect(result["ancient"].first[:appraisal]).to eq("ruby-2-4")
+    end
+
     it "sorts entries by appraisal name within each lifecycle" do
       result = generator.generate(appraisal_entries)
 

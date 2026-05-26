@@ -32,6 +32,12 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Unique generated appraisal entries now collapse onto standard `ruby-X-Y`
+  appraisals, allowing kettle-jem templates to reuse badge-linked standard jobs
+  instead of adding redundant framework-only appraisals.
+- Ruby bucket detection now honors `.kettle-jem.yml` `ruby.test_minimum`, so
+  collapsed appraisals do not target standard Ruby appraisals below the
+  templated CI floor.
 - Replaced ad hoc gemspec parsing in the CLI with real gemspec loading and
   `Kettle::Jem::GemSpecReader` metadata from the active local `kettle-jem`.
 - Generated Appraisals now strip the leading `gemfiles/` path segment so

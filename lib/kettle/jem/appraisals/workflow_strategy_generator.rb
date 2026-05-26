@@ -50,8 +50,9 @@ module Kettle
 
         # Groups appraisal entries into workflow lifecycle files with matrix entries.
         #
-        # @param appraisal_entries [Array<Hash>] entries from {CLI} build_matrix, each with
-        #   +:name+, +:ruby_series+, and gemfile path keys
+        # @param appraisal_entries [Array<Hash>] entries from {CLI} build_matrix,
+        #   each with +:name+, +:ruby_series+, and gemfile path keys. Entries may
+        #   also provide +:appraisal_name+ to reuse a standard kettle-jem appraisal.
         # @return [Hash{String => Array<Hash>}] lifecycle name → sorted array of matrix
         #   include entries, each with +:ruby+, +:appraisal+, +:exec_cmd+, +:gemfile+,
         #   +:rubygems+, and +:bundler+ keys
@@ -121,7 +122,7 @@ module Kettle
         def build_matrix_entry(entry, ruby_version)
           {
             ruby: ruby_version,
-            appraisal: entry[:name],
+            appraisal: entry[:appraisal_name] || entry[:name],
             exec_cmd: exec_cmd,
             gemfile: "Appraisal.root",
             rubygems: "latest",

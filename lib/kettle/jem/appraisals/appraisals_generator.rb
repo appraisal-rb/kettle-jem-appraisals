@@ -16,7 +16,10 @@ module Kettle
           # Generates the full +Appraisals+ file content as a String.
           #
           # @param matrix [Array<Hash>] each entry must have the keys:
-          #   * +:name+ — the appraisal name (e.g., +"kja-ar-7-1-r3"+)
+          #   * +:name+ — the generated appraisal name (e.g., +"kja-ar-7-1-r3"+)
+          #   * +:appraisal_name+ — optional effective appraisal name. When
+          #     present, this lets a generated entry enrich a standard
+          #     kettle-jem appraisal such as +"ruby-3-2"+.
           #   * +:tier1_gemfile+ — relative path to the tier1 modular gemfile
           #   * +:tier2_gemfile+ — relative path to the tier2 modular gemfile (or +nil+)
           #   * +:x_std_libs_gemfile+ — relative path to the x_std_libs gemfile
@@ -32,7 +35,7 @@ module Kettle
             ]
 
             matrix.each do |entry|
-              lines << "appraise #{entry[:name].inspect} do"
+              lines << "appraise #{effective_appraisal_name(entry).inspect} do"
               lines << "  eval_gemfile #{appraisal_eval_path(entry[:tier1_gemfile]).inspect}" if entry[:tier1_gemfile]
               lines << "  eval_gemfile #{appraisal_eval_path(entry[:tier2_gemfile]).inspect}" if entry[:tier2_gemfile]
               lines << "  eval_gemfile #{appraisal_eval_path(entry[:x_std_libs_gemfile]).inspect}" if entry[:x_std_libs_gemfile]
@@ -46,6 +49,10 @@ module Kettle
 
           def appraisal_eval_path(path)
             path.to_s.delete_prefix("gemfiles/")
+          end
+
+          def effective_appraisal_name(entry)
+            entry[:appraisal_name] || entry[:name]
           end
         end
       end
