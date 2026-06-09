@@ -32,6 +32,7 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Restored `docs/CNAME` so the generated documentation site keeps its custom domain.
 - Unique generated appraisal entries now collapse onto standard `ruby-X-Y`
   appraisals, allowing kettle-jem templates to reuse badge-linked standard jobs
   instead of adding redundant framework-only appraisals.
