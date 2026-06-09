@@ -16,10 +16,6 @@ Please file a bug if you notice a violation of semantic versioning.
 [📗keep-changelog]: https://keepachangelog.com/en/1.0.0/
 [📗keep-changelog-img]: https://img.shields.io/badge/keep--a--changelog-1.0.0-FFDD67.svg?style=flat
 
-## 0.1.0
-
-- Initial release
-
 ## [Unreleased]
 
 ### Added
@@ -32,6 +28,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Updated generated project metadata links to use the migrated `kettle-dev`
+  GitHub organization.
 - Restored `docs/CNAME` so the generated documentation site keeps its custom domain.
 - Unique generated appraisal entries now collapse onto standard `ruby-X-Y`
   appraisals, allowing kettle-jem templates to reuse badge-linked standard jobs

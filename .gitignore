@@ -27,10 +27,11 @@ Appraisal.*.gemfile.lock
 /doc/
 
 # Ruby Version Managers (RVM, rbenv, etc)
-# Ignored because we currently use .tool-versions
+# Ignored because we currently use mise.toml
 .rvmrc
 .ruby-version
 .ruby-gemset
+.tool-versions
 
 # Benchmarking
 /measurement/
@@ -49,5 +50,3 @@ Appraisal.*.gemfile.lock
 
 # Sentinels
 .floss_funding.*.lock
-# Ignored because we currently use mise.toml
-.tool-versions

@@ -62,16 +62,9 @@ task :default do
   puts "Default task complete."
 end
 
-require "bundler/gem_tasks"
-require "rspec/core/rake_task"
-
-RSpec::Core::RakeTask.new(:spec)
-
 Rake::Task[:default].enhance([:spec])
 
 # External gems that define tasks - add here!
-require "kettle/dev"
-
 
 ### DUPLICATE DRIFT TASKS
 begin
@@ -93,7 +86,6 @@ rescue LoadError
   desc("(stub) kettle:drift is unavailable")
   task("kettle:drift" => "kettle:drift:update")
 end
-
 
 ### TEMPLATING TASKS
 begin

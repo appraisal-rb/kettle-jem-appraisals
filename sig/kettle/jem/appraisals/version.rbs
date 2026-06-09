@@ -1,0 +1,10 @@
+module Kettle
+  module Jem
+    module Appraisals
+      module Version
+        VERSION: String
+      end
+      VERSION: String
+    end
+  end
+end

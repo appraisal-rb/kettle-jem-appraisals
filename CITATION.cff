@@ -12,9 +12,9 @@ authors:
     orcid: 'https://orcid.org/0009-0008-8519-441X'
 identifiers:
   - type: url
-    value: 'https://github.com/kettle-rb/kettle-jem-appraisals'
+    value: 'https://github.com/kettle-dev/kettle-jem-appraisals'
     description: "kettle-jem-appraisals"
-repository-code: 'https://github.com/kettle-rb/kettle-jem-appraisals'
+repository-code: 'https://github.com/kettle-dev/kettle-jem-appraisals'
 abstract: >-
   kettle-jem-appraisals
 license: See license file
