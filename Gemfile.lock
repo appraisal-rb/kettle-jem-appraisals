@@ -96,7 +96,7 @@ GEM
       token-resolver (~> 1.0, >= 1.0.2)
       toml-merge (= 7.0.0)
       yaml-merge (= 7.0.0)
-    kettle-soup-cover (3.0.0.rc1)
+    kettle-soup-cover (3.0.0.rc2)
       simplecov (>= 1.0.pre)
       simplecov-cobertura (>= 4.0.pre)
       simplecov-console (~> 0.9, >= 0.9.5)
@@ -399,7 +399,7 @@ DEPENDENCIES
   irb (~> 1.17)
   kettle-dev (~> 2.2, >= 2.2.13)
   kettle-jem-appraisals!
-  kettle-soup-cover (~> 3.0.a, >= 3.0.0.rc1)
+  kettle-soup-cover (~> 3.0.a, >= 3.0.0.rc2)
   kettle-test (~> 2.0, >= 2.0.5)
   kramdown (~> 2.5, >= 2.5.1)
   kramdown-parser-gfm (~> 1.1)
@@ -470,7 +470,7 @@ CHECKSUMS
   kettle-dev (2.2.13) sha256=f396b331c7b15ede36aecc1d52f33ce5ad048f713d1051d4bfe96a43538a3e36
   kettle-jem (7.0.0) sha256=d1865b83c48b5d4e0a28595f804d7eef01f23b6c57494e672d19e80eab0d3881
   kettle-jem-appraisals (0.1.0)
-  kettle-soup-cover (3.0.0.rc1) sha256=ec678a573c9c3e75cb091da3251079834db715aaba31785d84c0a2c8d8c5f72d
+  kettle-soup-cover (3.0.0.rc2) sha256=7741120cf7d81d765fd1dc9bcbe537eb0c90721c171edf0b89e0fbc16f82ef34
   kettle-test (2.0.5) sha256=98fd96f03c4470cd2cb0b1cef339455064d8a68bc180f70864d85fd74f41d978
   kramdown (2.5.2) sha256=1ba542204c66b6f9111ff00dcc26075b95b220b07f2905d8261740c82f7f02fa
   kramdown-parser-gfm (1.1.0) sha256=fb39745516427d2988543bf01fc4cf0ab1149476382393e0e9c48592f6581729
