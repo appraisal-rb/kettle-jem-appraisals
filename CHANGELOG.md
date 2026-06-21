@@ -32,6 +32,7 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Corrected OpenCollective funding metadata to use the `kettle-dev` collective.
 - Updated generated project metadata links to use the migrated `kettle-dev`
   GitHub organization.
 - Restored `docs/CNAME` so the generated documentation site keeps its custom domain.
@@ -57,4 +58,3 @@ Please file a bug if you notice a violation of semantic versioning.
   that do not yet export the appraisal minimum Ruby floor constant.
 
 ### Security
-

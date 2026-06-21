@@ -725,9 +725,9 @@ Thanks for RTFM. ☺️
 | Field | Value |
 |---|---|
 | Package | kettle-jem-appraisals |
-| Description | 🍲 Kettle::Jem::Appraisals auto-generates CI test matrices from RubyGems API data. Scaffolds tier1/tier2 gem lists from gemspec, resolves version spreads per mode (major/minor/minor-minmax/semver), generates modular gemfiles and Appraisals files. Part of the kettle-rb ecosystem. |
+| Description | 🍲 Kettle::Jem::Appraisals auto-generates CI test matrices from RubyGems API data. Scaffolds tier1/tier2 gem lists from gemspec, resolves version spreads per mode (major/minor/minor-minmax/semver), generates modular gemfiles and Appraisals files. Part of the kettle-dev ecosystem. |
 | Homepage | https://github.com/kettle-dev/kettle-jem-appraisals |
 | Source | https://github.com/kettle-dev/kettle-jem-appraisals |
 | License | `AGPL-3.0-only` |
-| Funding | https://github.com/sponsors/pboling, https://issuehunt.io/u/pboling, https://ko-fi.com/pboling, https://liberapay.com/pboling/donate, https://opencollective.com/kettle-dev, https://opencollective.com/kettle-rb, https://patreon.com/galtzo, https://polar.sh/pboling, https://thanks.dev/u/gh/pboling, https://tidelift.com/funding/github/rubygems/kettle-jem-appraisals, https://www.buymeacoffee.com/pboling |
+| Funding | https://github.com/sponsors/pboling, https://issuehunt.io/u/pboling, https://ko-fi.com/pboling, https://liberapay.com/pboling/donate, https://opencollective.com/kettle-dev, https://patreon.com/galtzo, https://polar.sh/pboling, https://thanks.dev/u/gh/pboling, https://tidelift.com/funding/github/rubygems/kettle-jem-appraisals, https://www.buymeacoffee.com/pboling |
 <!-- kettle-jem:metadata:end -->
