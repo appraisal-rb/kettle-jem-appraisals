@@ -174,7 +174,7 @@ module Kettle
               buckets << bucket
               ranges[bucket] = {
                 floor: Gem::Version.new(sorted[0]),
-                ceiling: Gem::Version.new("#{major}.99"),
+                ceiling: Gem::Version.new("#{major}.99")
               }
             else
               sorted.each_with_index do |mv, idx|
@@ -186,7 +186,7 @@ module Kettle
                   buckets << bucket
                   ranges[bucket] = {
                     floor: Gem::Version.new(mv),
-                    ceiling: Gem::Version.new("#{major}.99"),
+                    ceiling: Gem::Version.new("#{major}.99")
                   }
                 else
                   # Named bucket rN.M where M = next_minor - 1
@@ -199,7 +199,7 @@ module Kettle
                   unless ranges.key?(bucket)
                     ranges[bucket] = {
                       floor: Gem::Version.new(mv),
-                      ceiling: Gem::Version.new("#{major}.#{upper}"),
+                      ceiling: Gem::Version.new("#{major}.#{upper}")
                     }
                   end
                 end

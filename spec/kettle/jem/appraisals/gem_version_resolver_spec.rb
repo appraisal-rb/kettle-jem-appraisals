@@ -6,7 +6,7 @@ RSpec.describe Kettle::Jem::Appraisals::GemVersionResolver do
   let(:raw_versions) do
     [
       {number: "6.1.0", ruby_version: ">= 2.5.0", created_at: "2020-02-01T00:00:00.000Z", prerelease: false},
-      {number: "6.1.1", ruby_version: ">= 2.5.0", created_at: "2020-03-01T00:00:00.000Z", prerelease: false},
+      {number: "6.1.1", ruby_version: ">= 2.5.0", created_at: "2020-03-01T00:00:00.000Z", prerelease: false}
     ]
   end
 

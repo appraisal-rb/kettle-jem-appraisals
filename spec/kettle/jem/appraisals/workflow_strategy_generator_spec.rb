@@ -7,7 +7,7 @@ RSpec.describe Kettle::Jem::Appraisals::WorkflowStrategyGenerator do
       "r2.6" => {floor: Gem::Version.new("2.5"), ceiling: Gem::Version.new("2.6")},
       "r2" => {floor: Gem::Version.new("2.7"), ceiling: Gem::Version.new("2.99")},
       "r3.1" => {floor: Gem::Version.new("3.0"), ceiling: Gem::Version.new("3.1")},
-      "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")},
+      "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}
     }
   end
 
@@ -21,7 +21,7 @@ RSpec.describe Kettle::Jem::Appraisals::WorkflowStrategyGenerator do
       {name: "kja-ar-6-1-oa-1-r2.6", ruby_series: "r2.6", tier1_gemfile: "g1", tier2_gemfile: "g2", x_std_libs_gemfile: "g3"},
       {name: "kja-ar-7-1-oa-2-r2", ruby_series: "r2", tier1_gemfile: "g1", tier2_gemfile: "g2", x_std_libs_gemfile: "g3"},
       {name: "kja-ar-7-2-oa-2-r3.1", ruby_series: "r3.1", tier1_gemfile: "g1", tier2_gemfile: "g2", x_std_libs_gemfile: "g3"},
-      {name: "kja-ar-8-1-oa-2-r3", ruby_series: "r3", tier1_gemfile: "g1", tier2_gemfile: "g2", x_std_libs_gemfile: "g3"},
+      {name: "kja-ar-8-1-oa-2-r3", ruby_series: "r3", tier1_gemfile: "g1", tier2_gemfile: "g2", x_std_libs_gemfile: "g3"}
     ]
   end
 
@@ -82,7 +82,7 @@ RSpec.describe Kettle::Jem::Appraisals::WorkflowStrategyGenerator do
 
     it "uses a collapsed standard appraisal name when provided" do
       entries = [
-        appraisal_entries.first.merge(appraisal_name: "ruby-2-4"),
+        appraisal_entries.first.merge(appraisal_name: "ruby-2-4")
       ]
 
       result = generator.generate(entries)

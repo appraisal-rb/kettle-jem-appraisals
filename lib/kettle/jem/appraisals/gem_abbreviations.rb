@@ -35,7 +35,7 @@ module Kettle
           "sequel" => "sq",
           "couch_potato" => "cp",
           "rom" => "rom",
-          "rom-sql" => "rsql",
+          "rom-sql" => "rsql"
         }.freeze
 
         class << self
@@ -88,7 +88,7 @@ module Kettle
             parts = [
               PREFIX,
               abbreviate(tier1_gem),
-              format_version(tier1_version),
+              format_version(tier1_version)
             ]
             if tier2_gem
               parts << abbreviate(tier2_gem)

@@ -8,7 +8,7 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
     [
       {major: 5, minors: ["5.0", "5.1", "5.2"]},
       {major: 6, minors: ["6.0", "6.1"]},
-      {major: 7, minors: ["7.0", "7.1", "7.2"]},
+      {major: 7, minors: ["7.0", "7.1", "7.2"]}
     ]
   end
 
@@ -59,7 +59,7 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
         # Mock the version resolver for semver mode
         allow(resolver).to receive_messages(
           versions: by_major.flat_map { |major| major[:minors].map { |version| {number: "#{version}.0"} } },
-          min_ruby_version: nil,
+          min_ruby_version: nil
         )
       end
 
@@ -81,7 +81,7 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
       before do
         allow(resolver).to receive_messages(
           minor_versions_by_major: large_by_major,
-          versions: large_minors.map { |version| {number: "#{version}.0"} },
+          versions: large_minors.map { |version| {number: "#{version}.0"} }
         )
         # Simulate a Ruby cutoff at 1.8 (min_ruby jumps from 2.5 to 2.7)
         allow(resolver).to receive(:min_ruby_version) do |_gem, version|
@@ -115,7 +115,7 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
         {version: "5.0", min_ruby: Gem::Version.new("2.2")},
         {version: "6.0", min_ruby: Gem::Version.new("2.5")},
         {version: "7.0", min_ruby: Gem::Version.new("2.7")},
-        {version: "7.2", min_ruby: Gem::Version.new("3.1")},
+        {version: "7.2", min_ruby: Gem::Version.new("3.1")}
       ]
     end
 
@@ -126,7 +126,7 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
         "r2.6" => {floor: Gem::Version.new("2.5"), ceiling: Gem::Version.new("2.6")},
         "r2" => {floor: Gem::Version.new("2.7"), ceiling: Gem::Version.new("2.99")},
         "r3.1" => {floor: Gem::Version.new("3.0"), ceiling: Gem::Version.new("3.1")},
-        "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")},
+        "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}
       }
     end
 
@@ -138,7 +138,7 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
           selected,
           seams: seams,
           buckets: buckets,
-          bucket_ranges: bucket_ranges,
+          bucket_ranges: bucket_ranges
         )
 
         version_buckets = result.map { |a| [a[:version], a[:bucket]] }
@@ -170,7 +170,7 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
           selected,
           seams: seams,
           buckets: buckets,
-          bucket_ranges: bucket_ranges,
+          bucket_ranges: bucket_ranges
         )
 
         # r2.4 should get a version from the 5.x range
@@ -194,7 +194,7 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
           [],
           seams: seams,
           buckets: buckets,
-          bucket_ranges: bucket_ranges,
+          bucket_ranges: bucket_ranges
         )
         expect(result).to be_empty
       end
@@ -205,7 +205,7 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
           ["5.2"],
           seams: seams,
           buckets: [],
-          bucket_ranges: {},
+          bucket_ranges: {}
         )
         expect(result).to be_empty
       end
@@ -215,7 +215,7 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
       let(:patch_seams) do
         [
           {version: "7.1.0", min_ruby: Gem::Version.new("3.0")},
-          {version: "7.1.1", min_ruby: Gem::Version.new("3.2")},
+          {version: "7.1.1", min_ruby: Gem::Version.new("3.2")}
         ]
       end
 
@@ -227,9 +227,9 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
           buckets: ["r3.1", "r3"],
           bucket_ranges: {
             "r3.1" => {floor: Gem::Version.new("3.0"), ceiling: Gem::Version.new("3.1")},
-            "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")},
+            "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}
           },
-          all_versions: ["7.1.0", "7.1.1"],
+          all_versions: ["7.1.0", "7.1.1"]
         )
 
         expect(result.map { |entry| [entry[:version], entry[:bucket]] }).to include(["7.1.1", "r3"])

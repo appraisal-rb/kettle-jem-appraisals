@@ -1,7 +1,6 @@
 module Kettle
   module Jem
     module Appraisals
-
       MINIMUM_RUBY_FLOOR: Gem::Version
 
       module Version

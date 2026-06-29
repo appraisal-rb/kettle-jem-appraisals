@@ -13,7 +13,7 @@ RSpec.describe Kettle::Jem::Appraisals::ModularGemfileGenerator do
         gem_name: "activerecord",
         version: "7.1",
         ruby_series: "r3",
-        sub_deps: {"sqlite3" => "1.6.9"},
+        sub_deps: {"sqlite3" => "1.6.9"}
       )
 
       expect(path).to eq("gemfiles/modular/activerecord/r3/v7.1.gemfile")

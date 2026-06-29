@@ -2,7 +2,6 @@
 
 require "yaml"
 require "fileutils"
-require "set"
 require "rubygems/specification"
 
 module Kettle
@@ -68,7 +67,7 @@ module Kettle
           when :resolve
             run_resolve
           else
-            $stderr.puts "Unknown mode: #{mode}"
+            warn "Unknown mode: #{mode}"
             exit(1)
           end
         end
@@ -103,7 +102,7 @@ module Kettle
           puts "🍲 kettle-jem-appraisals: scaffold mode"
           gemspec_path = find_gemspec
           unless gemspec_path
-            $stderr.puts "  ❌ No gemspec found in #{Kettle::Jem::Appraisals.display_path(project_dir)}"
+            warn "  ❌ No gemspec found in #{Kettle::Jem::Appraisals.display_path(project_dir)}"
             exit(1)
           end
 
@@ -141,7 +140,7 @@ module Kettle
           config = load_config
           matrix = config[APPRAISAL_MATRIX_KEY]
           unless matrix
-            $stderr.puts "  ❌ No #{APPRAISAL_MATRIX_KEY} in #{CONFIG_FILE}. Run --scaffold first."
+            warn "  ❌ No #{APPRAISAL_MATRIX_KEY} in #{CONFIG_FILE}. Run --scaffold first."
             exit(1)
           end
 
@@ -157,7 +156,7 @@ module Kettle
           tier2_gems = gems_config["tier2"] || []
 
           if tier1_gems.empty?
-            $stderr.puts "  ❌ No tier1 gems configured. Run --scaffold first."
+            warn "  ❌ No tier1 gems configured. Run --scaffold first."
             exit(1)
           end
 
@@ -229,7 +228,7 @@ module Kettle
               mode: mode,
               requirements: requirements,
               include_versions: include_versions,
-              exclude_versions: exclude_versions,
+              exclude_versions: exclude_versions
             )
             all_versions_by_gem[gc["name"]] = all_versions
             {"name" => gc["name"], "versions" => all_versions}
@@ -261,7 +260,7 @@ module Kettle
             resolver,
             builder,
             gemfile_gen,
-            sub_resolver,
+            sub_resolver
           )
           annotate_extra_gemfiles(appraisal_entries, matrix_extra_gemfiles(matrix))
           annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges, matrix)
@@ -271,7 +270,7 @@ module Kettle
           # Generate workflow strategy matrix snippets
           workflow_gen = WorkflowStrategyGenerator.new(
             bucket_ranges: bucket_ranges,
-            exec_cmd: matrix.dig("exec_cmd") || "rake spec",
+            exec_cmd: matrix.dig("exec_cmd") || "rake spec"
           )
           workflow_groups = workflow_gen.generate(appraisal_entries)
           workflow_groups.each do |lifecycle, entries|
@@ -405,7 +404,7 @@ module Kettle
               seams: t1_seams,
               buckets: ruby_series,
               bucket_ranges: bucket_ranges,
-              all_versions: all_versions_by_gem[t1_name],
+              all_versions: all_versions_by_gem[t1_name]
             )
 
             if t1_assignments.empty?
@@ -431,7 +430,7 @@ module Kettle
                   gem_name: t1_name,
                   version: t1_ver,
                   ruby_series: rs,
-                  sub_deps: sub_deps,
+                  sub_deps: sub_deps
                 )
 
                 x_std_libs_gemfile = "gemfiles/modular/x_std_libs/#{rs}/libs.gemfile"
@@ -442,7 +441,7 @@ module Kettle
                   tier1_gemfile: t1_gemfile,
                   tier2_gemfile: nil,
                   x_std_libs_gemfile: x_std_libs_gemfile,
-                  ruby_series: rs,
+                  ruby_series: rs
                 }
               end
             else
@@ -470,10 +469,10 @@ module Kettle
                       gem_name: t1_name,
                       version: t1_ver,
                       ruby_series: rs,
-                      sub_deps: sub_deps,
+                      sub_deps: sub_deps
                     )
                     t2_gemfile = gemfile_gen.generate_tier2(
-                      gem_name: t2_name, version: t2_ver, ruby_series: rs,
+                      gem_name: t2_name, version: t2_ver, ruby_series: rs
                     )
 
                     x_std_libs_gemfile = "gemfiles/modular/x_std_libs/#{rs}/libs.gemfile"
@@ -485,7 +484,7 @@ module Kettle
                       tier1_gemfile: t1_gemfile,
                       tier2_gemfile: t2_gemfile,
                       x_std_libs_gemfile: x_std_libs_gemfile,
-                      ruby_series: rs,
+                      ruby_series: rs
                     }
                   end
                 end
@@ -506,7 +505,7 @@ module Kettle
           return false if gem_ruby && gem_ruby > range[:ceiling]
 
           true
-        rescue StandardError
+        rescue
           true
         end
 
@@ -638,7 +637,7 @@ module Kettle
             [
               version_sort_key(entry[:tier1_version]),
               version_sort_key(entry[:tier2_version]),
-              entry[:name].to_s,
+              entry[:name].to_s
             ]
           end
         end

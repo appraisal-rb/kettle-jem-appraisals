@@ -8,11 +8,11 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       cli = described_class.new([])
       entries = [
         {name: "kja-ar-8-0-r3", ruby_series: "r3"},
-        {name: "kja-ar-7-2-r3.1", ruby_series: "r3.1"},
+        {name: "kja-ar-7-2-r3.1", ruby_series: "r3.1"}
       ]
       bucket_ranges = {
         "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")},
-        "r3.1" => {floor: Gem::Version.new("3.0"), ceiling: Gem::Version.new("3.1")},
+        "r3.1" => {floor: Gem::Version.new("3.0"), ceiling: Gem::Version.new("3.1")}
       }
 
       cli.send(:annotate_standard_appraisal_collapses, entries, bucket_ranges)
@@ -25,10 +25,10 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       cli = described_class.new([])
       entries = [
         {name: "kja-ar-6-0-r2.6", ruby_series: "r2.6", tier1_version: "6.0"},
-        {name: "kja-ar-6-1-r2.6", ruby_series: "r2.6", tier1_version: "6.1"},
+        {name: "kja-ar-6-1-r2.6", ruby_series: "r2.6", tier1_version: "6.1"}
       ]
       bucket_ranges = {
-        "r2.6" => {floor: Gem::Version.new("2.5"), ceiling: Gem::Version.new("2.6")},
+        "r2.6" => {floor: Gem::Version.new("2.5"), ceiling: Gem::Version.new("2.6")}
       }
 
       cli.send(:annotate_standard_appraisal_collapses, entries, bucket_ranges)
@@ -40,17 +40,17 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       cli = described_class.new([])
       entries = [
         {name: "kja-ar-6-0-r2.6", ruby_series: "r2.6", tier1_version: "6.0"},
-        {name: "kja-ar-6-1-r2.6", ruby_series: "r2.6", tier1_version: "6.1"},
+        {name: "kja-ar-6-1-r2.6", ruby_series: "r2.6", tier1_version: "6.1"}
       ]
       bucket_ranges = {
-        "r2.6" => {floor: Gem::Version.new("2.5"), ceiling: Gem::Version.new("2.6")},
+        "r2.6" => {floor: Gem::Version.new("2.5"), ceiling: Gem::Version.new("2.6")}
       }
 
       cli.send(
         :annotate_standard_appraisal_collapses,
         entries,
         bucket_ranges,
-        {"standard_appraisal_role" => "runtime_dependency"},
+        {"standard_appraisal_role" => "runtime_dependency"}
       )
 
       expect(entries).to include(include(name: "kja-ar-6-1-r2.6", appraisal_name: "ruby-2-5"))
@@ -60,17 +60,17 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
     it "can disable standard appraisal collapse entirely" do
       cli = described_class.new([])
       entries = [
-        {name: "kja-ar-8-0-r3", ruby_series: "r3", tier1_version: "8.0"},
+        {name: "kja-ar-8-0-r3", ruby_series: "r3", tier1_version: "8.0"}
       ]
       bucket_ranges = {
-        "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")},
+        "r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}
       }
 
       cli.send(
         :annotate_standard_appraisal_collapses,
         entries,
         bucket_ranges,
-        {"standard_appraisal_collapse" => "none"},
+        {"standard_appraisal_collapse" => "none"}
       )
 
       expect(entries).to all(satisfy { |entry| !entry.key?(:appraisal_name) })
@@ -84,8 +84,8 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
         "appraisal_gemfiles" => [
           "gemfiles/modular/activerecord_support.gemfile",
           "modular/activerecord_support.gemfile",
-          "",
-        ],
+          ""
+        ]
       }
 
       expect(cli.send(:matrix_extra_gemfiles, matrix)).to eq(["modular/activerecord_support.gemfile"])
@@ -98,7 +98,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       cli.send(:annotate_extra_gemfiles, entries, ["modular/activerecord_support.gemfile"])
 
       expect(entries).to eq([
-        {name: "kja-ar-6-0-r2.6", extra_gemfiles: ["modular/activerecord_support.gemfile"]},
+        {name: "kja-ar-6-0-r2.6", extra_gemfiles: ["modular/activerecord_support.gemfile"]}
       ])
     end
   end
@@ -212,10 +212,10 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
           .and_return(selected_versions.map { |version| {number: version} })
         allow(series_detector).to receive(:detect_with_ranges).and_return(
           buckets: ["r3"],
-          bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}},
+          bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}}
         )
         allow(series_detector).to receive(:find_seams).with("activerecord", all_versions).and_return(
-          [{version: "6.0.9", min_ruby: Gem::Version.new("3.0")}],
+          [{version: "6.0.9", min_ruby: Gem::Version.new("3.0")}]
         )
         allow(builder).to receive(:assign_version_buckets).with(
           "activerecord",
@@ -223,7 +223,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
           seams: [{version: "6.0.9", min_ruby: Gem::Version.new("3.0")}],
           buckets: ["r3"],
           bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}},
-          all_versions: all_versions,
+          all_versions: all_versions
         ).and_return([{version: "8.0.1", bucket: "r3"}])
         allow(sub_resolver).to receive(:resolve).and_return({})
         allow(gemfile_gen).to receive(:generate).and_return("gemfiles/modular/activerecord/r3/v8.0.1.gemfile")
@@ -242,7 +242,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
           seams: [{version: "6.0.9", min_ruby: Gem::Version.new("3.0")}],
           buckets: ["r3"],
           bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}},
-          all_versions: all_versions,
+          all_versions: all_versions
         )
       end
     end
@@ -296,10 +296,10 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
           .and_return([{major: 5, minors: ["5.0", "5.9"]}])
         allow(series_detector).to receive(:detect_with_ranges).and_return(
           buckets: ["r3"],
-          bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}},
+          bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}}
         )
         allow(series_detector).to receive(:find_seams).with("sequel", ["5.0", "5.9"]).and_return(
-          [{version: "5.0", min_ruby: Gem::Version.new("3.2")}],
+          [{version: "5.0", min_ruby: Gem::Version.new("3.2")}]
         )
         allow(builder).to receive(:assign_version_buckets).and_return([{version: "5.9", bucket: "r3"}])
         allow(sub_resolver).to receive(:resolve).and_return({})
@@ -362,10 +362,10 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
           .and_return([{major: 2, minors: ["2.7", "2.8"]}])
         allow(series_detector).to receive(:detect_with_ranges).and_return(
           buckets: ["r3"],
-          bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}},
+          bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}}
         )
         allow(series_detector).to receive(:find_seams).with("mail", %w[2.7 2.7.1 2.8]).and_return(
-          [{version: "2.7", min_ruby: Gem::Version.new("3.2")}],
+          [{version: "2.7", min_ruby: Gem::Version.new("3.2")}]
         )
         allow(builder).to receive(:assign_version_buckets).with(
           "mail",
@@ -373,7 +373,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
           seams: [{version: "2.7", min_ruby: Gem::Version.new("3.2")}],
           buckets: ["r3"],
           bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}},
-          all_versions: %w[2.7 2.7.1 2.8],
+          all_versions: %w[2.7 2.7.1 2.8]
         ).and_return([{version: "2.7.1", bucket: "r3"}])
         allow(sub_resolver).to receive(:resolve).and_return({})
         allow(gemfile_gen).to receive(:generate).and_return("gemfiles/modular/mail/r3/v2.7.1.gemfile")
@@ -392,7 +392,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
           seams: [{version: "2.7", min_ruby: Gem::Version.new("3.2")}],
           buckets: ["r3"],
           bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}},
-          all_versions: %w[2.7 2.7.1 2.8],
+          all_versions: %w[2.7 2.7.1 2.8]
         )
       end
     end
@@ -456,10 +456,10 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
           .and_return(selected_versions.map { |version| {number: version} })
         allow(series_detector).to receive(:detect_with_ranges).and_return(
           buckets: ["r3"],
-          bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}},
+          bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}}
         )
         allow(series_detector).to receive(:find_seams).with("activerecord", all_versions).and_return(
-          [{version: "6.0.9", min_ruby: Gem::Version.new("3.0")}],
+          [{version: "6.0.9", min_ruby: Gem::Version.new("3.0")}]
         )
         allow(builder).to receive(:assign_version_buckets).with(
           "activerecord",
@@ -467,7 +467,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
           seams: [{version: "6.0.9", min_ruby: Gem::Version.new("3.0")}],
           buckets: ["r3"],
           bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}},
-          all_versions: all_versions,
+          all_versions: all_versions
         ).and_return([{version: "7.1.1", bucket: "r3"}])
         allow(sub_resolver).to receive(:resolve).and_return({})
         allow(gemfile_gen).to receive(:generate).and_return("gemfiles/modular/activerecord/r3/v7.1.1.gemfile")
@@ -486,7 +486,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
           seams: [{version: "6.0.9", min_ruby: Gem::Version.new("3.0")}],
           buckets: ["r3"],
           bucket_ranges: {"r3" => {floor: Gem::Version.new("3.2"), ceiling: Gem::Version.new("3.99")}},
-          all_versions: all_versions,
+          all_versions: all_versions
         )
       end
     end

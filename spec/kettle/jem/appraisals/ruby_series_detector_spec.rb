@@ -14,8 +14,8 @@ RSpec.describe Kettle::Jem::Appraisals::RubySeriesDetector do
           {number: "6.1.7"},
           {number: "7.0.8"},
           {number: "7.1.5"},
-          {number: "7.2.2"},
-        ],
+          {number: "7.2.2"}
+        ]
       )
     end
 
@@ -38,7 +38,7 @@ RSpec.describe Kettle::Jem::Appraisals::RubySeriesDetector do
     end
 
     it "returns empty for no versions" do
-      expect(detector.find_seams("foo", [])).to eq([])
+      expect(detector.find_seams("foo", [])).to be_empty
     end
 
     it "accepts exact patch versions when patch mode provides them" do
@@ -49,7 +49,7 @@ RSpec.describe Kettle::Jem::Appraisals::RubySeriesDetector do
 
       expect(seams).to eq([
         {version: "7.1.0", min_ruby: Gem::Version.new("3.0")},
-        {version: "7.1.1", min_ruby: Gem::Version.new("3.2")},
+        {version: "7.1.1", min_ruby: Gem::Version.new("3.2")}
       ])
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe Kettle::Jem::Appraisals::RubySeriesDetector do
   describe "#detect" do
     before do
       allow(resolver).to receive(:versions).and_return(
-        [{number: "1.0.0"}, {number: "2.0.0"}, {number: "2.1.0"}],
+        [{number: "1.0.0"}, {number: "2.0.0"}, {number: "2.1.0"}]
       )
     end
 
@@ -115,7 +115,7 @@ RSpec.describe Kettle::Jem::Appraisals::RubySeriesDetector do
 
       before do
         allow(resolver).to receive(:versions).and_return(
-          [{number: "1.0.0"}, {number: "2.0.0"}],
+          [{number: "1.0.0"}, {number: "2.0.0"}]
         )
       end
 

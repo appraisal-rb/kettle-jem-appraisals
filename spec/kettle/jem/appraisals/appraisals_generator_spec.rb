@@ -9,15 +9,15 @@ RSpec.describe Kettle::Jem::Appraisals::AppraisalsGenerator do
           tier1_gemfile: "gemfiles/modular/activerecord/r3/v7.1.gemfile",
           tier2_gemfile: "gemfiles/modular/omniauth/r3/v2.1.gemfile",
           x_std_libs_gemfile: "gemfiles/modular/x_std_libs/r3/libs.gemfile",
-          ruby_series: "r3",
+          ruby_series: "r3"
         },
         {
           name: "kja-sq-5-0-oa-2-1-r3",
           tier1_gemfile: "gemfiles/modular/sequel/r3/v5.0.gemfile",
           tier2_gemfile: "gemfiles/modular/omniauth/r3/v2.1.gemfile",
           x_std_libs_gemfile: "gemfiles/modular/x_std_libs/r3/libs.gemfile",
-          ruby_series: "r3",
-        },
+          ruby_series: "r3"
+        }
       ]
     end
 
@@ -44,7 +44,7 @@ RSpec.describe Kettle::Jem::Appraisals::AppraisalsGenerator do
 
     it "can emit a standard appraisal name for collapsed entries" do
       content = described_class.generate([
-        matrix.first.merge(appraisal_name: "ruby-3-2"),
+        matrix.first.merge(appraisal_name: "ruby-3-2")
       ])
 
       expect(content).to include('appraise "ruby-3-2" do')
@@ -53,12 +53,12 @@ RSpec.describe Kettle::Jem::Appraisals::AppraisalsGenerator do
 
     it "emits shared support gemfiles before x-stdlib gemfiles" do
       content = described_class.generate([
-        matrix.first.merge(extra_gemfiles: ["gemfiles/modular/activerecord_support.gemfile"]),
+        matrix.first.merge(extra_gemfiles: ["gemfiles/modular/activerecord_support.gemfile"])
       ])
 
       expect(content).to include(
         "  eval_gemfile \"modular/activerecord_support.gemfile\"\n" \
-          "  eval_gemfile \"modular/x_std_libs/r3/libs.gemfile\"",
+          "  eval_gemfile \"modular/x_std_libs/r3/libs.gemfile\""
       )
     end
   end

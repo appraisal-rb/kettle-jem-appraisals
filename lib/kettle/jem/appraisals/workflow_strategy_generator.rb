@@ -32,7 +32,7 @@ module Kettle
           "supported" => {min: Gem::Version.new("3.2"), max: Gem::Version.new("3.3")},
           "legacy" => {min: Gem::Version.new("3.0"), max: Gem::Version.new("3.1")},
           "unsupported" => {min: Gem::Version.new("2.6"), max: Gem::Version.new("2.7")},
-          "ancient" => {min: Gem::Version.new("2.3"), max: Gem::Version.new("2.5")},
+          "ancient" => {min: Gem::Version.new("2.3"), max: Gem::Version.new("2.5")}
         }.freeze
 
         # @return [Hash{String => Hash}] bucket → +{floor: Gem::Version, ceiling: Gem::Version}+
@@ -126,7 +126,7 @@ module Kettle
             exec_cmd: exec_cmd,
             gemfile: "Appraisal.root",
             rubygems: "latest",
-            bundler: "latest",
+            bundler: "latest"
           }
         end
       end
