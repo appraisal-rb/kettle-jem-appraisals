@@ -57,5 +57,7 @@ Please file a bug if you notice a violation of semantic versioning.
 - Kept Ruby series detection compatible with released `kettle-jem` versions
   that do not yet export the appraisal minimum Ruby floor constant.
 
+- Package configured license files in gem release file lists.
+
 ### Security
 
