@@ -33,8 +33,8 @@ Please file a bug if you notice a violation of semantic versioning.
 ### Fixed
 
 - Corrected OpenCollective funding metadata to use the `kettle-dev` collective.
-- Updated generated project metadata links to use the migrated `kettle-dev`
-  GitHub organization.
+- Updated generated project metadata links to use the `appraisal-rb` GitHub
+  organization.
 - Restored `docs/CNAME` so the generated documentation site keeps its custom domain.
 - Unique generated appraisal entries now collapse onto standard `ruby-X-Y`
   appraisals, allowing kettle-jem templates to reuse badge-linked standard jobs

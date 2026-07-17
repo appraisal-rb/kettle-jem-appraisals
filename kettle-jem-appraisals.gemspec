@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "🍲 Auto-generate Appraisal matrices for kettle-jem managed gems"
   spec.description = "🍲 Kettle::Jem::Appraisals auto-generates CI test matrices from RubyGems API data. Scaffolds tier1/tier2 gem lists from gemspec, resolves version spreads per mode (major/minor/minor-minmax/semver), generates modular gemfiles and Appraisals files. Part of the kettle-dev ecosystem."
-  spec.homepage = "https://github.com/kettle-dev/kettle-jem-appraisals"
+  spec.homepage = "https://github.com/appraisal-rb/kettle-jem-appraisals"
   spec.licenses = ["AGPL-3.0-only"]
   spec.required_ruby_version = ">= 3.2.0"
 

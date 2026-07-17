@@ -98,14 +98,14 @@ The _amazing_ test matrix is powered by the kettle-dev stack.
 
 | Federated [DVCS][💎d-in-dvcs] Repository | Status | Issues | PRs | Wiki | CI | Discussions |
 |-------------------------------------------------|-----------------------------------------------------------------------|---------------------------|--------------------------|---------------------------|--------------------------|------------------------------|
-| 🧪 [kettle-dev/kettle-jem-appraisals on GitLab][📜src-gl] | The Truth | [💚][🤝gl-issues] | [💚][🤝gl-pulls] | [💚][📜gl-wiki] | 🐭 Tiny Matrix | ➖ |
-| 🧊 [kettle-dev/kettle-jem-appraisals on CodeBerg][📜src-cb] | An Ethical Mirror ([Donate][🤝cb-donate]) | [💚][🤝cb-issues] | [💚][🤝cb-pulls] | ➖ | ⭕️ No Matrix | ➖ |
-| 🐙 [kettle-dev/kettle-jem-appraisals on GitHub][📜src-gh] | Another Mirror | [💚][🤝gh-issues] | [💚][🤝gh-pulls] | [💚][📜gh-wiki] | 💯 Full Matrix | [💚][gh-discussions] |
+| 🧪 [appraisal-rb/kettle-jem-appraisals on GitLab][📜src-gl] | The Truth | [💚][🤝gl-issues] | [💚][🤝gl-pulls] | [💚][📜gl-wiki] | 🐭 Tiny Matrix | ➖ |
+| 🧊 [appraisal-rb/kettle-jem-appraisals on CodeBerg][📜src-cb] | An Ethical Mirror ([Donate][🤝cb-donate]) | [💚][🤝cb-issues] | [💚][🤝cb-pulls] | ➖ | ⭕️ No Matrix | ➖ |
+| 🐙 [appraisal-rb/kettle-jem-appraisals on GitHub][📜src-gh] | Another Mirror | [💚][🤝gh-issues] | [💚][🤝gh-pulls] | [💚][📜gh-wiki] | 💯 Full Matrix | [💚][gh-discussions] |
 | 🎮️ [Discord Server][✉️discord-invite] | [![Live Chat on Discord][✉️discord-invite-img-ftb]][✉️discord-invite] | [Let's][✉️discord-invite] | [talk][✉️discord-invite] | [about][✉️discord-invite] | [this][✉️discord-invite] | [library!][✉️discord-invite] |
 
 </details>
 
-[gh-discussions]: https://github.com/kettle-dev/kettle-jem-appraisals/discussions
+[gh-discussions]: https://github.com/appraisal-rb/kettle-jem-appraisals/discussions
 
 ### Enterprise Support [![Tidelift](https://tidelift.com/badges/package/rubygems/kettle-jem-appraisals)](https://tidelift.com/subscription/pkg/rubygems-kettle-jem-appraisals?utm_source=rubygems-kettle-jem-appraisals&utm_medium=referral&utm_campaign=readme)
 
@@ -453,16 +453,16 @@ chat rooms and mailing lists agrees to follow the [![Contributor Covenant 2.1][�
 
 Made with [contributors-img][🖐contrib-rocks].
 
-Also see GitLab Contributors: [https://gitlab.com/kettle-dev/kettle-jem-appraisals/-/graphs/main][🚎contributors-gl]
+Also see GitLab Contributors: [https://gitlab.com/appraisal-rb/kettle-jem-appraisals/-/graphs/main][🚎contributors-gl]
 
 <details markdown="1">
  <summary>⭐️ Star History</summary>
 
-<a href="https://star-history.com/kettle-dev/kettle-jem-appraisals&Date">
+<a href="https://star-history.com/appraisal-rb/kettle-jem-appraisals&Date">
  <picture>
- <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=kettle-dev/kettle-jem-appraisals&type=Date&theme=dark" />
- <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=kettle-dev/kettle-jem-appraisals&type=Date" />
- <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=kettle-dev/kettle-jem-appraisals&type=Date" />
+ <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=appraisal-rb/kettle-jem-appraisals&type=Date&theme=dark" />
+ <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=appraisal-rb/kettle-jem-appraisals&type=Date" />
+ <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=appraisal-rb/kettle-jem-appraisals&type=Date" />
  </picture>
 </a>
 
@@ -527,7 +527,7 @@ To join the community or get help 👇️ Join the Discord.
 
 To say "thanks!" ☝️ Join the Discord or 👇️ send money.
 
-[![Sponsor kettle-dev/kettle-jem-appraisals on Open Source Collective][🖇osc-all-bottom-img]][🖇osc] 💌 [![Sponsor me on GitHub Sponsors][🖇sponsor-bottom-img]][🖇sponsor] 💌 [![Sponsor me on Liberapay][⛳liberapay-bottom-img]][⛳liberapay] 💌 [![Donate on PayPal][🖇paypal-bottom-img]][🖇paypal]
+[![Sponsor appraisal-rb/kettle-jem-appraisals on Open Source Collective][🖇osc-all-bottom-img]][🖇osc] 💌 [![Sponsor me on GitHub Sponsors][🖇sponsor-bottom-img]][🖇sponsor] 💌 [![Sponsor me on Liberapay][⛳liberapay-bottom-img]][⛳liberapay] 💌 [![Donate on PayPal][🖇paypal-bottom-img]][🖇paypal]
 
 ### Please give the project a star ⭐ ♥.
 
@@ -568,12 +568,12 @@ Thanks for RTFM. ☺️
 [✉️ruby-friends]: https://app.daily.dev/squads/rubyfriends
 
 [✇bundle-group-pattern]: https://gist.github.com/pboling/4564780
-[⛳️gem-namespace]: https://github.com/kettle-dev/kettle-jem-appraisals
+[⛳️gem-namespace]: https://github.com/appraisal-rb/kettle-jem-appraisals
 [⛳️namespace-img]: https://img.shields.io/badge/namespace-Kettle::Jem::Appraisals-3C2D2D.svg?style=square&logo=ruby&logoColor=white
 [⛳️gem-name]: https://bestgems.org/gems/kettle-jem-appraisals
 [⛳️name-img]: https://img.shields.io/badge/name-kettle--jem--appraisals-3C2D2D.svg?style=square&logo=rubygems&logoColor=red
-[⛳️tag-img]: https://img.shields.io/github/tag/kettle-dev/kettle-jem-appraisals.svg
-[⛳️tag]: https://github.com/kettle-dev/kettle-jem-appraisals/releases
+[⛳️tag-img]: https://img.shields.io/github/tag/appraisal-rb/kettle-jem-appraisals.svg
+[⛳️tag]: https://github.com/appraisal-rb/kettle-jem-appraisals/releases
 [🚂maint-blog]: http://www.railsbling.com/tags/kettle-jem-appraisals
 [🚂maint-blog-img]: https://img.shields.io/badge/blog-railsbling-0093D0.svg?style=for-the-badge&logo=rubyonrails&logoColor=orange
 [🚂maint-contact]: http://www.railsbling.com/contact
@@ -608,54 +608,54 @@ Thanks for RTFM. ☺️
 [💁🏼‍♂️peterboling]: http://www.peterboling.com
 [🚂railsbling]: http://www.railsbling.com
 [📜src-gl-img]: https://img.shields.io/badge/GitLab-FBA326?style=for-the-badge&logo=Gitlab&logoColor=orange
-[📜src-gl]: https://gitlab.com/kettle-dev/kettle-jem-appraisals
+[📜src-gl]: https://gitlab.com/appraisal-rb/kettle-jem-appraisals
 [📜src-cb-img]: https://img.shields.io/badge/CodeBerg-4893CC?style=for-the-badge&logo=CodeBerg&logoColor=blue
-[📜src-cb]: https://codeberg.org/kettle-dev/kettle-jem-appraisals
+[📜src-cb]: https://codeberg.org/appraisal-rb/kettle-jem-appraisals
 [📜src-gh-img]: https://img.shields.io/badge/GitHub-238636?style=for-the-badge&logo=Github&logoColor=green
-[📜src-gh]: https://github.com/kettle-dev/kettle-jem-appraisals
+[📜src-gh]: https://github.com/appraisal-rb/kettle-jem-appraisals
 [📜docs-cr-rd-img]: https://img.shields.io/badge/RubyDoc-Current_Release-943CD2?style=for-the-badge&logo=readthedocs&logoColor=white
 [📜docs-head-rd-img]: https://img.shields.io/badge/YARD_on_Galtzo.com-HEAD-943CD2?style=for-the-badge&logo=readthedocs&logoColor=white
-[📜gl-wiki]: https://gitlab.com/kettle-dev/kettle-jem-appraisals/-/wikis/home
-[📜gh-wiki]: https://github.com/kettle-dev/kettle-jem-appraisals/wiki
+[📜gl-wiki]: https://gitlab.com/appraisal-rb/kettle-jem-appraisals/-/wikis/home
+[📜gh-wiki]: https://github.com/appraisal-rb/kettle-jem-appraisals/wiki
 [📜gl-wiki-img]: https://img.shields.io/badge/wiki-gitlab-943CD2.svg?style=for-the-badge&logo=gitlab&logoColor=white
 [📜gh-wiki-img]: https://img.shields.io/badge/wiki-github-943CD2.svg?style=for-the-badge&logo=github&logoColor=white
 [👽dl-rank]: https://bestgems.org/gems/kettle-jem-appraisals
 [👽dl-ranki]: https://img.shields.io/gem/rd/kettle-jem-appraisals.svg
 [👽version]: https://bestgems.org/gems/kettle-jem-appraisals
 [👽versioni]: https://img.shields.io/gem/v/kettle-jem-appraisals.svg
-[🏀qlty-mnt]: https://qlty.sh/gh/kettle-dev/projects/kettle-jem-appraisals
-[🏀qlty-mnti]: https://qlty.sh/gh/kettle-dev/projects/kettle-jem-appraisals/maintainability.svg
-[🏀qlty-cov]: https://qlty.sh/gh/kettle-dev/projects/kettle-jem-appraisals/metrics/code?sort=coverageRating
-[🏀qlty-covi]: https://qlty.sh/gh/kettle-dev/projects/kettle-jem-appraisals/coverage.svg
-[🏀codecov]: https://codecov.io/gh/kettle-dev/kettle-jem-appraisals
-[🏀codecovi]: https://codecov.io/gh/kettle-dev/kettle-jem-appraisals/graph/badge.svg
-[🏀coveralls]: https://coveralls.io/github/kettle-dev/kettle-jem-appraisals?branch=main
-[🏀coveralls-img]: https://coveralls.io/repos/github/kettle-dev/kettle-jem-appraisals/badge.svg?branch=main
-[🚎ruby-3.2-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/ruby-3.2.yml
-[🚎ruby-3.3-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/ruby-3.3.yml
-[🚎ruby-3.4-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/ruby-3.4.yml
-[🚎jruby-10.0-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/jruby-10.0.yml
-[🚎truby-24.2-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/truffleruby-24.2.yml
-[🚎truby-25.0-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/truffleruby-25.0.yml
-[🚎truby-33.0-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/truffleruby-33.0.yml
-[🚎2-cov-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/coverage.yml
-[🚎2-cov-wfi]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/coverage.yml/badge.svg
-[🚎3-hd-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/heads.yml
-[🚎3-hd-wfi]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/heads.yml/badge.svg
-[🚎5-st-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/style.yml
-[🚎5-st-wfi]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/style.yml/badge.svg
-[🚎9-t-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/truffle.yml
-[🚎9-t-wfi]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/truffle.yml/badge.svg
-[🚎10-j-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/jruby.yml
-[🚎10-j-wfi]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/jruby.yml/badge.svg
-[🚎11-c-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/current.yml
-[🚎11-c-wfi]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/current.yml/badge.svg
-[🚎12-crh-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/dep-heads.yml
-[🚎12-crh-wfi]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/dep-heads.yml/badge.svg
-[🚎13-🔒️-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/locked_deps.yml
-[🚎13-🔒️-wfi]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/locked_deps.yml/badge.svg
-[🚎14-🔓️-wf]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/unlocked_deps.yml
-[🚎14-🔓️-wfi]: https://github.com/kettle-dev/kettle-jem-appraisals/actions/workflows/unlocked_deps.yml/badge.svg
+[🏀qlty-mnt]: https://qlty.sh/gh/appraisal-rb/projects/kettle-jem-appraisals
+[🏀qlty-mnti]: https://qlty.sh/gh/appraisal-rb/projects/kettle-jem-appraisals/maintainability.svg
+[🏀qlty-cov]: https://qlty.sh/gh/appraisal-rb/projects/kettle-jem-appraisals/metrics/code?sort=coverageRating
+[🏀qlty-covi]: https://qlty.sh/gh/appraisal-rb/projects/kettle-jem-appraisals/coverage.svg
+[🏀codecov]: https://codecov.io/gh/appraisal-rb/kettle-jem-appraisals
+[🏀codecovi]: https://codecov.io/gh/appraisal-rb/kettle-jem-appraisals/graph/badge.svg
+[🏀coveralls]: https://coveralls.io/github/appraisal-rb/kettle-jem-appraisals?branch=main
+[🏀coveralls-img]: https://coveralls.io/repos/github/appraisal-rb/kettle-jem-appraisals/badge.svg?branch=main
+[🚎ruby-3.2-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/ruby-3.2.yml
+[🚎ruby-3.3-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/ruby-3.3.yml
+[🚎ruby-3.4-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/ruby-3.4.yml
+[🚎jruby-10.0-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/jruby-10.0.yml
+[🚎truby-24.2-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/truffleruby-24.2.yml
+[🚎truby-25.0-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/truffleruby-25.0.yml
+[🚎truby-33.0-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/truffleruby-33.0.yml
+[🚎2-cov-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/coverage.yml
+[🚎2-cov-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/coverage.yml/badge.svg
+[🚎3-hd-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/heads.yml
+[🚎3-hd-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/heads.yml/badge.svg
+[🚎5-st-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/style.yml
+[🚎5-st-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/style.yml/badge.svg
+[🚎9-t-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/truffle.yml
+[🚎9-t-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/truffle.yml/badge.svg
+[🚎10-j-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/jruby.yml
+[🚎10-j-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/jruby.yml/badge.svg
+[🚎11-c-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/current.yml
+[🚎11-c-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/current.yml/badge.svg
+[🚎12-crh-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/dep-heads.yml
+[🚎12-crh-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/dep-heads.yml/badge.svg
+[🚎13-🔒️-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/locked_deps.yml
+[🚎13-🔒️-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/locked_deps.yml/badge.svg
+[🚎14-🔓️-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/unlocked_deps.yml
+[🚎14-🔓️-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/unlocked_deps.yml/badge.svg
 [💎ruby-3.2i]: https://img.shields.io/badge/Ruby-3.2-CC342D?style=for-the-badge&logo=ruby&logoColor=white
 [💎ruby-3.3i]: https://img.shields.io/badge/Ruby-3.3-CC342D?style=for-the-badge&logo=ruby&logoColor=white
 [💎ruby-3.4i]: https://img.shields.io/badge/Ruby-3.4-CC342D?style=for-the-badge&logo=ruby&logoColor=white
@@ -669,34 +669,34 @@ Thanks for RTFM. ☺️
 [💎jruby-10.0i]: https://img.shields.io/badge/JRuby-10.0-FBE742?style=for-the-badge&logo=ruby&logoColor=red
 [💎jruby-c-i]: https://img.shields.io/badge/JRuby-current-FBE742?style=for-the-badge&logo=ruby&logoColor=green
 [💎jruby-headi]: https://img.shields.io/badge/JRuby-HEAD-FBE742?style=for-the-badge&logo=ruby&logoColor=blue
-[🤝gh-issues]: https://github.com/kettle-dev/kettle-jem-appraisals/issues
-[🤝gh-pulls]: https://github.com/kettle-dev/kettle-jem-appraisals/pulls
-[🤝gl-issues]: https://gitlab.com/kettle-dev/kettle-jem-appraisals/-/issues
-[🤝gl-pulls]: https://gitlab.com/kettle-dev/kettle-jem-appraisals/-/merge_requests
-[🤝cb-issues]: https://codeberg.org/kettle-dev/kettle-jem-appraisals/issues
-[🤝cb-pulls]: https://codeberg.org/kettle-dev/kettle-jem-appraisals/pulls
+[🤝gh-issues]: https://github.com/appraisal-rb/kettle-jem-appraisals/issues
+[🤝gh-pulls]: https://github.com/appraisal-rb/kettle-jem-appraisals/pulls
+[🤝gl-issues]: https://gitlab.com/appraisal-rb/kettle-jem-appraisals/-/issues
+[🤝gl-pulls]: https://gitlab.com/appraisal-rb/kettle-jem-appraisals/-/merge_requests
+[🤝cb-issues]: https://codeberg.org/appraisal-rb/kettle-jem-appraisals/issues
+[🤝cb-pulls]: https://codeberg.org/appraisal-rb/kettle-jem-appraisals/pulls
 [🤝cb-donate]: https://donate.codeberg.org/
-[🤝contributing]: https://github.com/kettle-dev/kettle-jem-appraisals/blob/main/CONTRIBUTING.md
-[🏀codecov-g]: https://codecov.io/gh/kettle-dev/kettle-jem-appraisals/graph/badge.svg
+[🤝contributing]: https://github.com/appraisal-rb/kettle-jem-appraisals/blob/main/CONTRIBUTING.md
+[🏀codecov-g]: https://codecov.io/gh/appraisal-rb/kettle-jem-appraisals/graph/badge.svg
 [🖐contrib-rocks]: https://contrib.rocks
-[🖐contributors]: https://github.com/kettle-dev/kettle-jem-appraisals/graphs/contributors
-[🖐contributors-img]: https://contrib.rocks/image?repo=kettle-dev/kettle-jem-appraisals
-[🚎contributors-gl]: https://gitlab.com/kettle-dev/kettle-jem-appraisals/-/graphs/main
-[🪇conduct]: https://github.com/kettle-dev/kettle-jem-appraisals/blob/main/CODE_OF_CONDUCT.md
+[🖐contributors]: https://github.com/appraisal-rb/kettle-jem-appraisals/graphs/contributors
+[🖐contributors-img]: https://contrib.rocks/image?repo=appraisal-rb/kettle-jem-appraisals
+[🚎contributors-gl]: https://gitlab.com/appraisal-rb/kettle-jem-appraisals/-/graphs/main
+[🪇conduct]: https://github.com/appraisal-rb/kettle-jem-appraisals/blob/main/CODE_OF_CONDUCT.md
 [🪇conduct-img]: https://img.shields.io/badge/Contributor_Covenant-2.1-259D6C.svg
 [📌pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
 [📌semver]: https://semver.org/spec/v2.0.0.html
 [📌semver-img]: https://img.shields.io/badge/semver-2.0.0-259D6C.svg?style=flat
 [📌semver-breaking]: https://github.com/semver/semver/issues/716#issuecomment-869336139
 [📌major-versions-not-sacred]: https://tom.preston-werner.com/2022/05/23/major-version-numbers-are-not-sacred.html
-[📌changelog]: https://github.com/kettle-dev/kettle-jem-appraisals/blob/main/CHANGELOG.md
+[📌changelog]: https://github.com/appraisal-rb/kettle-jem-appraisals/blob/main/CHANGELOG.md
 [📗keep-changelog]: https://keepachangelog.com/en/1.0.0/
 [📗keep-changelog-img]: https://img.shields.io/badge/keep--a--changelog-1.0.0-34495e.svg?style=flat
 [📌gitmoji]: https://gitmoji.dev
 [📌gitmoji-img]: https://img.shields.io/badge/gitmoji_commits-%20%F0%9F%98%9C%20%F0%9F%98%8D-34495e.svg?style=flat-square
 [🧮kloc]: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 [🧮kloc-img]: https://img.shields.io/badge/KLOC-5.053-FFDD67.svg?style=for-the-badge&logo=YouTube&logoColor=blue
-[🔐security]: https://github.com/kettle-dev/kettle-jem-appraisals/blob/main/SECURITY.md
+[🔐security]: https://github.com/appraisal-rb/kettle-jem-appraisals/blob/main/SECURITY.md
 [🔐security-img]: https://img.shields.io/badge/security-policy-259D6C.svg?style=flat
 [📄copyright-notice-explainer]: https://opensource.stackexchange.com/questions/5778/why-do-licenses-such-as-the-mit-license-specify-a-single-year
 [📄license]: LICENSE.md
@@ -710,7 +710,7 @@ Thanks for RTFM. ☺️
 [🚎yard-current]: http://rubydoc.info/gems/kettle-jem-appraisals
 [🚎yard-head]: https://kettle-jem-appraisals.galtzo.com
 [💎stone_checksums]: https://github.com/galtzo-floss/stone_checksums
-[💎SHA_checksums]: https://gitlab.com/kettle-dev/kettle-jem-appraisals/-/tree/main/checksums
+[💎SHA_checksums]: https://gitlab.com/appraisal-rb/kettle-jem-appraisals/-/tree/main/checksums
 [💎rlts]: https://github.com/rubocop-lts/rubocop-lts
 [💎rlts-img]: https://img.shields.io/badge/code_style_&_linting-rubocop--lts-34495e.svg?plastic&logo=ruby&logoColor=white
 [💎appraisal2]: https://github.com/appraisal-rb/appraisal2
@@ -722,8 +722,8 @@ Thanks for RTFM. ☺️
 |---|---|
 | Package | kettle-jem-appraisals |
 | Description | 🍲 Kettle::Jem::Appraisals auto-generates CI test matrices from RubyGems API data. Scaffolds tier1/tier2 gem lists from gemspec, resolves version spreads per mode (major/minor/minor-minmax/semver), generates modular gemfiles and Appraisals files. Part of the kettle-dev ecosystem. |
-| Homepage | https://github.com/kettle-dev/kettle-jem-appraisals |
-| Source | https://github.com/kettle-dev/kettle-jem-appraisals |
+| Homepage | https://github.com/appraisal-rb/kettle-jem-appraisals |
+| Source | https://github.com/appraisal-rb/kettle-jem-appraisals |
 | License | `AGPL-3.0-only` |
 | Funding | https://github.com/sponsors/pboling, https://ko-fi.com/pboling, https://liberapay.com/pboling/donate, https://opencollective.com/kettle-dev, https://thanks.dev/u/gh/pboling, https://tidelift.com/funding/github/rubygems/kettle-jem-appraisals, https://www.buymeacoffee.com/pboling |
 <!-- kettle-jem:metadata:end -->
