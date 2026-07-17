@@ -721,7 +721,7 @@ Thanks for RTFM. ☺️
 | Field | Value |
 |---|---|
 | Package | kettle-jem-appraisals |
-| Description | 🍲 Kettle::Jem::Appraisals auto-generates CI test matrices from RubyGems API data. Scaffolds tier1/tier2 gem lists from gemspec, resolves version spreads per mode (major/minor/minor-minmax/semver), generates modular gemfiles and Appraisals files. Part of the kettle-rb ecosystem. |
+| Description | 🍲 Kettle::Jem::Appraisals auto-generates CI test matrices from RubyGems API data. Scaffolds tier1/tier2 gem lists from gemspec, resolves version spreads per mode (major/minor/minor-minmax/semver), generates modular gemfiles and Appraisals files. Part of the kettle-dev ecosystem. |
 | Homepage | https://github.com/kettle-dev/kettle-jem-appraisals |
 | Source | https://github.com/kettle-dev/kettle-jem-appraisals |
 | License | `AGPL-3.0-only` |

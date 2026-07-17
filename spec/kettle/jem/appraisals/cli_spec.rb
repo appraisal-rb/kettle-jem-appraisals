@@ -125,10 +125,10 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
 
   describe "#run" do
     it "normalizes scaffold-mode project paths in missing gemspec output" do
-      cli = described_class.new(["--scaffold"], project_dir: "/var/home/pboling/src/kettle-rb/demo")
+      cli = described_class.new(["--scaffold"], project_dir: "/var/home/pboling/src/kettle-dev/demo")
       allow(cli).to receive(:find_gemspec).and_return(nil)
 
-      expect { cli.run }.to output(include("/home/pboling/src/kettle-rb/demo")).to_stderr.and raise_error(SystemExit)
+      expect { cli.run }.to output(include("/home/pboling/src/kettle-dev/demo")).to_stderr.and raise_error(SystemExit)
     end
 
     it "reads runtime dependencies from a loaded gemspec object in scaffold mode" do
