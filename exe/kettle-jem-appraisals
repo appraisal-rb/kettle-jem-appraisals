@@ -11,6 +11,13 @@ $stdout.sync = true
 $stderr.sync = true
 
 require "rubygems"
+require_relative "../lib/kettle/jem/appraisals/version"
+
+script_basename = File.basename(__FILE__)
+if ARGV.any? { |arg| arg == "-v" || arg == "--version" }
+  puts Kettle::Jem::Appraisals::Version::VERSION
+  exit(0)
+end
 
 begin
   gem("kettle-jem-appraisals")
@@ -19,5 +26,7 @@ rescue LoadError
   warn("[kettle-jem-appraisals] Failed to load: #{$ERROR_INFO.message}")
   exit(1)
 end
+
+puts "== #{script_basename} v#{Kettle::Jem::Appraisals::Version::VERSION} =="
 
 Kettle::Jem::Appraisals::CLI.run(ARGV)

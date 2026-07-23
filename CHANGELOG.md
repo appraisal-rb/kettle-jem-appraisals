@@ -24,6 +24,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
+- The `kettle-jem-appraisals` executable now supports `-v` / `--version` and
+  prints a standard startup header on normal runs.
 - Retemplated project metadata and CI/development automation with `kettle-jem` v7.0.0.
 
 ### Deprecated
@@ -60,4 +62,3 @@ Please file a bug if you notice a violation of semantic versioning.
 - Package configured license files in gem release file lists.
 
 ### Security
-
