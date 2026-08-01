@@ -1,9 +1,0 @@
-module Kettle
-  module Jem
-    module Appraisals
-      class AppraisalsGenerator
-        def self.generate: (Array[Hash[Symbol, untyped]] matrix) -> String
-      end
-    end
-  end
-end

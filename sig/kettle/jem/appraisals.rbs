@@ -2,8 +2,177 @@ module Kettle
   module Jem
     module Appraisals
       MINIMUM_RUBY_FLOOR: Gem::Version
-
       module Version
+        VERSION: String
+      end
+
+      class AppraisalsGenerator
+        def self.generate: (Array[Hash[Symbol, untyped]] matrix) -> String
+      end
+
+      class CLI
+        CONFIG_FILE: String
+        APPRAISAL_MATRIX_KEY: String
+        DEFAULT_FRESHNESS_TTL: Integer
+
+        attr_reader args: Array[String]
+        attr_reader project_dir: String
+
+        def initialize: (?Array[String] args, ?project_dir: String) -> void
+        def self.run: (Array[String] args) -> void
+        def run: () -> void
+
+        private
+
+        def detect_mode: () -> Symbol
+        def has_versions?: (Hash[String, untyped] matrix) -> bool
+        def run_scaffold: () -> void
+        def run_resolve: () -> void
+        def load_config: () -> Hash[String, untyped]
+        def write_config: (Hash[String, untyped] config) -> void
+        def find_gemspec: () -> String?
+        def extract_runtime_deps: (String gemspec_path) -> Array[String]
+        def fresh?: (Hash[String, untyped] matrix) -> bool
+        def time_ago: (Integer timestamp) -> String
+        def detect_project_min_ruby: () -> Gem::Version?
+        def build_matrix: (
+          Array[Hash[String, untyped]] tier1_gems,
+          Array[Hash[String, untyped]] tier2_gems,
+          Array[String] ruby_series,
+          Hash[String, Hash[Symbol, Gem::Version]] bucket_ranges,
+          Hash[String, Array[Hash[Symbol, untyped]]] all_seams,
+          GemVersionResolver resolver,
+          MatrixBuilder builder,
+          ModularGemfileGenerator gemfile_gen,
+          SubDepResolver sub_resolver
+        ) -> Array[Hash[Symbol, untyped]]
+        def compatible?: (String gem_name, String version, String ruby_series, Hash[String, Hash[Symbol, Gem::Version]] bucket_ranges, GemVersionResolver resolver) -> bool
+        def cleanup_stale_gemfiles: (Array[Hash[Symbol, untyped]] current_entries) -> void
+      end
+
+      module GemAbbreviations
+        PREFIX: String
+        ABBREVIATIONS: Hash[String, String]
+
+        def self.abbreviate: (String gem_name) -> String
+        def self.format_version: (String version) -> String
+        def self.appraisal_name: (String tier1_gem, String tier1_version, String? tier2_gem, String? tier2_version, String ruby_series) -> String
+      end
+
+      class GemVersionResolver
+        RUBYGEMS_API_BASE: String
+        RUBYGEMS_V2_API_BASE: String
+
+        attr_reader cache: Hash[String, untyped]
+
+        def initialize: () -> void
+        def versions: (String gem_name, ?include_prerelease: bool) -> Array[Hash[Symbol, untyped]]
+        def version_info: (String gem_name, String version) -> Hash[Symbol, untyped]?
+        def min_ruby_version: (String gem_name, String version) -> Gem::Version?
+        def minor_versions_by_major: (String gem_name) -> Array[Hash[Symbol, untyped]]
+
+        private
+
+        def fetch_versions: (String gem_name) -> Array[Hash[String, untyped]]
+        def fetch_gem_info: (String gem_name, String version) -> Hash[String, untyped]?
+        def parse_min_ruby: (String? requirement_str) -> Gem::Version?
+      end
+
+      class MatrixBuilder
+        VALID_MODES: Array[String]
+        LARGE_MAJOR_THRESHOLD: Integer
+
+        attr_reader resolver: GemVersionResolver
+
+        def initialize: (resolver: GemVersionResolver) -> void
+        def select_versions: (String gem_name, mode: String) -> Array[String]
+        def assign_version_buckets: (
+          String gem_name,
+          Array[String] selected_versions,
+          seams: Array[Hash[Symbol, untyped]],
+          buckets: Array[String],
+          bucket_ranges: Hash[String, Hash[Symbol, Gem::Version]]
+        ) -> Array[Hash[Symbol, untyped]]
+
+        private
+
+        def select_major: (Array[Hash[Symbol, untyped]] by_major) -> Array[String]
+        def select_minor: (Array[Hash[Symbol, untyped]] by_major) -> Array[String]
+        def select_minor_minmax: (Array[Hash[Symbol, untyped]] by_major, Integer current_major) -> Array[String]
+        def select_semver: (String gem_name, Array[Hash[Symbol, untyped]] by_major, Integer current_major) -> Array[String]
+        def find_ruby_cutoff_versions: (String gem_name, Array[String] minor_versions) -> Array[String]
+        def find_next_seam_ruby: (String ver, Gem::Version ver_min_ruby, Array[String] all_minors, Hash[String, Gem::Version] version_min_ruby) -> Gem::Version?
+        def compute_version_min_rubies: (Array[String] all_minors, Array[Hash[Symbol, untyped]] seams) -> Hash[String, Gem::Version]
+        def find_bucket_below: (Gem::Version ruby_floor, Array[String] buckets, Hash[String, Hash[Symbol, Gem::Version]] bucket_ranges) -> String?
+        def fill_bucket_gaps: (Array[Hash[Symbol, untyped]] assignments, Array[String] selected_sorted, Hash[String, Gem::Version] version_min_ruby, Array[String] buckets, Hash[String, Hash[Symbol, Gem::Version]] bucket_ranges, Array[String] all_minors) -> Array[Hash[Symbol, untyped]]
+        def latest_patch: (String gem_name, String minor_version) -> String
+      end
+
+      class ModularGemfileGenerator
+        attr_reader base_dir: String
+
+        def initialize: (?base_dir: String) -> void
+        def generate: (gem_name: String, version: String, ruby_series: String, ?sub_deps: Hash[String, String]) -> String
+        def generate_tier2: (gem_name: String, version: String, ruby_series: String) -> String
+
+        private
+
+        def build_content: (String gem_name, String version, Hash[String, String] sub_deps) -> String
+        def build_tier2_content: (String gem_name, String version) -> String
+      end
+
+      class RubySeriesDetector
+        attr_reader resolver: GemVersionResolver
+
+        def initialize: (resolver: GemVersionResolver) -> void
+        def detect: (Array[Hash[String, untyped]] tier1_gems, Array[Hash[String, untyped]] tier2_gems, ?project_min_ruby: Gem::Version?) -> Array[String]
+        def detect_with_ranges: (Array[Hash[String, untyped]] tier1_gems, Array[Hash[String, untyped]] tier2_gems, ?project_min_ruby: Gem::Version?) -> Hash[Symbol, untyped]
+        def find_seams: (String gem_name, Array[String] versions) -> Array[Hash[Symbol, untyped]]
+
+        private
+
+        def collect_min_rubies: (Array[Hash[String, untyped]] gem_configs) -> Array[Gem::Version]
+        def minor_key: (Gem::Version version) -> String
+        def minor_versions_to_buckets_with_ranges: (Array[String] minor_versions) -> Hash[Symbol, untyped]
+        def bucket_sort_key: (String bucket) -> [Integer, Integer]
+        def latest_patch: (String gem_name, String minor_version) -> String
+      end
+
+      class SubDepResolver
+        attr_reader resolver: GemVersionResolver
+
+        def initialize: (resolver: GemVersionResolver) -> void
+        def resolve: (String gem_name, String version, ?ruby_min: Gem::Version?) -> Hash[String, String]
+
+        private
+
+        def resolve_single: (String dep_name, String requirements_str, ?ruby_min: Gem::Version?) -> String?
+        def latest_patch: (String gem_name, String minor_version) -> String
+      end
+      VERSION: String
+      class WorkflowStrategyGenerator
+        LIFECYCLE_RANGES: Hash[String, Hash[Symbol, untyped]]
+
+        attr_reader bucket_ranges: Hash[String, Hash[Symbol, Gem::Version]]
+        attr_reader exec_cmd: String
+
+        def initialize: (bucket_ranges: Hash[String, Hash[Symbol, Gem::Version]], ?exec_cmd: String) -> void
+        def generate: (Array[Hash[Symbol, untyped]] appraisal_entries) -> Hash[String, Array[Hash[Symbol, untyped]]]
+        def generate_yaml_snippets: (Array[Hash[Symbol, untyped]] appraisal_entries) -> Hash[String, String]
+
+        private
+
+        def lifecycle_for: (Gem::Version ruby_floor) -> String
+        def ruby_version_for: (Gem::Version ruby_floor, String lifecycle) -> String
+        def build_matrix_entry: (Hash[Symbol, untyped] entry, String ruby_version) -> Hash[Symbol, untyped]
+      end
+
+      module XStdLibsExclusion
+        ALWAYS_EXCLUDED: Array[String]
+
+        def self.from_template: (?String? template_path) -> Array[String]
+        def self.default_template_path: () -> String?
+        def self.excluded?: (String gem_name, ?exclusion_list: Array[String]?) -> bool
       end
     end
   end

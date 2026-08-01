@@ -3,8 +3,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        149,
-        181
+        171,
+        203
       ]
     }
   ],
@@ -12,8 +12,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        148,
-        180
+        170,
+        202
       ]
     }
   ],
@@ -21,8 +21,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        235,
-        276
+        257,
+        298
       ]
     }
   ],
@@ -30,8 +30,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        227,
-        268
+        249,
+        290
       ]
     }
   ],
@@ -39,8 +39,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        228,
-        269
+        250,
+        291
       ]
     }
   ],
@@ -48,8 +48,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        134,
-        173
+        156,
+        195
       ]
     }
   ],
@@ -57,12 +57,48 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        130,
-        169
+        152,
+        191
       ]
     }
   ],
   "#   howto: basic usage\n#   options: configuration": [
+    {
+      "file": ".structuredmerge/kettle-jem.yml",
+      "lines": [
+        264,
+        305
+      ]
+    }
+  ],
+  "#   modern       — Ruby-only matrix (default when absent)\n#   framework    — Ruby × framework-version matrix": [
+    {
+      "file": ".structuredmerge/kettle-jem.yml",
+      "lines": [
+        151,
+        190
+      ]
+    }
+  ],
+  "#   summary → synopsis, usage → basic usage,\n#   configuration options → configuration, setup → basic usage": [
+    {
+      "file": ".structuredmerge/kettle-jem.yml",
+      "lines": [
+        243,
+        284
+      ]
+    }
+  ],
+  "# ActiveRecord, ActiveSupport, etc.), this section configures how\n# kettle-jem generates the CI matrix strategy and gemfile references.": [
+    {
+      "file": ".structuredmerge/kettle-jem.yml",
+      "lines": [
+        147,
+        186
+      ]
+    }
+  ],
+  "# Built-in aliases (destination → template):\n#   summary → synopsis, usage → basic usage,": [
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
@@ -71,48 +107,12 @@
       ]
     }
   ],
-  "#   modern       — Ruby-only matrix (default when absent)\n#   framework    — Ruby × framework-version matrix": [
-    {
-      "file": ".structuredmerge/kettle-jem.yml",
-      "lines": [
-        129,
-        168
-      ]
-    }
-  ],
-  "#   summary → synopsis, usage → basic usage,\n#   configuration options → configuration, setup → basic usage": [
-    {
-      "file": ".structuredmerge/kettle-jem.yml",
-      "lines": [
-        221,
-        262
-      ]
-    }
-  ],
-  "# ActiveRecord, ActiveSupport, etc.), this section configures how\n# kettle-jem generates the CI matrix strategy and gemfile references.": [
-    {
-      "file": ".structuredmerge/kettle-jem.yml",
-      "lines": [
-        125,
-        164
-      ]
-    }
-  ],
-  "# Built-in aliases (destination → template):\n#   summary → synopsis, usage → basic usage,": [
-    {
-      "file": ".structuredmerge/kettle-jem.yml",
-      "lines": [
-        220,
-        261
-      ]
-    }
-  ],
   "# Custom section aliases (destination heading → canonical template heading).\n# Merged with built-in aliases above.": [
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        238,
-        279
+        260,
+        301
       ]
     }
   ],
@@ -120,8 +120,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        123,
-        162
+        145,
+        184
       ]
     }
   ],
@@ -129,8 +129,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        231,
-        272
+        253,
+        294
       ]
     }
   ],
@@ -138,8 +138,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        213,
-        254
+        235,
+        276
       ]
     }
   ],
@@ -147,8 +147,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        214,
-        255
+        236,
+        277
       ]
     }
   ],
@@ -156,8 +156,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        124,
-        163
+        146,
+        185
       ]
     }
   ],
@@ -165,8 +165,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        133,
-        172
+        155,
+        194
       ]
     }
   ],
@@ -174,8 +174,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        215,
-        256
+        237,
+        278
       ]
     }
   ],
@@ -183,8 +183,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        234,
-        275
+        256,
+        297
       ]
     }
   ],
@@ -192,8 +192,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        224,
-        265
+        246,
+        287
       ]
     }
   ],
@@ -201,8 +201,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        128,
-        167
+        150,
+        189
       ]
     }
   ],
@@ -210,8 +210,8 @@
     {
       "file": ".structuredmerge/kettle-jem.yml",
       "lines": [
-        241,
-        282
+        263,
+        304
       ]
     }
   ],
@@ -219,9 +219,9 @@
     {
       "file": ".github/workflows/dep-heads.yml",
       "lines": [
-        44,
-        51,
-        58
+        43,
+        102,
+        161
       ]
     }
   ],
@@ -230,25 +230,46 @@
       "file": ".github/workflows/heads.yml",
       "lines": [
         43,
-        50,
-        57
+        106,
+        166
+      ]
+    }
+  ],
+  "exec_cmd: \"kettle-test\"\n# Run directly from the generated appraisal Gemfile so setup-ruby": [
+    {
+      "file": ".github/workflows/dep-heads.yml",
+      "lines": [
+        44,
+        103,
+        162
       ]
     }
   ],
   "exec_cmd: \"kettle-test\"\nrubygems: default": [
     {
+      "file": ".github/workflows/heads.yml",
+      "lines": [
+        44,
+        107,
+        167
+      ]
+    }
+  ],
+  "if: ${{ !env.ACT }}\nuses: appraisal-rb/setup-ruby-flash@b22cb587431e9611d9e0a624a43872e2bbfbcd66 # v2.0": [
+    {
       "file": ".github/workflows/dep-heads.yml",
       "lines": [
-        52,
-        59
+        63,
+        122,
+        182
       ]
     },
     {
       "file": ".github/workflows/heads.yml",
       "lines": [
-        44,
-        51,
-        58
+        56,
+        119,
+        179
       ]
     }
   ]
