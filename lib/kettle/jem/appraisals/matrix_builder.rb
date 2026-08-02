@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "kettle/jem/appraisals/ruby_series_detector"
+
 module Kettle
   module Jem
     module Appraisals
@@ -251,7 +253,7 @@ module Kettle
               seam_idx += 1
             end
             if current_ruby
-              mapping[ver] = [current_ruby, MINIMUM_RUBY_FLOOR].max
+              mapping[ver] = [current_ruby, Kettle::Jem::Appraisals::MINIMUM_RUBY_FLOOR].max
             end
           end
 
