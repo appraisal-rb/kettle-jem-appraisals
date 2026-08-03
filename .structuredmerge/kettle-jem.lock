@@ -509,7 +509,7 @@ files:
   ".simplecov":
     recipe: template_source_application_simplecov
     action: write
-    dest_sha256: 0a5cf218ab788d83e6eef8448eb50fa04370ad318b31c61c1922cd8deeb9eb69
+    dest_sha256: 57240be4c07d725f744f83cc0fcf0b520dff5ce17ec5dad6d3e9d5b05b0710f9
     input_fingerprint: a45fcc0523f0fe82196374ac0f93c173eb7bf10e3b8d530050900e04cc40d28e
     template_sources:
     - ".simplecov.example"

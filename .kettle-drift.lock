@@ -1,0 +1,12 @@
+{
+  "if SimpleCov::Configuration.method_defined?(:cover)\ncover \"lib/**/*.rb\", \"lib/**/*.rake\", \"exe/*.rb\"": [
+    {
+      "file": ".simplecov",
+      "lines": [
+        17,
+        22,
+        27
+      ]
+    }
+  ]
+}
