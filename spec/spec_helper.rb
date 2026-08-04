@@ -22,7 +22,7 @@ end
 require "kettle/test/rspec"
 # `kettle/test/rspec` installs harness helpers documented in spec/README.md.
 require "fileutils"
-require "kettle/jem/appraisals"
+require "kettle-jem-appraisals"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
