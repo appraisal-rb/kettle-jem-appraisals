@@ -61,5 +61,21 @@ RSpec.describe Kettle::Jem::Appraisals::AppraisalsGenerator do
           "  eval_gemfile \"modular/x_std_libs/r3/libs.gemfile\""
       )
     end
+
+    it "handles entries with only a tier1 gemfile and extra paths" do
+      content = described_class.generate([
+        {
+          name: "kja-mail-2-r3",
+          tier1_gemfile: "modular/mail/r3/v2.gemfile",
+          tier2_gemfile: nil,
+          extra_gemfiles: ["modular/support.gemfile"],
+          x_std_libs_gemfile: nil
+        }
+      ])
+
+      expect(content).to include('eval_gemfile "modular/mail/r3/v2.gemfile"')
+      expect(content).to include('eval_gemfile "modular/support.gemfile"')
+      expect(content).not_to include("x_std_libs")
+    end
   end
 end

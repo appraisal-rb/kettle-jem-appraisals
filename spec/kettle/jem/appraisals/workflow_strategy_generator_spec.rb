@@ -146,4 +146,20 @@ RSpec.describe Kettle::Jem::Appraisals::WorkflowStrategyGenerator do
       end
     end
   end
+
+  describe "lifecycle fallbacks" do
+    it "ignores entries without a configured bucket range" do
+      result = generator.generate([{name: "ignored", ruby_series: "missing"}])
+
+      expect(result).to eq({})
+    end
+
+    it "maps below-range and above-range floors to ancient and current" do
+      below = generator.send(:lifecycle_for, Gem::Version.new("2.0"))
+      above = generator.send(:lifecycle_for, Gem::Version.new("4.0"))
+
+      expect(below).to eq("ancient")
+      expect(above).to eq("current")
+    end
+  end
 end

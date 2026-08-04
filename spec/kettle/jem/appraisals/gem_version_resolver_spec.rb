@@ -30,4 +30,15 @@ RSpec.describe Kettle::Jem::Appraisals::GemVersionResolver do
       expect(result).to eq([{major: 6, minors: %w[6.1]}])
     end
   end
+
+  describe "delegated metadata APIs" do
+    it "delegates cache, version info, and minimum Ruby queries" do
+      allow(ruby_gems_resolver).to receive(:version_info).with("rails", "6.1.1").and_return(number: "6.1.1")
+      allow(ruby_gems_resolver).to receive(:min_ruby_version).with("rails", "6.1.1").and_return(Gem::Version.new("2.5"))
+
+      expect(resolver.cache).to equal(ruby_gems_resolver.cache)
+      expect(resolver.version_info("rails", "6.1.1")).to eq(number: "6.1.1")
+      expect(resolver.min_ruby_version("rails", "6.1.1")).to eq(Gem::Version.new("2.5"))
+    end
+  end
 end

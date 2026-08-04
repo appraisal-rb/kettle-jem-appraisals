@@ -44,6 +44,13 @@ RSpec.describe Kettle::Jem::Appraisals::XStdLibsExclusion do
         expect(exclusions).to eq(["version_gem"])
       end
     end
+
+    it "returns nil when kettle-jem is not installed" do
+      missing = Gem::MissingSpecError.new("kettle-jem", Gem::Requirement.default)
+      allow(Gem::Specification).to receive(:find_by_name).and_raise(missing)
+
+      expect(described_class.default_template_path).to be_nil
+    end
   end
 
   describe ".excluded?" do

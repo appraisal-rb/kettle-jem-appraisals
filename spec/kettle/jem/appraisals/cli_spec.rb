@@ -491,4 +491,131 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       end
     end
   end
+
+  describe "private helpers" do
+    let(:cli) { described_class.new([]) }
+
+    it "detects explicit and config-derived modes" do
+      expect(described_class.new(["--scaffold"]).send(:detect_mode)).to eq(:scaffold)
+      expect(described_class.new(["--resolve"]).send(:detect_mode)).to eq(:resolve)
+
+      allow(cli).to receive(:load_config).and_return({})
+      expect(cli.send(:detect_mode)).to eq(:scaffold)
+
+      allow(cli).to receive(:load_config).and_return(
+        "appraisal_matrix" => {"gems" => {"tier1" => [{"versions" => ["1.0"]}]}}
+      )
+      expect(cli.send(:detect_mode)).to eq(:resolve)
+    end
+
+    it "detects whether a matrix contains versions" do
+      expect(cli.send(:has_versions?, {})).to be(false)
+      expect(cli.send(:has_versions?, "gems" => {"tier2" => [{"versions" => []}]})).to be(false)
+      expect(cli.send(:has_versions?, "gems" => {"tier1" => [{"versions" => ["1.0"]}]})).to be(true)
+    end
+
+    it "handles freshness and human-readable elapsed times" do
+      now = Time.now.to_i
+      expect(cli.send(:fresh?, {})).to be(false)
+      expect(cli.send(:fresh?, "resolved_at" => now, "freshness_ttl" => 60)).to be(true)
+      expect(cli.send(:fresh?, "resolved_at" => now - 61, "freshness_ttl" => 60)).to be(false)
+      expect(cli.send(:time_ago, nil)).to eq("unknown")
+      expect(cli.send(:time_ago, now - 30)).to eq("0m")
+      expect(cli.send(:time_ago, now - 3_600)).to eq("1h")
+      expect(cli.send(:time_ago, now - 86_400)).to eq("1d")
+    end
+
+    it "round-trips configuration and finds a project gemspec" do
+      Dir.mktmpdir do |project_dir|
+        project_cli = described_class.new([], project_dir: project_dir)
+        project_cli.send(:write_config, "answer" => 42)
+
+        expect(project_cli.send(:load_config)).to eq("answer" => 42)
+        expect(project_cli.send(:find_gemspec)).to be_nil
+
+        gemspec = File.join(project_dir, "demo.gemspec")
+        File.write(gemspec, "Gem::Specification.new do |s|\n  s.name = 'demo'\nend\n")
+        expect(project_cli.send(:find_gemspec)).to eq(gemspec)
+      end
+    end
+
+    it "raises when a gemspec cannot be loaded" do
+      Dir.mktmpdir do |project_dir|
+        path = File.join(project_dir, "broken.gemspec")
+        File.write(path, "not a gemspec")
+
+        expect { cli.send(:load_gemspec, path) }
+          .to raise_error(Gem::InvalidSpecificationException, /Unable to load gemspec/)
+      end
+    end
+
+    it "normalizes requirements and include/exclude version lists" do
+      config = {
+        "requirements" => [">= 1", ["< 3", " "]],
+        "include_versions" => ["2.0", "1.0", "2.0"],
+        "exclude_versions" => "1.0"
+      }
+
+      expect(cli.send(:gem_requirements, config)).to eq([">= 1", "< 3"])
+      expect(cli.send(:gem_include_versions, config)).to eq(%w[1.0 2.0])
+      expect(cli.send(:gem_exclude_versions, config)).to eq(["1.0"])
+      expect(cli.send(:gem_requirements, {})).to be_nil
+      expect(cli.send(:gem_include_versions, {})).to be_nil
+      expect(cli.send(:gem_exclude_versions, {})).to be_nil
+    end
+
+    it "merges, excludes, and sorts versions" do
+      expect(cli.send(:finalize_versions, ["2.0", "1.0"], ["3.0"], ["1.0"]))
+        .to eq(%w[2.0 3.0])
+      expect(cli.send(:subtract_versions, ["2.0", "1.0"], nil)).to eq(%w[1.0 2.0])
+      expect(cli.send(:sort_versions, [nil, "2.0", "1.0", "2.0"])).to eq(%w[1.0 2.0])
+    end
+
+    it "checks tier2 compatibility conservatively" do
+      resolver = instance_double(Kettle::Jem::Appraisals::GemVersionResolver)
+      range = {"r3" => {ceiling: Gem::Version.new("3.2")}}
+
+      expect(cli.send(:compatible?, "child", "1.0", "missing", range, resolver)).to be(true)
+      allow(resolver).to receive(:versions).with("child").and_return([{number: "1.0.0"}])
+      allow(resolver).to receive(:min_ruby_version).with("child", "1.0.0").and_return(Gem::Version.new("3.3"))
+      expect(cli.send(:compatible?, "child", "1.0", "r3", range, resolver)).to be(false)
+      allow(resolver).to receive(:min_ruby_version).with("child", "1.0.0").and_return(nil)
+      expect(cli.send(:compatible?, "child", "1.0", "r3", range, resolver)).to be(true)
+      allow(resolver).to receive(:versions).and_raise(StandardError)
+      expect(cli.send(:compatible?, "child", "1.0", "r3", range, resolver)).to be(true)
+    end
+
+    it "selects the latest patch for a minor version" do
+      resolver = instance_double(Kettle::Jem::Appraisals::GemVersionResolver)
+      allow(resolver).to receive(:versions).with("child").and_return(
+        [{number: "1.2.0"}, {number: "1.2.4"}, {number: "1.3.0"}]
+      )
+
+      expect(cli.send(:latest_minor_patch, "child", "1.2", resolver)).to eq("1.2.4")
+      expect(cli.send(:latest_minor_patch, "child", "9.9", resolver)).to eq("9.9")
+    end
+
+    it "handles extra gemfile annotations and collapse policies" do
+      entries = [{name: "one"}, {name: "two"}]
+      cli.send(:annotate_extra_gemfiles, entries, [])
+      expect(entries).to eq([{name: "one"}, {name: "two"}])
+      expect(cli.send(:standard_appraisal_collapse_policy, {})).to eq(:unique)
+      expect(cli.send(:standard_appraisal_collapse_policy, "collapse" => {"standard_appraisals" => "required"})).to eq(:required)
+      expect(cli.send(:standard_appraisal_collapse_policy, "standard_appraisal_collapse" => "off")).to eq(:none)
+      expect(cli.send(:standard_appraisal_name, {ruby_series: "missing"}, {})).to be_nil
+    end
+
+    it "handles version sort fallbacks and collapse selection" do
+      expect(cli.send(:version_sort_key, nil)).to eq(Gem::Version.new("0"))
+      expect(cli.send(:version_sort_key, "not-a-version")).to eq(Gem::Version.new("0"))
+      entries = [
+        {name: "old", tier1_version: "1.0", tier2_version: "1.0"},
+        {name: "new", tier1_version: "2.0", tier2_version: "1.0"}
+      ]
+
+      expect(cli.send(:standard_appraisal_collapse_entry, entries, :none)).to be_nil
+      expect(cli.send(:standard_appraisal_collapse_entry, entries.first(1), :unique)).to eq(entries.first)
+      expect(cli.send(:standard_appraisal_collapse_entry, entries, :required)).to eq(entries.last)
+    end
+  end
 end
