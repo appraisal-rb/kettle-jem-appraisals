@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "anonymous_loader"
-require "kettle/jem/appraisals"
+require "kettle-jem-appraisals"
 RSpec.describe Kettle::Jem::Appraisals::Version do
   it_behaves_like "a Version module", described_class
 
