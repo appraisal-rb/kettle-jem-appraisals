@@ -28,6 +28,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Remove unavailable QLTY README badges until the project is provisioned
+
 ### Security
 
 ## [0.1.1] - 2026-08-08
