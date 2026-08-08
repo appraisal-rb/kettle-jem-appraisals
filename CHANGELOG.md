@@ -28,6 +28,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Use an absolute lib path in the executable so packaging lint passes across supported RuboCop versions
+
 ### Security
 
 ## [0.1.1] - 2026-08-08
