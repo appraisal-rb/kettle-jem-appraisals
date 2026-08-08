@@ -87,3 +87,15 @@ jobs:
 
       - name: Checks the kitchen sink via ${{ matrix.exec_cmd }}
         run: bundle exec ${{ matrix.exec_cmd }}
+
+      - name: Print RuboCop Gradual target files
+        if: always()
+        run: bundle exec rubocop-gradual --check --list || true
+
+      - name: Print RuboCop Gradual environment
+        if: always()
+        run: |
+          bundle exec ruby -e 'puts RUBY_VERSION; %w[rubocop rubocop-gradual rubocop-packaging rubocop-lts rubocop-ruby3_2].each { |name| spec = Gem.loaded_specs[name]; puts "#{name}=#{spec&.version} #{spec&.full_gem_path}" }'
+          bundle exec ruby -e 'spec = Gem.loaded_specs.fetch("rubocop-packaging"); puts Dir[File.join(spec.full_gem_path, "lib", "**", "*.rb")].sort.map { |path| "#{Digest::SHA256.file(path).hexdigest}  #{path}" }' -rdigest
+          bundle exec ruby -rrubocop -e 'config = RuboCop::ConfigLoader.load_file(".rubocop.yml"); puts "RUBOCOP_LTS_LOCAL=#{ENV["RUBOCOP_LTS_LOCAL"].inspect}"; puts "BUNDLE_GEMFILE=#{ENV["BUNDLE_GEMFILE"].inspect}"; puts "packaging=#{config["Packaging/RequireRelativeHardcodingLib"].inspect}"; puts "plugins=#{$LOADED_FEATURES.grep(/rubocop.*(packaging|lts|ruby3_2)/).sort.inspect}"'
+          NO_GRADUAL=1 bundle exec rubocop --no-color --only Packaging/RequireRelativeHardcodingLib exe/kettle-jem-appraisals || true
