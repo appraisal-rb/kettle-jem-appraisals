@@ -87,3 +87,7 @@ jobs:
 
       - name: Checks the kitchen sink via ${{ matrix.exec_cmd }}
         run: bundle exec ${{ matrix.exec_cmd }}
+
+      - name: Print RuboCop Gradual target files
+        if: always()
+        run: bundle exec rubocop-gradual --check --list || true
