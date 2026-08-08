@@ -104,3 +104,4 @@ jobs:
         if: always()
         run: |
           bundle exec ruby -rrubocop -e 'puts "cwd=#{Dir.pwd}"; puts "project_root=#{RuboCop::ConfigFinder.project_root}"; puts "file=#{File.expand_path("exe/kettle-jem-appraisals")}"; puts "root_lib=#{File.expand_path("lib")}"; puts "features=#{$LOADED_FEATURES.grep(/parser|rubocop/).sort.grep(/parser|rubocop/).last(12).inspect}"'
+          NO_GRADUAL=1 bundle exec rubocop --debug --no-color --cache false --only Packaging/RequireRelativeHardcodingLib exe/kettle-jem-appraisals || true
