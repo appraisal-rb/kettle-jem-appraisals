@@ -120,19 +120,20 @@ project_emoji: 🍲
 engines:
   - ruby
   - jruby
-  - truffleruby
+  # TruffleRuby currently targets Ruby 3.x and cannot satisfy kettle-jem's
+  # published Ruby 4.0 runtime floor.
 # Ruby version policy.
 ruby:
   # Lowest MRI Ruby version for generated CI workflows, Appraisals, and
   # test/development dependency assumptions. This is intentionally separate
   # from the gemspec required_ruby_version, which describes the published
   # runtime contract. Effective CI minimum is max(gemspec minimum, this value).
-  test_minimum: "3.2.0"
+  test_minimum: "4.0.0"
 # RubyGems packaging/runtime shape.
 rubygems:
   # Published runtime Ruby floor used for generated gemspec metadata and README
   # compatibility text. Omit this to derive the value from the gemspec.
-  min_ruby: "3.2.0"
+  min_ruby: "4.0.0"
   # VersionGem loading pattern.
   # auto      - preserve an existing lib/<entrypoint>/version_gem.rb dedicated
   #             entrypoint; otherwise use the inline main-entrypoint pattern
@@ -256,6 +257,10 @@ readme:
   #   options: configuration
   # README badges managed by the template.
   badges:
+    # QLTY is not configured for this project and its hosted badge endpoints
+    # are not part of the release contract.
+    disabled:
+      - qlty
     # FOSSA license/security status badge.
     # false - omit the badge (default)
     # true  - derive project id from the GitHub repository slug

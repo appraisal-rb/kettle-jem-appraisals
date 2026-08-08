@@ -24,11 +24,15 @@ Please file a bug if you notice a violation of semantic versioning.
 
 - Align the supported Ruby and CI matrix with kettle-jem's Ruby 4.0 runtime requirement
 
+- Align generated compatibility workflows with kettle-jem's Ruby 4.0 MRI and JRuby support
+
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+- Remove the disabled QLTY README badges from generated project documentation
 
 ### Security
 
@@ -111,9 +115,6 @@ Please file a bug if you notice a violation of semantic versioning.
 - kettle-jem-template-20260728-002 - Generated RuboCop configs now ignore the
   same `gemfiles/vendor/bundle` tree as `.gitignore`, so vendored dependency
   installs are not reported as project lint debt.
-- kettle-jem-template-20260728-003 - Generated dep-heads workflows now run
-  TruffleRuby jobs with current RubyGems and Bundler, avoiding setup failures
-  before the test suite starts.
 - kettle-jem-template-20260728-004 - Generated dep-heads workflows now use the
   setup-ruby Bundler install path for direct appraisal Gemfiles, avoiding rv
   lockfile parser failures on Git and path dependencies.
