@@ -128,8 +128,14 @@ specs are not managed for the project.</li>
   <li>kettle-jem-template-20260728-001 - Generated Ruby workflows now use clearer<br>
 setup-ruby-flash planning and can prepare appraisal-only jobs without<br>
 installing the main Gemfile bundle.</li>
-  <li>kettle-jem-template-20260801-001 - Generated README gem dashboard links now<br>
-use ClickGems instead of BestGems.</li>
+  <li>
+    <p>kettle-jem-template-20260801-001 - Generated README gem dashboard links now<br>
+use ClickGems instead of BestGems.</p>
+  </li>
+  <li>
+    <p>Align the supported Ruby and CI matrix with kettle-jem’s Ruby 4.0 runtime requirement</p>
+  </li>
+  <li>Align generated compatibility workflows with kettle-jem’s Ruby 4.0 MRI and JRuby support</li>
 </ul>
 
 <h3 id="fixed-1">Fixed</h3>
@@ -176,9 +182,6 @@ coverage thresholds still pass.</li>
   <li>kettle-jem-template-20260728-002 - Generated RuboCop configs now ignore the<br>
 same <code>gemfiles/vendor/bundle</code> tree as <code>.gitignore</code>, so vendored dependency<br>
 installs are not reported as project lint debt.</li>
-  <li>kettle-jem-template-20260728-003 - Generated dep-heads workflows now run<br>
-TruffleRuby jobs with current RubyGems and Bundler, avoiding setup failures<br>
-before the test suite starts.</li>
   <li>kettle-jem-template-20260728-004 - Generated dep-heads workflows now use the<br>
 setup-ruby Bundler install path for direct appraisal Gemfiles, avoiding rv<br>
 lockfile parser failures on Git and path dependencies.</li>

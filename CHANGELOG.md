@@ -22,17 +22,11 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
-- Align the supported Ruby and CI matrix with kettle-jem's Ruby 4.0 runtime requirement
-
-- Align generated compatibility workflows with kettle-jem's Ruby 4.0 MRI and JRuby support
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
-
-- Remove the disabled QLTY README badges from generated project documentation
 
 ### Security
 
@@ -73,6 +67,10 @@ Please file a bug if you notice a violation of semantic versioning.
   installing the main Gemfile bundle.
 - kettle-jem-template-20260801-001 - Generated README gem dashboard links now
   use ClickGems instead of BestGems.
+
+- Align the supported Ruby and CI matrix with kettle-jem's Ruby 4.0 runtime requirement
+
+- Align generated compatibility workflows with kettle-jem's Ruby 4.0 MRI and JRuby support
 
 ### Fixed
 
