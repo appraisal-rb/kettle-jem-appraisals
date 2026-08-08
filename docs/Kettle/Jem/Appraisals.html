@@ -10,9 +10,9 @@
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "Kettle::Jem::Appraisals";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="../../class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -78,8 +80,9 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/kettle/jem/appraisals.rb<span class="defines">,<br />
-  lib/kettle/jem/appraisals/cli.rb,<br /> lib/kettle/jem/appraisals/version.rb,<br /> lib/kettle/jem/appraisals/matrix_builder.rb,<br /> lib/kettle/jem/appraisals/sub_dep_resolver.rb,<br /> lib/kettle/jem/appraisals/gem_abbreviations.rb,<br /> lib/kettle/jem/appraisals/appraisals_generator.rb,<br /> lib/kettle/jem/appraisals/gem_version_resolver.rb,<br /> lib/kettle/jem/appraisals/ruby_series_detector.rb,<br /> lib/kettle/jem/appraisals/x_std_libs_exclusion.rb,<br /> lib/kettle/jem/appraisals/modular_gemfile_generator.rb,<br /> lib/kettle/jem/appraisals/workflow_strategy_generator.rb</span>
+    <dd>lib/kettle/jem/appraisals.rb<span class="defines">,<br>
+  lib/kettle/jem/appraisals/cli.rb,<br> lib/kettle/jem/appraisals/version.rb,<br> lib/kettle/jem/appraisals/matrix_builder.rb,<br> lib/kettle/jem/appraisals/sub_dep_resolver.rb,<br> lib/kettle/jem/appraisals/gem_abbreviations.rb,<br> lib/kettle/jem/appraisals/appraisals_generator.rb,<br> lib/kettle/jem/appraisals/gem_version_resolver.rb,<br> lib/kettle/jem/appraisals/ruby_series_detector.rb,<br> lib/kettle/jem/appraisals/x_std_libs_exclusion.rb,<br> lib/kettle/jem/appraisals/modular_gemfile_generator.rb,<br> lib/kettle/jem/appraisals/workflow_strategy_generator.rb</span>
+
 </dd>
   </dl>
   
@@ -114,7 +117,7 @@
         <dt id="VERSION-constant" class="">VERSION =
           <div class="docstring">
   <div class="discussion">
-    <p>Traditional Constant Location</p>
+    <p>Current gem version exposed at the traditional constant location.</p>
 
 
   </div>
@@ -129,7 +132,7 @@
         <dt id="MINIMUM_RUBY_FLOOR-constant" class="">MINIMUM_RUBY_FLOOR =
           <div class="docstring">
   <div class="discussion">
-    <p>Re-exported from GemRubyFloor::MINIMUM_RUBY_FLOOR</p>
+    <p>Re-exported from active Kettle/Jem’s appraisal metadata policy.</p>
 
 
   </div>
@@ -157,7 +160,11 @@ by the +setup-ruby+ GitHub Action. Any gem’s +min_ruby+ below this is clamped 
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='const'><span class='object_link'><a href="../../Kettle.html" title="Kettle (module)">Kettle</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Jem.html" title="Kettle::Jem (module)">Jem</a></span></span><span class='op'>::</span><span class='const'>GemRubyFloor</span><span class='op'>::</span><span class='const'>MINIMUM_RUBY_FLOOR</span></pre></dd>
+        <dd><pre class="code"><span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../Kettle.html" title="Kettle (module)">Kettle</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Jem.html" title="Kettle::Jem (module)">Jem</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_defined?'>const_defined?</span><span class='lparen'>(</span><span class='symbol'>:APPRAISAL_MINIMUM_RUBY_FLOOR</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../../Kettle.html" title="Kettle (module)">Kettle</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Jem.html" title="Kettle::Jem (module)">Jem</a></span></span><span class='op'>::</span><span class='const'>APPRAISAL_MINIMUM_RUBY_FLOOR</span>
+<span class='kw'>else</span>
+  <span class='const'>Gem</span><span class='op'>::</span><span class='const'>Version</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2.3</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre></dd>
       
     </dl>
   
@@ -200,6 +207,7 @@ by the +setup-ruby+ GitHub Action. Any gem’s +min_ruby+ below this is clamped 
 
       
     </ul>
+    
   
 
 
@@ -223,14 +231,14 @@ by the +setup-ruby+ GitHub Action. Any gem’s +min_ruby+ below this is clamped 
       <pre class="lines">
 
 
-17
-18
-19
-20
-21</pre>
+12
+13
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_display_path'>display_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_path'>path</span> <span class='kw'>if</span> <span class='id identifier rubyid_path'>path</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>

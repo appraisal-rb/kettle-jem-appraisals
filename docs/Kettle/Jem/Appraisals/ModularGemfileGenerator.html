@@ -10,9 +10,9 @@
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "Kettle::Jem::Appraisals::ModularGemfileGenerator";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="../../../class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -94,7 +96,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/kettle/jem/appraisals/modular_gemfile_generator.rb</dd>
+    <dd>lib/kettle/jem/appraisals/modular_gemfile_generator.rb
+</dd>
   </dl>
   
 </div>
@@ -104,7 +107,7 @@
     <p>Generates modular gemfile files for the appraisal matrix.</p>
 
 <p>Creates per-version gemfiles organized by gem name and Ruby series:<br />
-  +gemfiles/modular/gem_name/ruby_series/vversion.gemfile+</p>
+  +gemfiles/modular/{gem_name}/{ruby_series}/v{version}.gemfile+</p>
 
 
   </div>
@@ -242,6 +245,7 @@
 
       
     </ul>
+    
   
 
 <div id="constructor_details" class="method_details_list">

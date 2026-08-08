@@ -10,9 +10,9 @@
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "Kettle::Jem::Appraisals::GemAbbreviations";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="../../../class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -78,7 +80,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/kettle/jem/appraisals/gem_abbreviations.rb</dd>
+    <dd>lib/kettle/jem/appraisals/gem_abbreviations.rb
+</dd>
   </dl>
   
 </div>
@@ -87,10 +90,10 @@
   <div class="discussion">
     <p>Registry of common gem name abbreviations for appraisal naming.</p>
 
-<p>All generated appraisal names are prefixed with <span class='object_link'><a href="#PREFIX-constant" title="Kettle::Jem::Appraisals::GemAbbreviations::PREFIX (constant)">PREFIX</a></span> so that<br />
+<p>All generated appraisal names are prefixed with {PREFIX} so that<br />
 regeneration can reliably identify and remove stale entries.</p>
 
-<p>Naming format: +kja-tier1-abbrev-t1-version-tier2-abbrev-t2-version-ruby-series+</p>
+<p>Naming format: +kja-{tier1-abbrev}-{t1-version}-{tier2-abbrev}-{t2-version}-{ruby-series}+</p>
 
 
   </div>
@@ -199,7 +202,7 @@ used to identify entries managed by kettle-jem-appraisals for cleanup</p>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sequel</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sq</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>couch_potato</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cp</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rom</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rom</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rom-sql</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rsql</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rom-sql</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rsql</span><span class='tstring_end'>&quot;</span></span>
 <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
     </dl>
@@ -289,6 +292,7 @@ used to identify entries managed by kettle-jem-appraisals for cleanup</p>
 
       
     </ul>
+    
   
 
 
@@ -311,7 +315,7 @@ used to identify entries managed by kettle-jem-appraisals for cleanup</p>
     <p>Returns the abbreviation for a gem name.</p>
 
 <p>Falls back to the full gem name (with hyphens preserved) when no<br />
-abbreviation is registered in <span class='object_link'><a href="#ABBREVIATIONS-constant" title="Kettle::Jem::Appraisals::GemAbbreviations::ABBREVIATIONS (constant)">ABBREVIATIONS</a></span>.</p>
+abbreviation is registered in {ABBREVIATIONS}.</p>
 
 
   </div>
@@ -406,7 +410,7 @@ abbreviation is registered in <span class='object_link'><a href="#ABBREVIATIONS-
   <div class="discussion">
     <p>Builds a full appraisal name from tier1, tier2, and ruby series components.</p>
 
-<p>All names are prefixed with <span class='object_link'><a href="#PREFIX-constant" title="Kettle::Jem::Appraisals::GemAbbreviations::PREFIX (constant)">PREFIX</a></span> for reliable cleanup on regeneration.<br />
+<p>All names are prefixed with {PREFIX} for reliable cleanup on regeneration.<br />
 When +tier2_gem+ is +nil+, the tier2 segment is omitted.</p>
 
 
@@ -557,7 +561,7 @@ When +tier2_gem+ is +nil+, the tier2 segment is omitted.</p>
   <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='lbracket'>[</span>
     <span class='const'><span class='object_link'><a href="#PREFIX-constant" title="Kettle::Jem::Appraisals::GemAbbreviations::PREFIX (constant)">PREFIX</a></span></span><span class='comma'>,</span>
     <span class='id identifier rubyid_abbreviate'>abbreviate</span><span class='lparen'>(</span><span class='id identifier rubyid_tier1_gem'>tier1_gem</span><span class='rparen'>)</span><span class='comma'>,</span>
-    <span class='id identifier rubyid_format_version'>format_version</span><span class='lparen'>(</span><span class='id identifier rubyid_tier1_version'>tier1_version</span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='id identifier rubyid_format_version'>format_version</span><span class='lparen'>(</span><span class='id identifier rubyid_tier1_version'>tier1_version</span><span class='rparen'>)</span>
   <span class='rbracket'>]</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_tier2_gem'>tier2_gem</span>
     <span class='id identifier rubyid_parts'>parts</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_abbreviate'>abbreviate</span><span class='lparen'>(</span><span class='id identifier rubyid_tier2_gem'>tier2_gem</span><span class='rparen'>)</span>

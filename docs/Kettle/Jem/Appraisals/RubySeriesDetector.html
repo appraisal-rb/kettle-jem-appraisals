@@ -10,9 +10,9 @@
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "Kettle::Jem::Appraisals::RubySeriesDetector";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="../../../class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -94,7 +96,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/kettle/jem/appraisals/ruby_series_detector.rb</dd>
+    <dd>lib/kettle/jem/appraisals/ruby_series_detector.rb
+</dd>
   </dl>
   
 </div>
@@ -269,6 +272,7 @@ the next named bucket.</p>
 
       
     </ul>
+    
   
 
 <div id="constructor_details" class="method_details_list">
@@ -318,12 +322,12 @@ the next named bucket.</p>
       <pre class="lines">
 
 
-37
-38
-39</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/ruby_series_detector.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/ruby_series_detector.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>resolver:</span><span class='rparen'>)</span>
   <span class='ivar'>@resolver</span> <span class='op'>=</span> <span class='id identifier rubyid_resolver'>resolver</span>
@@ -382,12 +386,12 @@ the next named bucket.</p>
       <pre class="lines">
 
 
-34
-35
-36</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/ruby_series_detector.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/ruby_series_detector.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_resolver'>resolver</span>
   <span class='ivar'>@resolver</span>
@@ -500,13 +504,13 @@ the bucket name list.</p>
       <pre class="lines">
 
 
-50
-51
-52
-53</pre>
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/ruby_series_detector.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/ruby_series_detector.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='id identifier rubyid_tier1_gems'>tier1_gems</span><span class='comma'>,</span> <span class='id identifier rubyid_tier2_gems'>tier2_gems</span><span class='comma'>,</span> <span class='label'>project_min_ruby:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_detect_with_ranges'>detect_with_ranges</span><span class='lparen'>(</span><span class='id identifier rubyid_tier1_gems'>tier1_gems</span><span class='comma'>,</span> <span class='id identifier rubyid_tier2_gems'>tier2_gems</span><span class='comma'>,</span> <span class='label'>project_min_ruby:</span> <span class='id identifier rubyid_project_min_ruby'>project_min_ruby</span><span class='rparen'>)</span>
@@ -621,11 +625,6 @@ the bucket name list.</p>
       <pre class="lines">
 
 
-66
-67
-68
-69
-70
 71
 72
 73
@@ -637,10 +636,15 @@ the bucket name list.</p>
 79
 80
 81
-82</pre>
+82
+83
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/ruby_series_detector.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/ruby_series_detector.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_detect_with_ranges'>detect_with_ranges</span><span class='lparen'>(</span><span class='id identifier rubyid_tier1_gems'>tier1_gems</span><span class='comma'>,</span> <span class='id identifier rubyid_tier2_gems'>tier2_gems</span><span class='comma'>,</span> <span class='label'>project_min_ruby:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_all_min_rubies'>all_min_rubies</span> <span class='op'>=</span> <span class='id identifier rubyid_collect_min_rubies'>collect_min_rubies</span><span class='lparen'>(</span><span class='id identifier rubyid_tier1_gems'>tier1_gems</span> <span class='op'>+</span> <span class='id identifier rubyid_tier2_gems'>tier2_gems</span><span class='rparen'>)</span>
@@ -753,11 +757,6 @@ Ruby-compatibility cutoff points.</p>
       <pre class="lines">
 
 
-96
-97
-98
-99
-100
 101
 102
 103
@@ -771,10 +770,15 @@ Ruby-compatibility cutoff points.</p>
 111
 112
 113
-114</pre>
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/ruby_series_detector.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/ruby_series_detector.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_seams'>find_seams</span><span class='lparen'>(</span><span class='id identifier rubyid_gem_name'>gem_name</span><span class='comma'>,</span> <span class='id identifier rubyid_versions'>versions</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_versions'>versions</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>

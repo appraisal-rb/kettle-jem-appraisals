@@ -20,6 +20,25 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.1.1] - 2026-08-08
+
+- TAG: [v0.1.1][0.1.1t]
+- COVERAGE: 93.38% -- 734/786 lines in 13 files
+- BRANCH COVERAGE: 77.14% -- 189/245 branches in 13 files
+- 89.55% documented
+
+### Added
+
 - Added support for JRuby 10.1 and TruffleRuby 34.0.
 
 - kettle-jem-template-20260720-005 - README Support & Community links now
@@ -48,10 +67,6 @@ Please file a bug if you notice a violation of semantic versioning.
   installing the main Gemfile bundle.
 - kettle-jem-template-20260801-001 - Generated README gem dashboard links now
   use ClickGems instead of BestGems.
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 
@@ -120,4 +135,6 @@ Please file a bug if you notice a violation of semantic versioning.
 - kettle-jem-template-20260802-001 - Devcontainer JSON files now merge as JSONC,
   preserving comments and trailing commas during template updates.
 
-### Security
+[Unreleased]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/43293712bb815238bc780aeacf3b284d95ab6633...v0.1.1
+[0.1.1t]: https://github.com/appraisal-rb/kettle-jem-appraisals/releases/tag/v0.1.1

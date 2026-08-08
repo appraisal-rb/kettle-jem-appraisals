@@ -10,9 +10,9 @@
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "Kettle::Jem::Appraisals::SubDepResolver";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="../../../class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -94,7 +96,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/kettle/jem/appraisals/sub_dep_resolver.rb</dd>
+    <dd>lib/kettle/jem/appraisals/sub_dep_resolver.rb
+</dd>
   </dl>
   
 </div>
@@ -220,6 +223,7 @@ series compatibility.</p>
 
       
     </ul>
+    
   
 
 <div id="constructor_details" class="method_details_list">
@@ -369,7 +373,7 @@ series compatibility.</p>
     <p>Resolves sub-dependencies for a given tier1 gem at a specific version.</p>
 
 <p>Queries the v2 API for the gem’s runtime dependencies, excludes<br />
-standard-library gems (via <span class='object_link'><a href="XStdLibsExclusion.html" title="Kettle::Jem::Appraisals::XStdLibsExclusion (module)">XStdLibsExclusion</a></span>), and resolves each<br />
+standard-library gems (via {XStdLibsExclusion}), and resolves each<br />
 remaining dependency to a concrete version.</p>
 
 
