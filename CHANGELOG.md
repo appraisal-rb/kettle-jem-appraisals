@@ -22,6 +22,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
+- Align the supported Ruby and CI matrix with kettle-jem's Ruby 4.0 runtime requirement
+
 ### Deprecated
 
 ### Removed

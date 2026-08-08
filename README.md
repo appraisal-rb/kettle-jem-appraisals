@@ -2,7 +2,7 @@
 
 # 🍲 Kettle::Jem::Appraisals
 
-[![Version][👽versioni]][👽version] [![Ruby Users Forum][✉️ruby-forum-top-img]][✉️ruby-forum] [![GitHub tag (latest SemVer)][⛳️tag-img]][⛳️tag] [![License: AGPL-3.0-only][📄license-img]][📄license] [![Total downloads][👽dl-ranki]][👽dl-rank] [![CodeCov Test Coverage][🏀codecovi]][🏀codecov] [![Coveralls Test Coverage][🏀coveralls-img]][🏀coveralls] [![CI Heads][🚎3-hd-wfi]][🚎3-hd-wf] [![CI Runtime Dependencies @ HEAD][🚎12-crh-wfi]][🚎12-crh-wf] [![CI Current][🚎11-c-wfi]][🚎11-c-wf] [![CI Truffle Ruby][🚎9-t-wfi]][🚎9-t-wf] [![CI JRuby][🚎10-j-wfi]][🚎10-j-wf] [![Deps Locked][🚎13-🔒️-wfi]][🚎13-🔒️-wf] [![Deps Unlocked][🚎14-🔓️-wfi]][🚎14-🔓️-wf] [![CI Test Coverage][🚎2-cov-wfi]][🚎2-cov-wf] [![CI Style][🚎5-st-wfi]][🚎5-st-wf]
+[![Version][👽versioni]][👽version] [![Ruby Users Forum][✉️ruby-forum-top-img]][✉️ruby-forum] [![GitHub tag (latest SemVer)][⛳️tag-img]][⛳️tag] [![License: AGPL-3.0-only][📄license-img]][📄license] [![Total downloads][👽dl-ranki]][👽dl-rank] [![CodeCov Test Coverage][🏀codecovi]][🏀codecov] [![Coveralls Test Coverage][🏀coveralls-img]][🏀coveralls] [![CI Heads][🚎3-hd-wfi]][🚎3-hd-wf] [![CI Runtime Dependencies @ HEAD][🚎12-crh-wfi]][🚎12-crh-wf] [![CI Current][🚎11-c-wfi]][🚎11-c-wf] [![CI JRuby][🚎10-j-wfi]][🚎10-j-wf] [![Deps Locked][🚎13-🔒️-wfi]][🚎13-🔒️-wf] [![Deps Unlocked][🚎14-🔓️-wfi]][🚎14-🔓️-wf] [![CI Test Coverage][🚎2-cov-wfi]][🚎2-cov-wf] [![CI Style][🚎5-st-wfi]][🚎5-st-wf]
 
 `if ci_badges.map(&:color).detect { it != "green"}` ☝️ [let me know on Discord][✉️discord-invite] or [RubyForum][✉️ruby-forum], as I may have missed the notification.
 
@@ -51,10 +51,9 @@ targets **`appraisal`** (which does not support `eval_gemfile`, and only support
 
 | Tokens to Remember | [![Gem name][⛳️name-img]][⛳️gem-name] [![Gem namespace][⛳️namespace-img]][⛳️gem-namespace] |
 |-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Works with JRuby | [![JRuby 10.0 Compat][💎jruby-10.0i]][🚎jruby-10.0-wf] [![JRuby current Compat][💎jruby-c-i]][🚎10-j-wf] [![JRuby HEAD Compat][💎jruby-headi]][🚎3-hd-wf]|
-| Works with Truffle Ruby | [![Truffle Ruby 24.2 Compat][💎truby-24.2i]][🚎truby-24.2-wf] [![Truffle Ruby 25.0 Compat][💎truby-25.0i]][🚎truby-25.0-wf] [![Truffle Ruby 33.0 Compat][💎truby-33.0i]][🚎truby-33.0-wf] [![Truffle Ruby current Compat][💎truby-c-i]][🚎9-t-wf] [![Truffle Ruby HEAD Compat][💎truby-headi]][🚎3-hd-wf]|
+| Works with JRuby | [![JRuby current Compat][💎jruby-c-i]][🚎10-j-wf] [![JRuby HEAD Compat][💎jruby-headi]][🚎3-hd-wf]|
+| Works with Truffle Ruby | Not supported: the runtime dependency on `kettle-jem` requires Ruby 4.0+. |
 | Works with MRI Ruby 4 | [![Ruby current Compat][💎ruby-c-i]][🚎11-c-wf] [![Ruby HEAD Compat][💎ruby-headi]][🚎3-hd-wf]|
-| Works with MRI Ruby 3 | [![Ruby 3.2 Compat][💎ruby-3.2i]][🚎ruby-3.2-wf] [![Ruby 3.3 Compat][💎ruby-3.3i]][🚎ruby-3.3-wf] [![Ruby 3.4 Compat][💎ruby-3.4i]][🚎ruby-3.4-wf]|
 | Support & Community | [![Join Me on Daily.dev's RubyFriends][✉️ruby-friends-img]][✉️ruby-friends] [![Get help from RubyForum][✉️ruby-forum-img]][✉️ruby-forum] [![Live Chat on Discord][✉️discord-invite-img-ftb]][✉️discord-invite] [![Get help from me on Upwork][👨🏼‍🏫expsup-upwork-img]][👨🏼‍🏫expsup-upwork] [![Get help from me on Codementor][👨🏼‍🏫expsup-codementor-img]][👨🏼‍🏫expsup-codementor] |
 | Source | [![Source on GitLab.com][📜src-gl-img]][📜src-gl] [![Source on CodeBerg.org][📜src-cb-img]][📜src-cb] [![Source on GitHub.com][📜src-gh-img]][📜src-gh] [![The best SHA: dQw4w9WgXcQ!][🧮kloc-img]][🧮kloc] |
 | Documentation | [![Current release on RubyDoc.info][📜docs-cr-rd-img]][🚎yard-current] [![YARD on Galtzo.com][📜docs-head-rd-img]][🚎yard-head] [![Maintainer Blog][🚂maint-blog-img]][🚂maint-blog] [![GitLab Wiki][📜gl-wiki-img]][📜gl-wiki] [![GitHub Wiki][📜gh-wiki-img]][📜gh-wiki] |
@@ -65,11 +64,9 @@ targets **`appraisal`** (which does not support `eval_gemfile`, and only support
 
 ### Compatibility
 
-Compatible with MRI Ruby 3.2.0+, and concordant releases of JRuby, and TruffleRuby.
-CI workflows and Appraisals are generated for MRI Ruby 3.2.0+.
-This test floor is configured by `ruby.test_minimum` in `.kettle-jem.yml` and
-may be higher than the gem's runtime compatibility floor when legacy Rubies are
-not practical for the current toolchain.
+Compatible with MRI Ruby 4.0.0+ and concordant JRuby releases.
+TruffleRuby and Ruby 3.x are not supported because the direct `kettle-jem`
+runtime dependency requires Ruby 4.0.0+.
 
 <a href="https://github.com/kettle-dev"><img alt="kettle-dev Logo by Aboling0, CC BY-SA 4.0" src="https://logos.galtzo.com/assets/images/kettle-dev/avatar-128px.svg" width="14%" align="right"/></a>
 
@@ -627,21 +624,12 @@ Thanks for RTFM. ☺️
 [🏀codecovi]: https://codecov.io/gh/appraisal-rb/kettle-jem-appraisals/graph/badge.svg
 [🏀coveralls]: https://coveralls.io/github/appraisal-rb/kettle-jem-appraisals?branch=main
 [🏀coveralls-img]: https://coveralls.io/repos/github/appraisal-rb/kettle-jem-appraisals/badge.svg?branch=main
-[🚎ruby-3.2-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/ruby-3.2.yml
-[🚎ruby-3.3-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/ruby-3.3.yml
-[🚎ruby-3.4-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/ruby-3.4.yml
-[🚎jruby-10.0-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/jruby-10.0.yml
-[🚎truby-24.2-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/truffleruby-24.2.yml
-[🚎truby-25.0-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/truffleruby-25.0.yml
-[🚎truby-33.0-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/truffleruby-33.0.yml
 [🚎2-cov-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/coverage.yml
 [🚎2-cov-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/coverage.yml/badge.svg
 [🚎3-hd-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/heads.yml
 [🚎3-hd-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/heads.yml/badge.svg
 [🚎5-st-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/style.yml
 [🚎5-st-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/style.yml/badge.svg
-[🚎9-t-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/truffle.yml
-[🚎9-t-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/truffle.yml/badge.svg
 [🚎10-j-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/jruby.yml
 [🚎10-j-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/jruby.yml/badge.svg
 [🚎11-c-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/current.yml
@@ -652,17 +640,8 @@ Thanks for RTFM. ☺️
 [🚎13-🔒️-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/locked_deps.yml/badge.svg
 [🚎14-🔓️-wf]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/unlocked_deps.yml
 [🚎14-🔓️-wfi]: https://github.com/appraisal-rb/kettle-jem-appraisals/actions/workflows/unlocked_deps.yml/badge.svg
-[💎ruby-3.2i]: https://img.shields.io/badge/Ruby-3.2-CC342D?style=for-the-badge&logo=ruby&logoColor=white
-[💎ruby-3.3i]: https://img.shields.io/badge/Ruby-3.3-CC342D?style=for-the-badge&logo=ruby&logoColor=white
-[💎ruby-3.4i]: https://img.shields.io/badge/Ruby-3.4-CC342D?style=for-the-badge&logo=ruby&logoColor=white
 [💎ruby-c-i]: https://img.shields.io/badge/Ruby-current-CC342D?style=for-the-badge&logo=ruby&logoColor=green
 [💎ruby-headi]: https://img.shields.io/badge/Ruby-HEAD-CC342D?style=for-the-badge&logo=ruby&logoColor=blue
-[💎truby-24.2i]: https://img.shields.io/badge/Truffle_Ruby-24.2-34BCB1?style=for-the-badge&logo=ruby&logoColor=pink
-[💎truby-25.0i]: https://img.shields.io/badge/Truffle_Ruby-25.0-34BCB1?style=for-the-badge&logo=ruby&logoColor=pink
-[💎truby-33.0i]: https://img.shields.io/badge/Truffle_Ruby-33.0-34BCB1?style=for-the-badge&logo=ruby&logoColor=pink
-[💎truby-c-i]: https://img.shields.io/badge/Truffle_Ruby-current-34BCB1?style=for-the-badge&logo=ruby&logoColor=green
-[💎truby-headi]: https://img.shields.io/badge/Truffle_Ruby-HEAD-34BCB1?style=for-the-badge&logo=ruby&logoColor=blue
-[💎jruby-10.0i]: https://img.shields.io/badge/JRuby-10.0-FBE742?style=for-the-badge&logo=ruby&logoColor=red
 [💎jruby-c-i]: https://img.shields.io/badge/JRuby-current-FBE742?style=for-the-badge&logo=ruby&logoColor=green
 [💎jruby-headi]: https://img.shields.io/badge/JRuby-HEAD-FBE742?style=for-the-badge&logo=ruby&logoColor=blue
 [🤝gh-issues]: https://github.com/appraisal-rb/kettle-jem-appraisals/issues
