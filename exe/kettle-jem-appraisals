@@ -11,7 +11,7 @@ $stdout.sync = true
 $stderr.sync = true
 
 require "rubygems"
-require_relative "../lib/kettle/jem/appraisals/version"
+require "kettle/jem/appraisals/version"
 
 script_basename = File.basename(__FILE__)
 if ARGV.any? { |arg| arg == "-v" || arg == "--version" }
