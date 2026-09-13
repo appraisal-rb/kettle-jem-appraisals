@@ -65,7 +65,7 @@ targets **`appraisal`** (which does not support `eval_gemfile`, and only support
 
 Compatible with MRI Ruby 4.0.0+, and JRuby.
 CI workflows and Appraisals are generated for MRI Ruby 4.0.0+.
-This test floor is configured by `ruby.test_minimum` in `.kettle-jem.yml` and
+This test floor is configured by `ruby.test_minimum` in `.structuredmerge/kettle-jem.yml` and
 may be higher than the gem's runtime compatibility floor when legacy Rubies are
 not practical for the current toolchain.
 
@@ -144,8 +144,16 @@ gem install kettle-jem-appraisals
 
 ## ⚙️ Configuration
 
-Configuration lives in `.kettle-jem.yml` under the `appraisal_matrix` key.
-Running `--scaffold` creates a starter config from your gemspec.
+Configuration lives under the `appraisal_matrix` key of the project's
+[kettle-jem](https://github.com/kettle-dev/kettle-jem) configuration file,
+`.structuredmerge/kettle-jem.yml` — the same file kettle-jem reads when templating.
+Projects that still have a legacy root `.kettle-jem.yml` (and no
+`.structuredmerge/kettle-jem.yml`) are read from there instead.
+Running `--scaffold` creates a starter `appraisal_matrix` from your gemspec.
+
+Writes are surgical: `--scaffold` and `--resolve` only rewrite the top-level
+sections they change (normally just `appraisal_matrix`), so comments and every
+other kettle-jem setting in the file are preserved.
 
 ### Config schema
 
@@ -161,6 +169,19 @@ appraisal_matrix:
 
   # Command to run in CI for each appraisal entry (default: "rake spec")
   exec_cmd: "rake spec"
+
+  # How generated entries collapse onto kettle-jem's standard ruby-X-Y
+  # appraisals (default: unique). See "Collapsing onto standard appraisals".
+  standard_appraisal_role: runtime_dependency
+
+  # Shared support gemfiles evaluated by every generated entry (and injected
+  # by kettle-jem into standard test appraisals). See "Shared support gemfiles".
+  appraisal_gemfiles:
+    - modular/combustion.gemfile
+
+  # Generate and wire ActiveRecord database support gemfiles when activerecord
+  # is a tier1 gem (default: true). See "ActiveRecord database support".
+  activerecord_support: true
 
   gems:
     # Tier 1: primary dependencies whose versions drive the matrix.
@@ -311,6 +332,82 @@ Common gem abbreviations are applied automatically:
 
 Examples: `kja-ar-7-1-oa-2-1-r3`, `kja-mail-2-8-r3` (tier1-only)
 
+#### Collapsing onto standard appraisals
+
+kettle-jem already generates one standard appraisal per supported Ruby series
+(`ruby-2-7`, `ruby-3-1`, …), and each of those already has a CI job. A generated
+`kja-*` entry whose Ruby bucket maps to one of those series would otherwise be a
+**duplicate** appraisal (and duplicate CI job) for the same Ruby. To avoid that,
+kettle-jem-appraisals intentionally **collapses** one generated entry per
+standard series onto the standard name: the entry keeps its `kja-*` name
+internally, but is emitted as `appraise "ruby-X-Y"`. kettle-jem then merges that
+block with its own templated `ruby-X-Y` block, so the standard job runs against
+the generated dependency versions. Every entry that is not collapsed keeps its
+`kja-*` name, and stale-file cleanup still keys off the `kja-` prefix.
+
+Which entry collapses is controlled by the collapse policy, read from
+`appraisal_matrix.collapse.standard_appraisals`, `standard_appraisal_role`, or
+`standard_appraisal_collapse` (first one set wins):
+
+| Policy                  | Accepted values                                              | Behavior                                                                                                                    |
+|-------------------------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| **unique** (default)    | anything not listed below                                    | Collapse only when a single generated entry maps to the series; ambiguous series keep all entries as `kja-*`.            |
+| **required**            | `required`, `runtime`, `runtime_dependency`, `dependency`, `substrate` | Always collapse one entry per series — the one with the highest tier1 (then tier2) version. Use when the tier1 gem is a runtime dependency every standard job needs. |
+| **none**                | `none`, `false`, `off`, `no`, `never`                        | Never collapse; every entry stays `kja-*`.                                                                                  |
+
+For example, with `standard_appraisal_role: runtime_dependency` and an
+`activerecord` tier1, the `r3.1` bucket's ActiveRecord 7.2 entry is emitted as
+`ruby-3-1`, while an extra ActiveRecord 7.0 entry for the same bucket stays
+`kja-ar-7-0-r2`.
+
+### Shared support gemfiles
+
+`appraisal_matrix.appraisal_gemfiles` (alias: `appraisal_eval_gemfiles`) lists
+modular gemfiles that every generated entry should `eval_gemfile`, such as
+test-only fixtures (`modular/combustion.gemfile`). Paths may be given with or
+without the leading `gemfiles/`. kettle-jem reads the same key (or
+`workflows.standard_appraisal_gemfiles`) to inject those gemfiles into its
+standard test appraisals, so collapsed and non-collapsed jobs share them.
+
+kettle-jem's `test_bundle.gemfiles` is separate: it controls the root
+`Gemfile` used for local development and the locked-deps workflow, and is not
+changed by `appraisal_matrix`.
+
+### ActiveRecord database support
+
+This gem's primary use case is gems that are tested against a spread of
+ActiveRecord versions on MRI, JRuby, and TruffleRuby. Those test suites need a
+database driver whose gem differs per engine and per ActiveRecord version:
+`sqlite3` on MRI/TruffleRuby, `activerecord-jdbcsqlite3-adapter` (plus
+`bigdecimal`) on JRuby. When `activerecord` is a tier1 gem, `--resolve`:
+
+- writes `gemfiles/modular/activerecord_support.gemfile` (`sqlite3` 1.4.x, for
+  ActiveRecord < 7.2) and `gemfiles/modular/activerecord_support_modern.gemfile`
+  (`sqlite3` >= 2.1, for ActiveRecord >= 7.2), each with a JRuby platform block
+  for the JDBC adapter, whose release series tracks ActiveRecord so Bundler picks
+  the matching adapter;
+- adds the matching support gemfile to each generated entry, based on that
+  entry's ActiveRecord version (unless `appraisal_gemfiles` already lists one of
+  them).
+
+Existing support gemfiles that do not carry the `# Generated by
+kettle-jem-appraisals` header are treated as hand-maintained and left untouched.
+Set `activerecord_support: false` to opt out entirely (for example, when the
+suite uses PostgreSQL). Point the root `Gemfile` at the modern support gemfile
+via kettle-jem's `test_bundle.gemfiles`, and select the JDBC adapter in your spec
+helper on JRuby:
+
+```ruby
+require "active_record"
+if RUBY_PLATFORM == "java"
+  require "activerecord-jdbcsqlite3-adapter"
+else
+  require "sqlite3"
+end
+adapter = (RUBY_PLATFORM == "java" && ActiveRecord.version < Gem::Version.new("7.2")) ? "jdbcsqlite3" : "sqlite3"
+ActiveRecord::Base.establish_connection(adapter: adapter, database: ":memory:")
+```
+
 ### Optimal bucket assignment
 
 Rather than cross-producting every gem version with every Ruby series,
@@ -331,7 +428,7 @@ Example with `activerecord`:
 
 ### Two-step workflow
 
-**Step 1 — Scaffold** reads your gemspec and populates `.kettle-jem.yml`:
+**Step 1 — Scaffold** reads your gemspec and populates `appraisal_matrix` in `.structuredmerge/kettle-jem.yml`:
 
 ```sh
 kettle-jem-appraisals --scaffold
