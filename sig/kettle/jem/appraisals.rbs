@@ -10,8 +10,47 @@ module Kettle
         def self.generate: (Array[Hash[Symbol, untyped]] matrix) -> String
       end
 
+      class ActiveRecordSupportGemfileGenerator
+        GENERATED_HEADER: String
+        LEGACY_PATH: String
+        MODERN_PATH: String
+        MODERN_ACTIVERECORD: Gem::Version
+        VARIANTS: Hash[String, Hash[Symbol, untyped]]
+
+        attr_reader base_dir: String
+
+        def self.support_gemfile?: (String path) -> bool
+        def initialize: (?base_dir: String) -> void
+        def generate: () -> Hash[String, Symbol]
+        def eval_path_for: (String | Gem::Version activerecord_version) -> String
+
+        private
+
+        def build_content: (Hash[Symbol, untyped] variant) -> String
+      end
+
+      class ConfigFile
+        CANONICAL_PATH: String
+        LEGACY_PATH: String
+
+        attr_reader project_dir: String
+
+        def initialize: (project_dir: String) -> void
+        def path: () -> String
+        def relative_path: () -> String
+        def load: () -> Hash[String, untyped]
+        def write: (Hash[String, untyped] config) -> void
+
+        private
+
+        def upsert_section: (String content, String key, untyped value) -> String
+        def section_range: (String content, String key) -> Range[Integer]?
+        def trailing_trivia?: (String line) -> bool
+      end
+
       class CLI
         CONFIG_FILE: String
+        LEGACY_CONFIG_FILE: String
         APPRAISAL_MATRIX_KEY: String
         DEFAULT_FRESHNESS_TTL: Integer
 
@@ -28,8 +67,12 @@ module Kettle
         def has_versions?: (Hash[String, untyped] matrix) -> bool
         def run_scaffold: () -> void
         def run_resolve: () -> void
+        def config_file: () -> ConfigFile
         def load_config: () -> Hash[String, untyped]
         def write_config: (Hash[String, untyped] config) -> void
+        def annotate_extra_gemfiles: (Array[Hash[Symbol, untyped]] appraisal_entries, Array[String] extra_gemfiles) -> void
+        def annotate_activerecord_support: (Array[Hash[Symbol, untyped]] appraisal_entries, Array[Hash[String, untyped]] tier1_gems, Hash[String, untyped] matrix) -> void
+        def activerecord_support_enabled?: (Hash[String, untyped]? matrix) -> bool
         def find_gemspec: () -> String?
         def extract_runtime_deps: (String gemspec_path) -> Array[String]
         def fresh?: (Hash[String, untyped] matrix) -> bool

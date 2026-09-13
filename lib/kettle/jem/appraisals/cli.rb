@@ -13,7 +13,7 @@ module Kettle
       # or accepts explicit +--scaffold+ / +--resolve+ flags.
       #
       # In *scaffold* mode, reads the project gemspec, excludes standard-library
-      # gems, and writes a skeleton +.kettle-jem.yml+ with tier1 candidates.
+      # gems, and writes a skeleton +appraisal_matrix+ into +.structuredmerge/kettle-jem.yml+ with tier1 candidates.
       #
       # In *resolve* mode, queries RubyGems for version data, assigns gem
       # versions to Ruby-series buckets, generates modular gemfiles, an
@@ -26,8 +26,11 @@ module Kettle
       #   cli = Kettle::Jem::Appraisals::CLI.new(["--scaffold"], project_dir: "/path/to/gem")
       #   cli.run
       class CLI
-        # @return [String] name of the per-project YAML configuration file
-        CONFIG_FILE = ".kettle-jem.yml"
+        # @return [String] canonical per-project kettle-jem configuration file (holds +appraisal_matrix+)
+        CONFIG_FILE = Kettle::Jem::KETTLE_CONFIG_PATH
+
+        # @return [String] legacy per-project configuration file, read when {CONFIG_FILE} is absent
+        LEGACY_CONFIG_FILE = Kettle::Jem::LEGACY_KETTLE_CONFIG_PATH
 
         # @return [String] top-level key in the YAML config that holds the appraisal matrix
         APPRAISAL_MATRIX_KEY = "appraisal_matrix"
@@ -125,10 +128,10 @@ module Kettle
           config[APPRAISAL_MATRIX_KEY] = matrix
           write_config(config)
 
-          puts "  ✅ Wrote scaffold to #{CONFIG_FILE}"
+          puts "  ✅ Wrote scaffold to #{config_file.relative_path}"
           puts ""
           puts "  Next steps:"
-          puts "  1. Edit #{CONFIG_FILE} — arrange gems into tier1 and tier2"
+          puts "  1. Edit #{config_file.relative_path} — arrange gems into tier1 and tier2"
           puts "  2. Run `kettle-jem-appraisals` again (or `--resolve`) to generate matrix"
         end
 
@@ -140,7 +143,7 @@ module Kettle
           config = load_config
           matrix = config[APPRAISAL_MATRIX_KEY]
           unless matrix
-            warn "  ❌ No #{APPRAISAL_MATRIX_KEY} in #{CONFIG_FILE}. Run --scaffold first."
+            warn "  ❌ No #{APPRAISAL_MATRIX_KEY} in #{config_file.relative_path}. Run --scaffold first."
             exit(1)
           end
 
@@ -263,6 +266,7 @@ module Kettle
             sub_resolver
           )
           annotate_extra_gemfiles(appraisal_entries, matrix_extra_gemfiles(matrix))
+          annotate_activerecord_support(appraisal_entries, tier1_gems, matrix)
           annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges, matrix)
 
           puts "  📊 Generated #{appraisal_entries.size} appraisal entries"
@@ -323,16 +327,16 @@ module Kettle
           puts "  🗑️  Removed #{stale.size} stale gemfile(s)"
         end
 
-        def load_config
-          path = File.join(project_dir, CONFIG_FILE)
-          return {} unless File.exist?(path)
+        def config_file
+          @config_file ||= ConfigFile.new(project_dir: project_dir)
+        end
 
-          YAML.safe_load_file(path, permitted_classes: [Symbol]) || {}
+        def load_config
+          config_file.load
         end
 
         def write_config(config)
-          path = File.join(project_dir, CONFIG_FILE)
-          File.write(path, YAML.dump(config))
+          config_file.write(config)
         end
 
         def find_gemspec
@@ -437,6 +441,7 @@ module Kettle
 
                 entries << {
                   name: GemAbbreviations.appraisal_name(t1_name, t1_ver, nil, nil, rs),
+                  tier1_name: t1_name,
                   tier1_version: t1_ver,
                   tier1_gemfile: t1_gemfile,
                   tier2_gemfile: nil,
@@ -479,6 +484,8 @@ module Kettle
 
                     entries << {
                       name: GemAbbreviations.appraisal_name(t1_name, t1_ver, t2_name, t2_ver, rs),
+                      tier1_name: t1_name,
+                      tier2_name: t2_name,
                       tier1_version: t1_ver,
                       tier2_version: t2_ver,
                       tier1_gemfile: t1_gemfile,
@@ -591,7 +598,7 @@ module Kettle
           return if extra_gemfiles.empty?
 
           appraisal_entries.each do |entry|
-            entry[:extra_gemfiles] = extra_gemfiles
+            entry[:extra_gemfiles] = (Array(entry[:extra_gemfiles]) + extra_gemfiles).uniq
           end
         end
 
@@ -600,6 +607,34 @@ module Kettle
             normalized = path.to_s.strip.sub(%r{\Agemfiles/}, "")
             normalized unless normalized.empty?
           end.uniq
+        end
+
+        # Generates the ActiveRecord database support gemfiles and adds the one
+        # matching each ActiveRecord entry's version to its extra gemfiles.
+        # Skipped when disabled via +activerecord_support+, when activerecord is not
+        # a tier1 gem, or when +appraisal_gemfiles+ already names a support gemfile.
+        def annotate_activerecord_support(appraisal_entries, tier1_gems, matrix)
+          return unless activerecord_support_enabled?(matrix)
+          return unless tier1_gems.any? { |gem_config| gem_config["name"] == "activerecord" }
+          return if matrix_extra_gemfiles(matrix).any? { |path| ActiveRecordSupportGemfileGenerator.support_gemfile?(path) }
+
+          generator = ActiveRecordSupportGemfileGenerator.new(base_dir: project_dir)
+          generator.generate.each do |path, status|
+            puts "  🗄️  #{(status == :written) ? "Wrote" : "Kept hand-maintained"} #{path}"
+          end
+          appraisal_entries.each do |entry|
+            next unless entry[:tier1_name] == "activerecord" && entry[:tier1_version]
+
+            support = generator.eval_path_for(entry[:tier1_version])
+            entry[:extra_gemfiles] = [support, *Array(entry[:extra_gemfiles])].uniq
+          end
+        end
+
+        def activerecord_support_enabled?(matrix)
+          value = matrix.is_a?(Hash) ? matrix["activerecord_support"] : nil
+          return true if value.nil?
+
+          !%w[false no off none never 0].include?(value.to_s.strip.downcase)
         end
 
         def annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges, matrix = {})

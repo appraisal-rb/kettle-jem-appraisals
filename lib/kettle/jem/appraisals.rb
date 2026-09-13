@@ -15,7 +15,9 @@ module Kettle
         path.to_s.sub(VAR_HOME_PREFIX, "/home")
       end
 
+      autoload :ActiveRecordSupportGemfileGenerator, "kettle/jem/appraisals/active_record_support_gemfile_generator"
       autoload :CLI, "kettle/jem/appraisals/cli"
+      autoload :ConfigFile, "kettle/jem/appraisals/config_file"
       autoload :GemAbbreviations, "kettle/jem/appraisals/gem_abbreviations"
       autoload :GemVersionResolver, "kettle/jem/appraisals/gem_version_resolver"
       autoload :MatrixBuilder, "kettle/jem/appraisals/matrix_builder"

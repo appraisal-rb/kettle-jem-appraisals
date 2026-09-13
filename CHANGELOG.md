@@ -20,6 +20,9 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Added
 
+- Generate `gemfiles/modular/activerecord_support.gemfile` (sqlite3 1.4.x) and `activerecord_support_modern.gemfile` (sqlite3 >= 2.1) with JRuby JDBC adapter blocks when `activerecord` is a tier1 gem, and wire the matching one into each generated appraisal by ActiveRecord version; opt out with `appraisal_matrix.activerecord_support: false`.
+- Document collapsing onto standard `ruby-X-Y` appraisals (intentional duplicate avoidance), collapse policies, and shared `appraisal_gemfiles`.
+
 ### Changed
 
 ### Deprecated
@@ -27,6 +30,9 @@ Please file a bug if you notice a violation of semantic versioning.
 ### Removed
 
 ### Fixed
+
+- Read and write `appraisal_matrix` in `.structuredmerge/kettle-jem.yml` (the file kettle-jem uses), falling back to a legacy root `.kettle-jem.yml`.
+- Preserve comments and all other settings when writing the config; only changed top-level sections are rewritten.
 
 ### Security
 

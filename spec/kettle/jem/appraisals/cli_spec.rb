@@ -151,7 +151,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
 
         cli.run
 
-        config = YAML.load_file(File.join(project_dir, ".kettle-jem.yml"))
+        config = YAML.load_file(File.join(project_dir, ".structuredmerge/kettle-jem.yml"))
         tier1 = config.fetch("appraisal_matrix").fetch("gems").fetch("tier1")
         expect(tier1).to eq([{"name" => "runtime_dep"}])
       end
