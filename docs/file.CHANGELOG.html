@@ -70,7 +70,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 and <a href="https://tom.preston-werner.com/2022/05/23/major-version-numbers-are-not-sacred.html">yes</a>, platform and engine support are part of the <a href="https://github.com/semver/semver/issues/716#issuecomment-869336139">public API</a>.<br>
 Please file a bug if you notice a violation of semantic versioning.</p>
 
-<h2 id="unreleased"><a href="https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.3...HEAD">Unreleased</a></h2>
+<h2 id="unreleased"><a href="https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.4...HEAD">Unreleased</a></h2>
 
 <h3 id="added">Added</h3>
 
@@ -83,6 +83,31 @@ Please file a bug if you notice a violation of semantic versioning.</p>
 <h3 id="fixed">Fixed</h3>
 
 <h3 id="security">Security</h3>
+
+<h2 id="014---2026-09-14">
+<a href="https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.3...v0.1.4">0.1.4</a> - 2026-09-14</h2>
+
+<ul>
+  <li>TAG: <a href="https://github.com/appraisal-rb/kettle-jem-appraisals/releases/tag/v0.1.4">v0.1.4</a>
+</li>
+  <li>COVERAGE: 94.54% – 848/897 lines in 15 files</li>
+  <li>BRANCH COVERAGE: 78.67% – 225/286 branches in 15 files</li>
+  <li>91.86% documented</li>
+</ul>
+
+<h3 id="added-1">Added</h3>
+
+<ul>
+  <li>Generate <code>gemfiles/modular/activerecord_support.gemfile</code> (sqlite3 1.4.x) and <code>activerecord_support_modern.gemfile</code> (sqlite3 &gt;= 2.1) with JRuby JDBC adapter blocks when <code>activerecord</code> is a tier1 gem, and wire the matching one into each generated appraisal by ActiveRecord version; opt out with <code>appraisal_matrix.activerecord_support: false</code>.</li>
+  <li>Document collapsing onto standard <code>ruby-X-Y</code> appraisals (intentional duplicate avoidance), collapse policies, and shared <code>appraisal_gemfiles</code>.</li>
+</ul>
+
+<h3 id="fixed-1">Fixed</h3>
+
+<ul>
+  <li>Read and write <code>appraisal_matrix</code> in <code>.structuredmerge/kettle-jem.yml</code> (the file kettle-jem uses), falling back to a legacy root <code>.kettle-jem.yml</code>.</li>
+  <li>Preserve comments and all other settings when writing the config; only changed top-level sections are rewritten.</li>
+</ul>
 
 <h2 id="013---2026-09-11">
 <a href="https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.2...v0.1.3">0.1.3</a> - 2026-09-11</h2>
@@ -158,7 +183,7 @@ Please file a bug if you notice a violation of semantic versioning.</p>
   <li>89.55% documented</li>
 </ul>
 
-<h3 id="added-1">Added</h3>
+<h3 id="added-2">Added</h3>
 
 <ul>
   <li>
@@ -201,7 +226,7 @@ use ClickGems instead of BestGems.</p>
   <li>Align generated compatibility workflows with kettle-jem’s Ruby 4.0 MRI and JRuby support</li>
 </ul>
 
-<h3 id="fixed-1">Fixed</h3>
+<h3 id="fixed-2">Fixed</h3>
 
 <ul>
   <li>Corrected OpenCollective funding metadata to use the <code>kettle-dev</code> collective.</li>

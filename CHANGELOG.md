@@ -20,9 +20,6 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Added
 
-- Generate `gemfiles/modular/activerecord_support.gemfile` (sqlite3 1.4.x) and `activerecord_support_modern.gemfile` (sqlite3 >= 2.1) with JRuby JDBC adapter blocks when `activerecord` is a tier1 gem, and wire the matching one into each generated appraisal by ActiveRecord version; opt out with `appraisal_matrix.activerecord_support: false`.
-- Document collapsing onto standard `ruby-X-Y` appraisals (intentional duplicate avoidance), collapse policies, and shared `appraisal_gemfiles`.
-
 ### Changed
 
 ### Deprecated
@@ -31,10 +28,24 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+### Security
+
+## [0.1.4] - 2026-09-14
+
+- TAG: [v0.1.4][0.1.4t]
+- COVERAGE: 94.54% -- 848/897 lines in 15 files
+- BRANCH COVERAGE: 78.67% -- 225/286 branches in 15 files
+- 91.86% documented
+
+### Added
+
+- Generate `gemfiles/modular/activerecord_support.gemfile` (sqlite3 1.4.x) and `activerecord_support_modern.gemfile` (sqlite3 >= 2.1) with JRuby JDBC adapter blocks when `activerecord` is a tier1 gem, and wire the matching one into each generated appraisal by ActiveRecord version; opt out with `appraisal_matrix.activerecord_support: false`.
+- Document collapsing onto standard `ruby-X-Y` appraisals (intentional duplicate avoidance), collapse policies, and shared `appraisal_gemfiles`.
+
+### Fixed
+
 - Read and write `appraisal_matrix` in `.structuredmerge/kettle-jem.yml` (the file kettle-jem uses), falling back to a legacy root `.kettle-jem.yml`.
 - Preserve comments and all other settings when writing the config; only changed top-level sections are rewritten.
-
-### Security
 
 ## [0.1.3] - 2026-09-11
 
@@ -183,7 +194,9 @@ Please file a bug if you notice a violation of semantic versioning.
 - kettle-jem-template-20260802-001 - Devcontainer JSON files now merge as JSONC,
   preserving comments and trailing commas during template updates.
 
-[Unreleased]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.3...v0.1.4
+[0.1.4t]: https://github.com/appraisal-rb/kettle-jem-appraisals/releases/tag/v0.1.4
 [0.1.3]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.2...v0.1.3
 [0.1.3t]: https://github.com/appraisal-rb/kettle-jem-appraisals/releases/tag/v0.1.3
 [0.1.2]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.1...v0.1.2

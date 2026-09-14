@@ -110,7 +110,7 @@
 or accepts explicit +–scaffold+ / +–resolve+ flags.</p>
 
 <p>In <em>scaffold</em> mode, reads the project gemspec, excludes standard-library<br />
-gems, and writes a skeleton +.kettle-jem.yml+ with tier1 candidates.</p>
+gems, and writes a skeleton +appraisal_matrix+ into +.structuredmerge/kettle-jem.yml+ with tier1 candidates.</p>
 
 <p>In <em>resolve</em> mode, queries RubyGems for version data, assigns gem<br />
 versions to Ruby-series buckets, generates modular gemfiles, an<br />
@@ -152,7 +152,7 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
         <dt id="CONFIG_FILE-constant" class="">CONFIG_FILE =
           <div class="docstring">
   <div class="discussion">
-    <p>Returns name of the per-project YAML configuration file.</p>
+    <p>Returns canonical per-project kettle-jem configuration file (holds +appraisal_matrix+).</p>
 
 
   </div>
@@ -170,7 +170,7 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       
       
         &mdash;
-        <div class='inline'><p>name of the per-project YAML configuration file</p>
+        <div class='inline'><p>canonical per-project kettle-jem configuration file (holds +appraisal_matrix+)</p>
 </div>
       
     </li>
@@ -179,7 +179,39 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.kettle-jem.yml</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="../../../Kettle.html" title="Kettle (module)">Kettle</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Jem.html" title="Kettle::Jem (module)">Jem</a></span></span><span class='op'>::</span><span class='const'>KETTLE_CONFIG_PATH</span></pre></dd>
+      
+        <dt id="LEGACY_CONFIG_FILE-constant" class="">LEGACY_CONFIG_FILE =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Returns legacy per-project configuration file, read when {CONFIG_FILE} is absent.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>legacy per-project configuration file, read when {CONFIG_FILE} is absent</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="../../../Kettle.html" title="Kettle (module)">Kettle</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Jem.html" title="Kettle::Jem (module)">Jem</a></span></span><span class='op'>::</span><span class='const'>LEGACY_KETTLE_CONFIG_PATH</span></pre></dd>
       
         <dt id="APPRAISAL_MATRIX_KEY-constant" class="">APPRAISAL_MATRIX_KEY =
           <div class="docstring">
@@ -474,13 +506,13 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       <pre class="lines">
 
 
-44
-45
-46
-47</pre>
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>project_dir:</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span><span class='rparen'>)</span>
   <span class='ivar'>@args</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span>
@@ -553,12 +585,12 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       <pre class="lines">
 
 
-40
-41
-42</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_args'>args</span>
   <span class='ivar'>@args</span>
@@ -625,12 +657,12 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       <pre class="lines">
 
 
-40
-41
-42</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_project_dir'>project_dir</span>
   <span class='ivar'>@project_dir</span>
@@ -691,12 +723,12 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       <pre class="lines">
 
 
-54
-55
-56</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span>
@@ -737,9 +769,6 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       <pre class="lines">
 
 
-62
-63
-64
 65
 66
 67
@@ -748,10 +777,13 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
 70
 71
 72
-73</pre>
+73
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span>
   <span class='id identifier rubyid_mode'>mode</span> <span class='op'>=</span> <span class='id identifier rubyid_detect_mode'>detect_mode</span>
