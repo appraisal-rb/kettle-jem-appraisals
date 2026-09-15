@@ -102,6 +102,26 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
       end
     end
 
+    context "with mode: semver and requirements" do
+      before do
+        allow(resolver).to receive_messages(
+          versions: by_major.flat_map { |major| major[:minors].map { |version| {number: "#{version}.0"} } },
+          min_ruby_version: nil
+        )
+      end
+
+      it "includes the lowest minor allowed by the requirements" do
+        result = builder.select_versions("test-gem", mode: "semver", requirements: [">= 5.0"])
+
+        expect(result).to eq(["5.0", "5.2", "6.1", "7.0", "7.1", "7.2"])
+      end
+
+      it "does not add the oldest minor without requirements" do
+        expect(builder.select_versions("test-gem", mode: "semver")).not_to include("5.0")
+        expect(builder.select_versions("test-gem", mode: "semver", requirements: [])).not_to include("5.0")
+      end
+    end
+
     it "raises on invalid mode" do
       expect { builder.select_versions("test-gem", mode: "invalid") }
         .to raise_error(ArgumentError, /Invalid mode/)
@@ -184,6 +204,46 @@ RSpec.describe Kettle::Jem::Appraisals::MatrixBuilder do
         # r2 should get a version from the 7.0-7.1 range
         r2_versions = result.select { |a| a[:bucket] == "r2" }.map { |a| a[:version] }
         expect(r2_versions).not_to be_empty
+      end
+    end
+
+    context "when the project Ruby floor is above a selected version's optimal bucket" do
+      it "assigns the version to the lowest bucket that can run it" do
+        result = builder.assign_version_buckets(
+          "test-gem",
+          ["5.2", "6.1", "7.1", "7.2"],
+          seams: seams,
+          buckets: ["r2.6", "r2", "r3.1", "r3"],
+          bucket_ranges: bucket_ranges.except("r2.4")
+        )
+
+        expect(result.map { |a| [a[:version], a[:bucket]] })
+          .to include(["5.2", "r2.6"], ["6.1", "r2.6"], ["7.1", "r2"], ["7.2", "r3"])
+      end
+    end
+
+    context "when a selected version predates every known Ruby requirement" do
+      it "leaves it unassigned" do
+        result = builder.assign_version_buckets(
+          "test-gem",
+          ["4.2", "5.2"],
+          seams: seams,
+          buckets: buckets,
+          bucket_ranges: bucket_ranges,
+          all_versions: ["4.2", "5.0", "5.2", "6.0", "7.0", "7.2"]
+        )
+
+        expect(result.map { |a| a[:version] }).not_to include("4.2")
+        expect(result).to include({version: "5.2", bucket: "r2.4"})
+      end
+    end
+
+    context "when finding the lowest runnable bucket" do
+      it "skips buckets without ranges and returns nil when none can run the version" do
+        expect(builder.send(:find_lowest_runnable_bucket, Gem::Version.new("2.5"), ["missing", "r2.6", "r2"], bucket_ranges))
+          .to eq("r2.6")
+        expect(builder.send(:find_lowest_runnable_bucket, Gem::Version.new("4.0"), ["missing", "r3"], bucket_ranges))
+          .to be_nil
       end
     end
 

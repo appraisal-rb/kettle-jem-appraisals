@@ -450,14 +450,17 @@ This generates:
 
 ### CLI flags
 
-| Flag         | Description                                 |
-|--------------|---------------------------------------------|
-| `--scaffold` | Force scaffold mode (even if config exists) |
-| `--resolve`  | Force resolve mode                          |
-| `--force`    | Bypass freshness TTL and re-resolve         |
+| Flag              | Description                                 |
+|-------------------|---------------------------------------------|
+| `--scaffold`      | Force scaffold mode (even if config exists) |
+| `--resolve`       | Force resolve mode                          |
+| `--force`         | Bypass freshness TTL and re-resolve         |
+| `-v`, `--version` | Print the version and exit                  |
+| `-h`, `--help`    | Print usage and exit                        |
 
-Without flags, the CLI auto-detects: scaffold if no versions are configured,
-resolve otherwise.
+Without a mode flag, the CLI auto-detects: scaffold if no versions are configured,
+resolve otherwise. Unknown options exit with an error before any file is written.
+`--resolve` exits non-zero when `bin/appraisal generate` fails.
 
 ### Re-resolving
 

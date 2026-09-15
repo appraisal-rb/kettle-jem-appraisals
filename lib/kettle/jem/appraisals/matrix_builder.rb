@@ -115,7 +115,11 @@ module Kettle
             next_seam_ruby = find_next_seam_ruby(ver, ver_min_ruby, all_versions, version_min_ruby)
 
             bucket = if next_seam_ruby
-              find_bucket_below(next_seam_ruby, buckets, bucket_ranges)
+              # When the next seam is at or below the project's Ruby floor, no
+              # bucket sits below it; test this version on the lowest bucket
+              # that can run it instead of dropping it.
+              find_bucket_below(next_seam_ruby, buckets, bucket_ranges) ||
+                find_lowest_runnable_bucket(ver_min_ruby, buckets, bucket_ranges)
             else
               # This is in the latest seam range — catch-all bucket
               buckets.last
@@ -129,6 +133,14 @@ module Kettle
         end
 
         private
+
+        # Finds the lowest bucket whose Ruby ceiling can run a version requiring +min_ruby+.
+        def find_lowest_runnable_bucket(min_ruby, buckets, bucket_ranges)
+          buckets.find { |bucket|
+            range = bucket_ranges[bucket]
+            range && range[:ceiling] >= min_ruby
+          }
+        end
 
         # One entry per major version (the latest minor of each).
         def select_major(by_major)
@@ -189,6 +201,9 @@ module Kettle
               versions.concat(entry[:minors])
             end
           end
+
+          # Explicit requirements declare the oldest supported version, so test it.
+          versions << by_major.first[:minors].first if requirements && !requirements.empty?
 
           versions.uniq.sort_by { |v| Gem::Version.new(v) }
         end

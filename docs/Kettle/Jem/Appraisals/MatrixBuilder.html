@@ -641,7 +641,11 @@ run on that bucket’s Ruby. Filler entries are marked with +filler: true+.</p>
 126
 127
 128
-129</pre>
+129
+130
+131
+132
+133</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/matrix_builder.rb', line 93</span>
@@ -671,7 +675,11 @@ run on that bucket’s Ruby. Filler entries are marked with +filler: true+.</p>
 </span>    <span class='id identifier rubyid_next_seam_ruby'>next_seam_ruby</span> <span class='op'>=</span> <span class='id identifier rubyid_find_next_seam_ruby'>find_next_seam_ruby</span><span class='lparen'>(</span><span class='id identifier rubyid_ver'>ver</span><span class='comma'>,</span> <span class='id identifier rubyid_ver_min_ruby'>ver_min_ruby</span><span class='comma'>,</span> <span class='id identifier rubyid_all_versions'>all_versions</span><span class='comma'>,</span> <span class='id identifier rubyid_version_min_ruby'>version_min_ruby</span><span class='rparen'>)</span>
 
     <span class='id identifier rubyid_bucket'>bucket</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_next_seam_ruby'>next_seam_ruby</span>
-      <span class='id identifier rubyid_find_bucket_below'>find_bucket_below</span><span class='lparen'>(</span><span class='id identifier rubyid_next_seam_ruby'>next_seam_ruby</span><span class='comma'>,</span> <span class='id identifier rubyid_buckets'>buckets</span><span class='comma'>,</span> <span class='id identifier rubyid_bucket_ranges'>bucket_ranges</span><span class='rparen'>)</span>
+      <span class='comment'># When the next seam is at or below the project&#39;s Ruby floor, no
+</span>      <span class='comment'># bucket sits below it; test this version on the lowest bucket
+</span>      <span class='comment'># that can run it instead of dropping it.
+</span>      <span class='id identifier rubyid_find_bucket_below'>find_bucket_below</span><span class='lparen'>(</span><span class='id identifier rubyid_next_seam_ruby'>next_seam_ruby</span><span class='comma'>,</span> <span class='id identifier rubyid_buckets'>buckets</span><span class='comma'>,</span> <span class='id identifier rubyid_bucket_ranges'>bucket_ranges</span><span class='rparen'>)</span> <span class='op'>||</span>
+        <span class='id identifier rubyid_find_lowest_runnable_bucket'>find_lowest_runnable_bucket</span><span class='lparen'>(</span><span class='id identifier rubyid_ver_min_ruby'>ver_min_ruby</span><span class='comma'>,</span> <span class='id identifier rubyid_buckets'>buckets</span><span class='comma'>,</span> <span class='id identifier rubyid_bucket_ranges'>bucket_ranges</span><span class='rparen'>)</span>
     <span class='kw'>else</span>
       <span class='comment'># This is in the latest seam range — catch-all bucket
 </span>      <span class='id identifier rubyid_buckets'>buckets</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
