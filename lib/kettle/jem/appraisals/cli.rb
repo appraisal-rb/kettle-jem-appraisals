@@ -306,6 +306,7 @@ module Kettle
           )
           annotate_extra_gemfiles(appraisal_entries, matrix_extra_gemfiles(matrix))
           annotate_activerecord_support(appraisal_entries, tier1_gems, matrix)
+          warn_security_advisories(appraisal_entries)
           annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges, matrix)
 
           puts "  📊 Generated #{appraisal_entries.size} appraisal entries"
@@ -665,8 +666,9 @@ module Kettle
           end.uniq
         end
 
-        # Generates the ActiveRecord database support gemfiles and adds the one
-        # matching each ActiveRecord entry's version to its extra gemfiles.
+        # Generates the ActiveRecord database support gemfiles the matrix needs and
+        # adds the one matching each ActiveRecord entry's version to its extra gemfiles.
+        # Warns when no sqlite3 release an entry's support gemfile allows fixes an advisory.
         # Skipped when disabled via +activerecord_support+, when activerecord is not
         # a tier1 gem, or when +appraisal_gemfiles+ already names a support gemfile.
         def annotate_activerecord_support(appraisal_entries, tier1_gems, matrix)
@@ -674,16 +676,43 @@ module Kettle
           return unless tier1_gems.any? { |gem_config| gem_config["name"] == "activerecord" }
           return if matrix_extra_gemfiles(matrix).any? { |path| ActiveRecordSupportGemfileGenerator.support_gemfile?(path) }
 
+          activerecord_entries = appraisal_entries.select { |entry| entry[:tier1_name] == "activerecord" && entry[:tier1_version] }
+          versions = activerecord_entries.map { |entry| entry[:tier1_version] }
           generator = ActiveRecordSupportGemfileGenerator.new(base_dir: project_dir)
-          generator.generate.each do |path, status|
-            puts "  🗄️  #{(status == :written) ? "Wrote" : "Kept hand-maintained"} #{path}"
+          generator.generate(versions).each do |path, status|
+            label = {written: "Wrote", kept: "Kept hand-maintained", removed: "Removed stale generated"}.fetch(status)
+            puts "  🗄️  #{label} #{path}"
           end
-          appraisal_entries.each do |entry|
-            next unless entry[:tier1_name] == "activerecord" && entry[:tier1_version]
-
+          activerecord_entries.each do |entry|
             support = generator.eval_path_for(entry[:tier1_version])
             entry[:extra_gemfiles] = [support, *Array(entry[:extra_gemfiles])].uniq
           end
+          versions.group_by { |version| generator.eval_path_for(version) }.each do |path, grouped|
+            unfixed = generator.unfixed_sqlite3_advisories(grouped.first)
+            next if unfixed.empty?
+
+            warn "  ⚠️  kettle-rb: no sqlite3 release allowed for activerecord #{grouped.uniq.join(", ")} (#{path}) fixes #{unfixed.join(", ")}"
+          end
+        end
+
+        # Warns about tracked gem versions in the matrix whose minor series has
+        # advisories no release fixes, or whose exact patch version is below the
+        # series' security floor (from +Kettle::Rb::GemFloors+).
+        def warn_security_advisories(appraisal_entries)
+          pairs = appraisal_entries.flat_map { |entry|
+            [[entry[:tier1_name], entry[:tier1_version]], [entry[:tier2_name], entry[:tier2_version]]]
+          }
+          messages = pairs.filter_map { |name, version| [name, version] if name && version && Kettle::Rb::GemFloors.tracked?(name) }.flat_map { |name, version|
+            notes = []
+            unpatched = Kettle::Rb::GemFloors.unpatched_advisories(name, version)
+            notes << "no #{name} #{Kettle::Rb::GemFloors.series_for(version)} release fixes #{unpatched.join(", ")}" unless unpatched.empty?
+            floor = Kettle::Rb::GemFloors.floor(name, version)
+            if floor && version.to_s.split(".").length >= 3 && Gem::Version.new(floor) > Gem::Version.new(version.to_s)
+              notes << "#{name} #{version} is pinned below the security floor #{floor}"
+            end
+            notes
+          }
+          messages.uniq.each { |message| warn "  ⚠️  kettle-rb: #{message}" }
         end
 
         def activerecord_support_enabled?(matrix)

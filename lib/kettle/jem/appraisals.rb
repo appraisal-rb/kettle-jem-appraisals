@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "kettle/jem"
+require "kettle/rb"
 
 module Kettle
   module Jem

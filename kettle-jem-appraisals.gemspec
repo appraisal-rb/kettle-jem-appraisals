@@ -103,6 +103,7 @@ Gem::Specification.new do |spec|
 
   # Utilities
   spec.add_dependency("kettle-jem", "~> 7.1", ">= 7.1.28")
+  spec.add_dependency("kettle-rb", "~> 0.1", ">= 0.1.14")                 # ruby >= 1.8.7, security floors and gem dependency data
   spec.add_dependency("version_gem", "~> 1.1", ">= 1.1.15")              # ruby >= 2.2.0
 
   # NOTE: It is preferable to list development dependencies in the gemspec due to increased
