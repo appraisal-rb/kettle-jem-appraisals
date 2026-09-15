@@ -829,11 +829,24 @@ set per-gem <code>mode</code> overrides, and remove any gems you don’t want in
       <td><code>--force</code></td>
       <td>Bypass freshness TTL and re-resolve</td>
     </tr>
+    <tr>
+      <td>
+<code>-v</code>, <code>--version</code>
+</td>
+      <td>Print the version and exit</td>
+    </tr>
+    <tr>
+      <td>
+<code>-h</code>, <code>--help</code>
+</td>
+      <td>Print usage and exit</td>
+    </tr>
   </tbody>
 </table>
 
-<p>Without flags, the CLI auto-detects: scaffold if no versions are configured,<br>
-resolve otherwise.</p>
+<p>Without a mode flag, the CLI auto-detects: scaffold if no versions are configured,<br>
+resolve otherwise. Unknown options exit with an error before any file is written.<br>
+<code>--resolve</code> exits non-zero when <code>bin/appraisal generate</code> fails.</p>
 
 <h3 id="re-resolving">Re-resolving</h3>
 

@@ -277,6 +277,83 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
         </dt>
         <dd><pre class="code"><span class='int'>604_800</span></pre></dd>
       
+        <dt id="OPTIONS-constant" class="">OPTIONS =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Returns command-line options accepted by <span class='object_link'><a href="#run-instance_method" title="Kettle::Jem::Appraisals::CLI#run (method)">#run</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>command-line options accepted by <span class='object_link'><a href="#run-instance_method" title="Kettle::Jem::Appraisals::CLI#run (method)">#run</a></span></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>--scaffold</span><span class='words_sep'> </span><span class='tstring_content'>--resolve</span><span class='words_sep'> </span><span class='tstring_content'>--force</span><span class='words_sep'> </span><span class='tstring_content'>-v</span><span class='words_sep'> </span><span class='tstring_content'>--version</span><span class='words_sep'> </span><span class='tstring_content'>-h</span><span class='words_sep'> </span><span class='tstring_content'>--help</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="USAGE-constant" class="">USAGE =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Returns usage text printed by +–help+.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>usage text printed by +–help+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='heredoc_beg'>&lt;&lt;~USAGE</span>
+<span class='tstring_content'>  Usage: kettle-jem-appraisals [--scaffold | --resolve] [--force]
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>  Generates an Appraisal matrix for the gem in the current directory.
+</span><span class='tstring_content'>  Without a mode flag, scaffolds appraisal_matrix in </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#CONFIG_FILE-constant" title="Kettle::Jem::Appraisals::CLI::CONFIG_FILE (constant)">CONFIG_FILE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'> when it
+</span><span class='tstring_content'>  has no resolved versions, and resolves it otherwise.
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>  Options:
+</span><span class='tstring_content'>    --scaffold     Force scaffold mode (even if config exists)
+</span><span class='tstring_content'>    --resolve      Force resolve mode
+</span><span class='tstring_content'>    --force        Bypass freshness TTL and re-resolve
+</span><span class='tstring_content'>    -v, --version  Print the version and exit
+</span><span class='tstring_content'>    -h, --help     Print this help and exit
+</span><span class='heredoc_end'>USAGE</span></pre></dd>
+      
     </dl>
   
 
@@ -757,6 +834,9 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
   <div class="discussion">
     <p class="note returns_void">This method returns an undefined value.</p><p>Detects the appropriate mode and dispatches to scaffold or resolve.</p>
 
+<p>Prints usage for +-h+/+–help+ and the version for +-v+/+–version+<br />
+without touching any files, and exits when given an unknown option.</p>
+
 
   </div>
 </div>
@@ -769,23 +849,57 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       <pre class="lines">
 
 
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76</pre>
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-h</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--help</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='const'><span class='object_link'><a href="#USAGE-constant" title="Kettle::Jem::Appraisals::CLI::USAGE (constant)">USAGE</a></span></span>
+    <span class='kw'>return</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-v</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--version</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='const'><span class='object_link'><a href="Version.html" title="Kettle::Jem::Appraisals::Version (module)">Version</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Version.html#VERSION-constant" title="Kettle::Jem::Appraisals::Version::VERSION (constant)">VERSION</a></span></span>
+    <span class='kw'>return</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_unknown'>unknown</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span> <span class='op'>-</span> <span class='const'><span class='object_link'><a href="#OPTIONS-constant" title="Kettle::Jem::Appraisals::CLI::OPTIONS (constant)">OPTIONS</a></span></span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_unknown'>unknown</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unknown option(s): </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_unknown'>unknown</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_warn'>warn</span> <span class='const'><span class='object_link'><a href="#USAGE-constant" title="Kettle::Jem::Appraisals::CLI::USAGE (constant)">USAGE</a></span></span>
+    <span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
   <span class='id identifier rubyid_mode'>mode</span> <span class='op'>=</span> <span class='id identifier rubyid_detect_mode'>detect_mode</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_mode'>mode</span>
   <span class='kw'>when</span> <span class='symbol'>:scaffold</span>

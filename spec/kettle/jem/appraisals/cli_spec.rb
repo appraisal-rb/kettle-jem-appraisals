@@ -492,6 +492,69 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
     end
   end
 
+  describe "option handling" do
+    it "prints usage for --help without writing any files" do
+      Dir.mktmpdir do |project_dir|
+        cli = described_class.new(["--help"], project_dir: project_dir)
+
+        expect { cli.run }.to output(include("Usage: kettle-jem-appraisals")).to_stdout
+        expect(Dir.children(project_dir)).to be_empty
+      end
+    end
+
+    it "prints the version for -v" do
+      expect { described_class.new(["-v"]).run }
+        .to output("#{Kettle::Jem::Appraisals::Version::VERSION}\n").to_stdout
+    end
+
+    it "rejects unknown options without writing any files" do
+      Dir.mktmpdir do |project_dir|
+        cli = described_class.new(["--bogus"], project_dir: project_dir)
+
+        expect { cli.run }.to output(include("Unknown option(s): --bogus")).to_stderr.and raise_error(SystemExit)
+        expect(Dir.children(project_dir)).to be_empty
+      end
+    end
+  end
+
+  describe "bin/appraisal generate" do
+    def write_binstub(project_dir, status)
+      FileUtils.mkdir_p(File.join(project_dir, "bin"))
+      path = File.join(project_dir, "bin", "appraisal")
+      File.write(path, "#!/bin/sh\nexit #{status}\n")
+      File.chmod(0o755, path)
+    end
+
+    it "exits non-zero when the command fails" do
+      Dir.mktmpdir do |project_dir|
+        write_binstub(project_dir, 3)
+        cli = described_class.new([], project_dir: project_dir)
+
+        expect { cli.send(:run_appraisal_generate) }
+          .to output(include("bin/appraisal generate failed")).to_stderr
+          .and output(include("Running bin/appraisal generate")).to_stdout
+          .and raise_error(SystemExit)
+      end
+    end
+
+    it "returns when the command succeeds" do
+      Dir.mktmpdir do |project_dir|
+        write_binstub(project_dir, 0)
+        cli = described_class.new([], project_dir: project_dir)
+
+        expect { cli.send(:run_appraisal_generate) }.to output(include("Running bin/appraisal generate")).to_stdout
+      end
+    end
+
+    it "explains how to create a missing binstub" do
+      Dir.mktmpdir do |project_dir|
+        cli = described_class.new([], project_dir: project_dir)
+
+        expect { cli.send(:run_appraisal_generate) }.to output(include("bin/appraisal not found")).to_stdout
+      end
+    end
+  end
+
   describe "private helpers" do
     let(:cli) { described_class.new([]) }
 
@@ -603,6 +666,15 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       expect(cli.send(:standard_appraisal_collapse_policy, "collapse" => {"standard_appraisals" => "required"})).to eq(:required)
       expect(cli.send(:standard_appraisal_collapse_policy, "standard_appraisal_collapse" => "off")).to eq(:none)
       expect(cli.send(:standard_appraisal_name, {ruby_series: "missing"}, {})).to be_nil
+    end
+
+    it "warns about selected versions that have no Ruby bucket" do
+      assignments = [{version: "6.1", bucket: "r2"}]
+
+      expect { cli.send(:warn_unassigned_versions, "activerecord", %w[5.2 6.1], assignments) }
+        .to output(include("activerecord 5.2 not assigned to any Ruby bucket")).to_stderr
+      expect { cli.send(:warn_unassigned_versions, "activerecord", %w[6.1], assignments) }
+        .not_to output.to_stderr
     end
 
     it "handles version sort fallbacks and collapse selection" do

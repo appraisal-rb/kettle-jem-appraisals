@@ -59,10 +59,49 @@ module Kettle
           end
         end
 
+        # @return [Array<String>] command-line options accepted by {#run}
+        OPTIONS = %w[--scaffold --resolve --force -v --version -h --help].freeze
+
+        # @return [String] usage text printed by +--help+
+        USAGE = <<~USAGE
+          Usage: kettle-jem-appraisals [--scaffold | --resolve] [--force]
+
+          Generates an Appraisal matrix for the gem in the current directory.
+          Without a mode flag, scaffolds appraisal_matrix in #{CONFIG_FILE} when it
+          has no resolved versions, and resolves it otherwise.
+
+          Options:
+            --scaffold     Force scaffold mode (even if config exists)
+            --resolve      Force resolve mode
+            --force        Bypass freshness TTL and re-resolve
+            -v, --version  Print the version and exit
+            -h, --help     Print this help and exit
+        USAGE
+
         # Detects the appropriate mode and dispatches to scaffold or resolve.
+        #
+        # Prints usage for +-h+/+--help+ and the version for +-v+/+--version+
+        # without touching any files, and exits when given an unknown option.
         #
         # @return [void]
         def run
+          if args.include?("-h") || args.include?("--help")
+            puts USAGE
+            return
+          end
+
+          if args.include?("-v") || args.include?("--version")
+            puts Version::VERSION
+            return
+          end
+
+          unknown = args - OPTIONS
+          unless unknown.empty?
+            warn "Unknown option(s): #{unknown.join(" ")}"
+            warn USAGE
+            exit(1)
+          end
+
           mode = detect_mode
           case mode
           when :scaffold
@@ -295,18 +334,26 @@ module Kettle
           config[APPRAISAL_MATRIX_KEY] = matrix
           write_config(config)
 
-          # Run bin/appraisal generate
-          if File.exist?(File.join(project_dir, "bin", "appraisal"))
-            puts "  🔧 Running bin/appraisal generate..."
-            system("bin/appraisal", "generate", chdir: project_dir)
-          else
-            puts "  ⚠️  bin/appraisal not found — run `bundle binstubs appraisal2` then `bin/appraisal generate`"
-          end
+          run_appraisal_generate
 
           puts "  ✅ Resolve complete"
         end
 
         # ── Helpers ──────────────────────────────────────────────────────
+
+        # Runs +bin/appraisal generate+ when the binstub exists, exiting when it fails.
+        def run_appraisal_generate
+          unless File.exist?(File.join(project_dir, "bin", "appraisal"))
+            puts "  ⚠️  bin/appraisal not found — run `bundle binstubs appraisal2` then `bin/appraisal generate`"
+            return
+          end
+
+          puts "  🔧 Running bin/appraisal generate..."
+          return if system("bin/appraisal", "generate", chdir: project_dir)
+
+          warn "  ❌ bin/appraisal generate failed (#{$?.inspect}); Appraisals and gemfiles/ may be incomplete"
+          exit(1)
+        end
 
         # Removes stale kja-* flat gemfiles from gemfiles/ that are no longer
         # in the current matrix. Only touches files matching the PREFIX pattern.
@@ -393,6 +440,14 @@ module Kettle
         # that version is the best choice).
         #
         # Tier2 versions are all compatible versions for each tier1's bucket.
+        # Reports selected versions that could not be assigned to any Ruby bucket.
+        def warn_unassigned_versions(gem_name, versions, assignments)
+          missing = versions - assignments.map { |assignment| assignment[:version] }
+          return if missing.empty?
+
+          warn "    ⚠️  #{gem_name} #{missing.join(", ")} not assigned to any Ruby bucket (unknown required_ruby_version?); left out of the matrix"
+        end
+
         def build_matrix(tier1_gems, tier2_gems, ruby_series, bucket_ranges, all_seams, all_versions_by_gem, resolver, builder, gemfile_gen, sub_resolver)
           entries = []
 
@@ -415,6 +470,7 @@ module Kettle
               puts "    ⚠️  No bucket assignments for #{t1_name}, falling back to latest bucket"
               t1_assignments = t1_versions.map { |v| {version: v, bucket: ruby_series.last} }
             end
+            warn_unassigned_versions(t1_name, t1_versions, t1_assignments)
 
             # Show assignments
             t1_assignments.each do |a|

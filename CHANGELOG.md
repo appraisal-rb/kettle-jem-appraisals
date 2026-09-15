@@ -28,6 +28,11 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- `--resolve` now exits non-zero when `bin/appraisal generate` fails, instead of reporting "Resolve complete"
+- `-h`/`--help` prints usage instead of running scaffold mode, and unknown options are rejected before any file is written
+- A selected version whose optimal Ruby bucket falls below the project's Ruby floor (e.g. activerecord 5.2 for a gem requiring Ruby >= 2.5) is assigned to the lowest bucket that can run it instead of being silently dropped; selected versions that still cannot be assigned are reported
+- `semver` mode includes the lowest minor allowed by a gem's `requirements` (e.g. activerecord 7.0 for `>= 7.0`)
+
 ### Security
 
 ## [0.1.4] - 2026-09-14
