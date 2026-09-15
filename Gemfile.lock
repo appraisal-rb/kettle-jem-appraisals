@@ -12,6 +12,7 @@ PATH
   specs:
     kettle-jem-appraisals (0.1.4)
       kettle-jem (~> 7.1, >= 7.1.28)
+      kettle-rb (~> 0.1, >= 0.1.14)
       version_gem (~> 1.1, >= 1.1.15)
 
 GEM
@@ -216,7 +217,7 @@ GEM
       yaml-merge (~> 7.1, >= 7.1.8)
     kettle-ndjson (0.1.16)
       version_gem (~> 1.1, >= 1.1.15)
-    kettle-rb (0.1.13)
+    kettle-rb (0.1.14)
     kettle-soup-cover (3.0.10)
       kettle-wash (~> 0.1, >= 0.1.6)
       simplecov (>= 1.0)
@@ -712,7 +713,7 @@ CHECKSUMS
   kettle-jem (7.1.28) sha256=6bd38a850bc3a73786cd26f3c3489f37ab6040832143df8fbd5e41ad73085d14
   kettle-jem-appraisals (0.1.4)
   kettle-ndjson (0.1.16) sha256=a8653859eece3eba5a40f9d735e5a0720b115ed88d0e9354d242136e57823653
-  kettle-rb (0.1.13) sha256=c8161ad0d185c3bc51d871a0c7e1f7e07caf04598e28785a9b7e6c5a70b403db
+  kettle-rb (0.1.14) sha256=22b124f56d4c45a6ccebb686e9c7a802bc23a6636f572b2f07d5b9365bcc03d1
   kettle-soup-cover (3.0.10) sha256=579e09d382d5c46b2a4787df492fdf598c774545d4ab1b7bd8cfaf6104424edd
   kettle-test (2.0.22) sha256=2c6a63974c29ffd0c459c830c8b06057dd33d5a70185433fe8a689378fd6062d
   kettle-wash (0.1.7) sha256=ceb7ad5975c7a6353052f564ca2068e7e612d4042441ddee19de830b079e4f9a
