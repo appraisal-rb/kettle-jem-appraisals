@@ -15,7 +15,6 @@ source "https://gem.coop"
 
 gemspec
 
-
 # Local template runs must resolve the same StructuredMerge dependency
 # graph as the project Gemfile before appraisal lockfiles are generated.
 if ENV.fetch("K_JEM_TEMPLATING", "false").casecmp("true").zero?
