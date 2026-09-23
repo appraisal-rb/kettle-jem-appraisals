@@ -1,0 +1,5 @@
+{
+  "kettle-jem-appraisals.gemspec:10232835": [
+    [19, 32, 10, "Gemspec/RequiredRubyVersion: `required_ruby_version` and `TargetRubyVersion` (3.2, which may be specified in .rubocop.yml) should be equal.", 3888670706]
+  ]
+}
