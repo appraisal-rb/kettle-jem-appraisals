@@ -65,7 +65,7 @@ targets **`appraisal`** (which does not support `eval_gemfile`, and only support
 
 Compatible with MRI Ruby 4.0.0+, and JRuby.
 CI workflows and Appraisals are generated for MRI Ruby 4.0.0+.
-This test floor is configured by `ruby.test_minimum` in `.structuredmerge/kettle-jem.yml` and
+This test floor is configured by `ruby.test_minimum` in `.kettle-jem.yml` and
 may be higher than the gem's runtime compatibility floor when legacy Rubies are
 not practical for the current toolchain.
 
@@ -674,7 +674,6 @@ Thanks for RTFM. ☺️
 [✉️ruby-forum]: https://www.rubyforum.org/tag/appraisal-rb
 
 [✇bundle-group-pattern]: https://gist.github.com/pboling/4564780
-[kettle-rb]: https://github.com/kettle-dev/kettle-rb
 [⛳️gem-namespace]: https://github.com/appraisal-rb/kettle-jem-appraisals
 [⛳️namespace-img]: https://img.shields.io/badge/namespace-Kettle::Jem::Appraisals-3C2D2D.svg?style=square&logo=ruby&logoColor=white
 [⛳️gem-name]: https://clickgems.clickhouse.com/dashboard/kettle-jem-appraisals
