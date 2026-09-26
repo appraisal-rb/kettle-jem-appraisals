@@ -45,6 +45,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Restore the released kettle-jem dependency floor after local templating raised it to an unreleased version.
+
 ### Security
 
 ## [0.1.5] - 2026-09-19
