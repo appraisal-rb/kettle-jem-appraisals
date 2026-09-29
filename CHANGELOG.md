@@ -20,6 +20,25 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.1.6] - 2026-09-29
+
+- TAG: [v0.1.6][0.1.6t]
+- COVERAGE: 95.68% -- 975/1019 lines in 15 files
+- BRANCH COVERAGE: 83.93% -- 282/336 branches in 15 files
+- 92.13% documented
+
+### Added
+
 - kettle-jem-template-20260913-001 - Templating now also surfaces a review
   entry in `dependency_conflicts.resolve` when a direct development
   dependency doesn't support one or more of this project's declared
@@ -39,17 +58,11 @@ Please file a bug if you notice a violation of semantic versioning.
   - other (2)
   - workflows (10)
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 
 - Restore the released kettle-jem dependency floor after local templating raised it to an unreleased version.
 
 - Skip the style-only RuboCop toolchain in the Ruby 3.2 appraisal bundle.
-
-### Security
 
 ## [0.1.5] - 2026-09-19
 
@@ -240,7 +253,9 @@ Please file a bug if you notice a violation of semantic versioning.
 - kettle-jem-template-20260802-001 - Devcontainer JSON files now merge as JSONC,
   preserving comments and trailing commas during template updates.
 
-[Unreleased]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.5...HEAD
+[Unreleased]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.6...HEAD
+[0.1.6]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.5...v0.1.6
+[0.1.6t]: https://github.com/appraisal-rb/kettle-jem-appraisals/releases/tag/v0.1.6
 [0.1.5]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.4...v0.1.5
 [0.1.5t]: https://github.com/appraisal-rb/kettle-jem-appraisals/releases/tag/v0.1.5
 [0.1.4]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.3...v0.1.4
