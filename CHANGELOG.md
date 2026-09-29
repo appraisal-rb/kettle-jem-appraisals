@@ -28,14 +28,12 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
-- Launch the generated appraisal binstub through the active Ruby interpreter so matrix resolution works on Windows.
-
 ### Security
 
 ## [0.1.6] - 2026-09-29
 
 - TAG: [v0.1.6][0.1.6t]
-- COVERAGE: 95.68% -- 975/1019 lines in 15 files
+- COVERAGE: 95.69% -- 976/1020 lines in 15 files
 - BRANCH COVERAGE: 83.93% -- 282/336 branches in 15 files
 - 92.13% documented
 
@@ -65,6 +63,8 @@ Please file a bug if you notice a violation of semantic versioning.
 - Restore the released kettle-jem dependency floor after local templating raised it to an unreleased version.
 
 - Skip the style-only RuboCop toolchain in the Ruby 3.2 appraisal bundle.
+
+- Launch the generated appraisal binstub through the active Ruby interpreter so matrix resolution works on Windows.
 
 ## [0.1.5] - 2026-09-19
 

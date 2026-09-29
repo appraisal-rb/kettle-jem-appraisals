@@ -583,13 +583,13 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       <pre class="lines">
 
 
-47
 48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>project_dir:</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span><span class='rparen'>)</span>
   <span class='ivar'>@args</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span>
@@ -662,12 +662,12 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       <pre class="lines">
 
 
-43
 44
-45</pre>
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_args'>args</span>
   <span class='ivar'>@args</span>
@@ -734,12 +734,12 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       <pre class="lines">
 
 
-43
 44
-45</pre>
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_project_dir'>project_dir</span>
   <span class='ivar'>@project_dir</span>
@@ -800,12 +800,12 @@ versions to Ruby-series buckets, generates modular gemfiles, an<br />
       <pre class="lines">
 
 
-57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span>
@@ -849,7 +849,6 @@ without touching any files, and exits when given an unknown option.</p>
       <pre class="lines">
 
 
-87
 88
 89
 90
@@ -877,10 +876,11 @@ without touching any files, and exits when given an unknown option.</p>
 112
 113
 114
-115</pre>
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/kettle/jem/appraisals/cli.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-h</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--help</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
