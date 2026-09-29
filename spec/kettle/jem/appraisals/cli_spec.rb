@@ -597,7 +597,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
 
         gemspec = File.join(project_dir, "demo.gemspec")
         File.write(gemspec, "Gem::Specification.new do |s|\n  s.name = 'demo'\nend\n")
-        expect(project_cli.send(:find_gemspec)).to eq(gemspec)
+        expect(Kettle::Dev::Paths.same?(project_cli.send(:find_gemspec), gemspec)).to be(true)
       end
     end
 
