@@ -28,6 +28,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Launch the generated appraisal binstub through the active Ruby interpreter so matrix resolution works on Windows.
+
 ### Security
 
 ## [0.1.6] - 2026-09-29

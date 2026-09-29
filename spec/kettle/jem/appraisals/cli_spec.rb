@@ -521,8 +521,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
     def write_binstub(project_dir, status)
       FileUtils.mkdir_p(File.join(project_dir, "bin"))
       path = File.join(project_dir, "bin", "appraisal")
-      File.write(path, "#!/bin/sh\nexit #{status}\n")
-      File.chmod(0o755, path)
+      File.write(path, "exit #{status}\n")
     end
 
     it "exits non-zero when the command fails" do

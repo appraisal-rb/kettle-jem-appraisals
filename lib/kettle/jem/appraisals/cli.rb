@@ -2,6 +2,7 @@
 
 require "yaml"
 require "fileutils"
+require "rbconfig"
 require "rubygems/specification"
 
 module Kettle
@@ -350,7 +351,7 @@ module Kettle
           end
 
           puts "  🔧 Running bin/appraisal generate..."
-          return if system("bin/appraisal", "generate", chdir: project_dir)
+          return if system(RbConfig.ruby, "bin/appraisal", "generate", chdir: project_dir)
 
           warn "  ❌ bin/appraisal generate failed (#{$?.inspect}); Appraisals and gemfiles/ may be incomplete"
           exit(1)
