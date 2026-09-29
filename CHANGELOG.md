@@ -47,6 +47,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 - Restore the released kettle-jem dependency floor after local templating raised it to an unreleased version.
 
+- Skip the style-only RuboCop toolchain in the Ruby 3.2 appraisal bundle.
+
 ### Security
 
 ## [0.1.5] - 2026-09-19
