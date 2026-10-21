@@ -89,6 +89,22 @@ The _amazing_ test matrix is powered by the kettle-dev stack.
 
 </details>
 
+### Runtime and Platform Support
+
+Support tiers describe what this project's CI actually exercises, not what may
+work in an untested environment:
+
+- **Parallel support**: CI runs the test suite with multiple workers available.
+- **Unsupported**: the engine/platform combination is not covered by CI and is
+ not a project compatibility claim.
+
+| Ruby engine/version | Linux | macOS | Windows | Notes |
+|---------------------|-------|-------|---------|-------|
+| MRI 4.0-4.0 | Parallel support | Unsupported | Unsupported | Versioned Ruby workflows run on Linux. |
+| MRI current | Parallel support | Parallel support | Unsupported | Current Ruby workflow covers the declared OS platforms. |
+| MRI head | Parallel support | Unsupported | Unsupported | CI is allowed to fail while Ruby is in development. |
+| JRuby (all CI lanes) | Parallel support | Unsupported | Unsupported | Engine workflows run on Linux; macOS and Windows are not exercised by CI. |
+
 ### Federated DVCS
 
 <details markdown="1">
@@ -674,7 +690,6 @@ Thanks for RTFM. ☺️
 [✉️ruby-forum]: https://www.rubyforum.org/tag/appraisal-rb
 
 [✇bundle-group-pattern]: https://gist.github.com/pboling/4564780
-[kettle-rb]: https://github.com/kettle-dev/kettle-rb
 [⛳️gem-namespace]: https://github.com/appraisal-rb/kettle-jem-appraisals
 [⛳️namespace-img]: https://img.shields.io/badge/namespace-Kettle::Jem::Appraisals-3C2D2D.svg?style=square&logo=ruby&logoColor=white
 [⛳️gem-name]: https://clickgems.clickhouse.com/dashboard/kettle-jem-appraisals
@@ -812,3 +827,5 @@ Thanks for RTFM. ☺️
 | License | `AGPL-3.0-only` |
 | Funding | https://github.com/sponsors/pboling, https://ko-fi.com/pboling, https://liberapay.com/pboling/donate, https://opencollective.com/kettle-dev, https://thanks.dev/u/gh/pboling, https://tidelift.com/funding/github/rubygems/kettle-jem-appraisals, https://www.buymeacoffee.com/pboling |
 <!-- kettle-jem:metadata:end -->
+
+[kettle-rb]: https://github.com/kettle-dev/kettle-rb
