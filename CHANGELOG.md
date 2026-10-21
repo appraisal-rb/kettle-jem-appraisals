@@ -50,6 +50,10 @@ Please file a bug if you notice a violation of semantic versioning.
   - other (1)
   - workflows (10)
 
+### Fixed
+
+- Bound JRuby dep-heads bundle and native-extension installation concurrency to prevent runner memory exhaustion.
+
 ## [0.1.6] - 2026-09-29
 
 - TAG: [v0.1.6][0.1.6t]
