@@ -26,11 +26,24 @@ Please file a bug if you notice a violation of semantic versioning.
 
 - Regenerate local Gemfile wiring after disabling unsupported JRuby coverage and aligning the appraisal2 floor.
 
+- [kc] kettle-jem/prepare: updated 3 project files:
+  - dependencies (3)
+
+- [kc] kettle-jem/template: updated 9 project files:
+  - code and tests (2)
+  - dependencies (2)
+  - documentation (1)
+  - other (1)
+  - workflows (3)
+
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+- kettle-jem-template-20260720-004 - MRI-only projects now omit JRuby and
+  TruffleRuby workflow jobs.
 
 ### Security
 
@@ -250,8 +263,6 @@ Please file a bug if you notice a violation of semantic versioning.
 
 - kettle-jem-template-20260720-003 - StructuredMerge Git diff driver config now
   uses the installed `smorg-rb` driver command.
-- kettle-jem-template-20260725-001 - Release pull request branches beginning
-  with `feature/release` now run JRuby and TruffleRuby workflows.
 - kettle-jem-template-20260726-002 - Generated version files now document their
   version namespace and constants, reducing warning-only YARD lint output.
 - kettle-jem-template-20260726-003 - Coverage upload steps now treat Coveralls,

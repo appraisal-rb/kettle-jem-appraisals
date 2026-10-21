@@ -6,7 +6,7 @@
 # kettle-jem will then preserve content between those markers across template runs.
 # kettle-jem:unfreeze
 
-# kettle-jem-appraisals Rakefile v7.1.36 - 2026-10-20
+# kettle-jem-appraisals Rakefile v7.1.37 - 2026-10-21
 # Ruby 2.3 (Safe Navigation) or higher required
 #
 # See LICENSE.md for license information.
