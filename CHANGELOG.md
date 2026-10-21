@@ -24,6 +24,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 - Drop JRuby support because the runtime dependency graph requires MRI-only native extensions.
 
+- Regenerate local Gemfile wiring after disabling unsupported JRuby coverage and aligning the appraisal2 floor.
+
 ### Deprecated
 
 ### Removed
