@@ -131,7 +131,6 @@ project_emoji: 🍲
 # Default (when key is absent): all three engines.
 engines:
   - ruby
-  - jruby
 # List the OS platforms this project's CI exercises. kettle-jem uses this to
 # generate the current.yml OS matrix and the README platform tier table.
 # Windows applies only when declared: the `if: matrix.os` guards and the
