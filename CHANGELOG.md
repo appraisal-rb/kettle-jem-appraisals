@@ -22,6 +22,23 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.1.7] - 2026-10-21
+
+- TAG: [v0.1.7][0.1.7t]
+- COVERAGE: 95.69% -- 976/1020 lines in 15 files
+- BRANCH COVERAGE: 83.93% -- 282/336 branches in 15 files
+- 92.13% documented
+
+### Changed
+
 - [kc] kettle-jem/prepare: updated 12 project files:
   - configuration (1)
   - dependencies (11)
@@ -32,14 +49,6 @@ Please file a bug if you notice a violation of semantic versioning.
   - documentation (2)
   - other (1)
   - workflows (10)
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 
 ## [0.1.6] - 2026-09-29
 
@@ -266,7 +275,9 @@ Please file a bug if you notice a violation of semantic versioning.
 - kettle-jem-template-20260802-001 - Devcontainer JSON files now merge as JSONC,
   preserving comments and trailing commas during template updates.
 
-[Unreleased]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.6...HEAD
+[Unreleased]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.7...HEAD
+[0.1.7]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.6...v0.1.7
+[0.1.7t]: https://github.com/appraisal-rb/kettle-jem-appraisals/releases/tag/v0.1.7
 [0.1.6]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.5...v0.1.6
 [0.1.6t]: https://github.com/appraisal-rb/kettle-jem-appraisals/releases/tag/v0.1.6
 [0.1.5]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.4...v0.1.5
