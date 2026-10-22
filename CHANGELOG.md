@@ -22,6 +22,23 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.1.8] - 2026-10-22
+
+- TAG: [v0.1.8][0.1.8t]
+- COVERAGE: 95.69% -- 976/1020 lines in 15 files
+- BRANCH COVERAGE: 83.93% -- 282/336 branches in 15 files
+- 92.13% documented
+
+### Changed
+
 - Drop JRuby support because the runtime dependency graph requires MRI-only native extensions.
 
 - Regenerate local Gemfile wiring after disabling unsupported JRuby coverage and aligning the appraisal2 floor.
@@ -36,16 +53,10 @@ Please file a bug if you notice a violation of semantic versioning.
   - other (1)
   - workflows (3)
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 
 - kettle-jem-template-20260720-004 - MRI-only projects now omit JRuby and
   TruffleRuby workflow jobs.
-
-### Security
 
 ## [0.1.7] - 2026-10-21
 
@@ -294,7 +305,9 @@ Please file a bug if you notice a violation of semantic versioning.
 - kettle-jem-template-20260802-001 - Devcontainer JSON files now merge as JSONC,
   preserving comments and trailing commas during template updates.
 
-[Unreleased]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.7...HEAD
+[Unreleased]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.8...HEAD
+[0.1.8]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.7...v0.1.8
+[0.1.8t]: https://github.com/appraisal-rb/kettle-jem-appraisals/releases/tag/v0.1.8
 [0.1.7]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.6...v0.1.7
 [0.1.7t]: https://github.com/appraisal-rb/kettle-jem-appraisals/releases/tag/v0.1.7
 [0.1.6]: https://github.com/appraisal-rb/kettle-jem-appraisals/compare/v0.1.5...v0.1.6
