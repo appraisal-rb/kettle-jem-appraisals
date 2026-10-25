@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "kettle/jem"
+require "kettle/rb/ruby_series_buckets"
 
 module Kettle
   module Jem
@@ -81,9 +82,9 @@ module Kettle
           end
 
           minor_versions = all_min_rubies.map { |v| minor_key(v) }.uniq.sort
-          buckets_and_ranges = minor_versions_to_buckets_with_ranges(minor_versions)
+          buckets_and_ranges = Kettle::Rb::RubySeriesBuckets.from_minor_versions(minor_versions)
           buckets = buckets_and_ranges[:buckets].sort_by { |b| bucket_sort_key(b) }
-          {buckets: buckets, bucket_ranges: buckets_and_ranges[:ranges]}
+          {buckets: buckets, bucket_ranges: buckets_and_ranges[:bucket_ranges]}
         end
 
         # Returns the seam points for a single gem where +min_ruby+ increases.
@@ -142,72 +143,6 @@ module Kettle
         def minor_key(version)
           segs = version.segments
           "#{segs[0]}.#{segs[1] || 0}"
-        end
-
-        # Converts a sorted list of minor version strings into bucket names
-        # and computes the floor/ceiling Ruby version for each bucket.
-        #
-        # Algorithm: Group by major. Within each major, the LAST (newest) minor
-        # becomes the catch-all "rN" bucket. Every earlier minor gets an
-        # explicit "rN.M" bucket.
-        #
-        # Example: ["2.4", "2.6", "2.7", "3.0", "3.1", "3.2"]
-        #   Major 2: 2.4→r2.4 (floor=2.4, ceil=2.5), 2.6→r2.6 (floor=2.6, ceil=2.6),
-        #            2.7→r2 (floor=2.7, ceil=2.99)
-        #   Major 3: 3.0/3.1→r3.1 (floor=3.0, ceil=3.1), 3.2→r3 (floor=3.2, ceil=3.99)
-        def minor_versions_to_buckets_with_ranges(minor_versions)
-          by_major = {}
-          minor_versions.each do |mv|
-            major = mv.split(".").first.to_i
-            by_major[major] ||= []
-            by_major[major] << mv
-          end
-
-          buckets = []
-          ranges = {}
-
-          by_major.each do |major, minors|
-            sorted = minors.sort_by { |m| Gem::Version.new(m) }
-
-            if sorted.size == 1
-              bucket = "r#{major}"
-              buckets << bucket
-              ranges[bucket] = {
-                floor: Gem::Version.new(sorted[0]),
-                ceiling: Gem::Version.new("#{major}.99")
-              }
-            else
-              sorted.each_with_index do |mv, idx|
-                minor_num = mv.split(".").last.to_i
-
-                if idx == sorted.size - 1
-                  # Last → catch-all
-                  bucket = "r#{major}"
-                  buckets << bucket
-                  ranges[bucket] = {
-                    floor: Gem::Version.new(mv),
-                    ceiling: Gem::Version.new("#{major}.99")
-                  }
-                else
-                  # Named bucket rN.M where M = next_minor - 1
-                  next_minor = sorted[idx + 1].split(".").last.to_i
-                  upper = (next_minor > 0) ? next_minor - 1 : minor_num
-                  upper = [upper, minor_num].max
-                  bucket = "r#{major}.#{upper}"
-                  buckets << bucket unless buckets.include?(bucket)
-                  # Don't overwrite if bucket already exists (merged ranges)
-                  unless ranges.key?(bucket)
-                    ranges[bucket] = {
-                      floor: Gem::Version.new(mv),
-                      ceiling: Gem::Version.new("#{major}.#{upper}")
-                    }
-                  end
-                end
-              end
-            end
-          end
-
-          {buckets: buckets.uniq, ranges: ranges}
         end
 
         # Sort key for bucket names so r2.4 < r2.6 < r2 < r3.1 < r3

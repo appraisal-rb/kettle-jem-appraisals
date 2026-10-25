@@ -20,6 +20,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Added
 
+- Use kettle-rb's shared Ruby-series bucket range calculation.
+
 ### Changed
 
 ### Deprecated
