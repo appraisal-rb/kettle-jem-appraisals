@@ -24,7 +24,19 @@ require "kettle/test/rspec"
 require "fileutils"
 require "kettle-jem-appraisals"
 
+# ConfigFile#write edits YAML through yaml-merge, which parses with the tree-sitter
+# backend. That grammar is not loadable on every Ruby (e.g. ruby-head), so examples
+# tagged :tree_sitter_yaml run only where the backend can actually parse YAML.
+TREE_SITTER_YAML_AVAILABLE = begin
+  require "yaml/merge"
+  Yaml::Merge::FileAnalysis.new("a: 1\n").valid?
+rescue LoadError, StandardError
+  false
+end
+
 RSpec.configure do |config|
+  config.filter_run_excluding(tree_sitter_yaml: true) unless TREE_SITTER_YAML_AVAILABLE
+
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
 

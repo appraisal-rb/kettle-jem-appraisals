@@ -157,7 +157,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       end
     end
 
-    it "passes requirements through to patch-mode selection and unions include_versions into the matrix" do
+    it "passes requirements through to patch-mode selection and unions include_versions into the matrix", :tree_sitter_yaml do
       Dir.mktmpdir do |project_dir|
         File.write(File.join(project_dir, ".kettle-jem.yml"), <<~YAML)
           appraisal_matrix:
@@ -244,7 +244,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       end
     end
 
-    it "passes requirements through in major mode" do
+    it "passes requirements through in major mode", :tree_sitter_yaml do
       Dir.mktmpdir do |project_dir|
         File.write(File.join(project_dir, ".kettle-jem.yml"), <<~YAML)
           appraisal_matrix:
@@ -309,7 +309,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       end
     end
 
-    it "adds include_versions even when no requirements are specified" do
+    it "adds include_versions even when no requirements are specified", :tree_sitter_yaml do
       Dir.mktmpdir do |project_dir|
         File.write(File.join(project_dir, ".kettle-jem.yml"), <<~YAML)
           appraisal_matrix:
@@ -388,7 +388,7 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
       end
     end
 
-    it "removes exclude_versions after mode and include_versions are combined" do
+    it "removes exclude_versions after mode and include_versions are combined", :tree_sitter_yaml do
       Dir.mktmpdir do |project_dir|
         File.write(File.join(project_dir, ".kettle-jem.yml"), <<~YAML)
           appraisal_matrix:

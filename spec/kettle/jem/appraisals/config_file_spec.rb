@@ -78,7 +78,7 @@ RSpec.describe Kettle::Jem::Appraisals::ConfigFile do
       expect(YAML.load_file(canonical)).to eq("appraisal_matrix" => {"mode" => "minor"})
     end
 
-    it "replaces only the changed section and preserves comments and other sections" do
+    it "replaces only the changed section and preserves comments and other sections", :tree_sitter_yaml do
       config = config_file.load
       config["appraisal_matrix"]["resolved_at"] = 1_700_000_000
 
@@ -93,7 +93,7 @@ RSpec.describe Kettle::Jem::Appraisals::ConfigFile do
       expect(YAML.safe_load(content)).to eq(config)
     end
 
-    it "keeps the comment that introduces the following section in place" do
+    it "keeps the comment that introduces the following section in place", :tree_sitter_yaml do
       config = config_file.load
       config["appraisal_matrix"]["mode"] = "minor"
 
@@ -105,7 +105,7 @@ RSpec.describe Kettle::Jem::Appraisals::ConfigFile do
       expect(lines[0...comment_index].join).to include("mode: minor")
     end
 
-    it "appends a section that does not exist yet" do
+    it "appends a section that does not exist yet", :tree_sitter_yaml do
       config = config_file.load.merge("test_bundle" => {"gemfiles" => ["gemfiles/modular/example.gemfile"]})
 
       config_file.write(config)
@@ -115,7 +115,7 @@ RSpec.describe Kettle::Jem::Appraisals::ConfigFile do
       expect(YAML.safe_load(content)).to eq(config)
     end
 
-    it "keeps indented comments that trail the rewritten section" do
+    it "keeps indented comments that trail the rewritten section", :tree_sitter_yaml do
       File.write(canonical, <<~YAML)
         appraisal_matrix:
           mode: minor
@@ -149,7 +149,7 @@ RSpec.describe Kettle::Jem::Appraisals::ConfigFile do
       expect(File.read(canonical)).to eq(original)
     end
 
-    it "updates the final section of the file" do
+    it "updates the final section of the file", :tree_sitter_yaml do
       config = config_file.load
       config["workflows"] = {"exec_cmd" => "rake spec"}
 
