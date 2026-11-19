@@ -191,14 +191,12 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
         sub_resolver = instance_double(Kettle::Jem::Appraisals::SubDepResolver)
         gemfile_gen = instance_double(Kettle::Jem::Appraisals::ModularGemfileGenerator)
         series_detector = instance_double(Kettle::Jem::Appraisals::RubySeriesDetector)
-        workflow_gen = instance_double(Kettle::Jem::Appraisals::WorkflowStrategyGenerator)
 
         allow(Kettle::Jem::Appraisals::GemVersionResolver).to receive(:new).and_return(resolver)
         allow(Kettle::Jem::Appraisals::MatrixBuilder).to receive(:new).with(resolver: resolver).and_return(builder)
         allow(Kettle::Jem::Appraisals::SubDepResolver).to receive(:new).with(resolver: resolver).and_return(sub_resolver)
         allow(Kettle::Jem::Appraisals::ModularGemfileGenerator).to receive(:new).with(base_dir: project_dir).and_return(gemfile_gen)
         allow(Kettle::Jem::Appraisals::RubySeriesDetector).to receive(:new).with(resolver: resolver).and_return(series_detector)
-        allow(Kettle::Jem::Appraisals::WorkflowStrategyGenerator).to receive(:new).and_return(workflow_gen)
         allow(Kettle::Jem::Appraisals::AppraisalsGenerator).to receive(:generate).and_return("# Appraisals\n")
 
         requirements = [">= 7.1", "< 7.2"]
@@ -227,7 +225,6 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
         ).and_return([{version: "8.0.1", bucket: "r3"}])
         allow(sub_resolver).to receive(:resolve).and_return({})
         allow(gemfile_gen).to receive(:generate).and_return("gemfiles/modular/activerecord/r3/v8.0.1.gemfile")
-        allow(workflow_gen).to receive(:generate).and_return({})
 
         cli.run
 
@@ -277,14 +274,12 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
         sub_resolver = instance_double(Kettle::Jem::Appraisals::SubDepResolver)
         gemfile_gen = instance_double(Kettle::Jem::Appraisals::ModularGemfileGenerator)
         series_detector = instance_double(Kettle::Jem::Appraisals::RubySeriesDetector)
-        workflow_gen = instance_double(Kettle::Jem::Appraisals::WorkflowStrategyGenerator)
 
         allow(Kettle::Jem::Appraisals::GemVersionResolver).to receive(:new).and_return(resolver)
         allow(Kettle::Jem::Appraisals::MatrixBuilder).to receive(:new).with(resolver: resolver).and_return(builder)
         allow(Kettle::Jem::Appraisals::SubDepResolver).to receive(:new).with(resolver: resolver).and_return(sub_resolver)
         allow(Kettle::Jem::Appraisals::ModularGemfileGenerator).to receive(:new).with(base_dir: project_dir).and_return(gemfile_gen)
         allow(Kettle::Jem::Appraisals::RubySeriesDetector).to receive(:new).with(resolver: resolver).and_return(series_detector)
-        allow(Kettle::Jem::Appraisals::WorkflowStrategyGenerator).to receive(:new).and_return(workflow_gen)
         allow(Kettle::Jem::Appraisals::AppraisalsGenerator).to receive(:generate).and_return("# Appraisals\n")
 
         requirements = [">= 5.0", "< 6.0"]
@@ -304,7 +299,6 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
         allow(builder).to receive(:assign_version_buckets).and_return([{version: "5.9", bucket: "r3"}])
         allow(sub_resolver).to receive(:resolve).and_return({})
         allow(gemfile_gen).to receive(:generate).and_return("gemfiles/modular/sequel/r3/v5.9.gemfile")
-        allow(workflow_gen).to receive(:generate).and_return({})
 
         cli.run
 
@@ -344,14 +338,12 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
         sub_resolver = instance_double(Kettle::Jem::Appraisals::SubDepResolver)
         gemfile_gen = instance_double(Kettle::Jem::Appraisals::ModularGemfileGenerator)
         series_detector = instance_double(Kettle::Jem::Appraisals::RubySeriesDetector)
-        workflow_gen = instance_double(Kettle::Jem::Appraisals::WorkflowStrategyGenerator)
 
         allow(Kettle::Jem::Appraisals::GemVersionResolver).to receive(:new).and_return(resolver)
         allow(Kettle::Jem::Appraisals::MatrixBuilder).to receive(:new).with(resolver: resolver).and_return(builder)
         allow(Kettle::Jem::Appraisals::SubDepResolver).to receive(:new).with(resolver: resolver).and_return(sub_resolver)
         allow(Kettle::Jem::Appraisals::ModularGemfileGenerator).to receive(:new).with(base_dir: project_dir).and_return(gemfile_gen)
         allow(Kettle::Jem::Appraisals::RubySeriesDetector).to receive(:new).with(resolver: resolver).and_return(series_detector)
-        allow(Kettle::Jem::Appraisals::WorkflowStrategyGenerator).to receive(:new).and_return(workflow_gen)
         allow(Kettle::Jem::Appraisals::AppraisalsGenerator).to receive(:generate).and_return("# Appraisals\n")
 
         allow(builder).to receive(:select_versions)
@@ -377,7 +369,6 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
         ).and_return([{version: "2.7.1", bucket: "r3"}])
         allow(sub_resolver).to receive(:resolve).and_return({})
         allow(gemfile_gen).to receive(:generate).and_return("gemfiles/modular/mail/r3/v2.7.1.gemfile")
-        allow(workflow_gen).to receive(:generate).and_return({})
 
         cli.run
 
@@ -434,14 +425,12 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
         sub_resolver = instance_double(Kettle::Jem::Appraisals::SubDepResolver)
         gemfile_gen = instance_double(Kettle::Jem::Appraisals::ModularGemfileGenerator)
         series_detector = instance_double(Kettle::Jem::Appraisals::RubySeriesDetector)
-        workflow_gen = instance_double(Kettle::Jem::Appraisals::WorkflowStrategyGenerator)
 
         allow(Kettle::Jem::Appraisals::GemVersionResolver).to receive(:new).and_return(resolver)
         allow(Kettle::Jem::Appraisals::MatrixBuilder).to receive(:new).with(resolver: resolver).and_return(builder)
         allow(Kettle::Jem::Appraisals::SubDepResolver).to receive(:new).with(resolver: resolver).and_return(sub_resolver)
         allow(Kettle::Jem::Appraisals::ModularGemfileGenerator).to receive(:new).with(base_dir: project_dir).and_return(gemfile_gen)
         allow(Kettle::Jem::Appraisals::RubySeriesDetector).to receive(:new).with(resolver: resolver).and_return(series_detector)
-        allow(Kettle::Jem::Appraisals::WorkflowStrategyGenerator).to receive(:new).and_return(workflow_gen)
         allow(Kettle::Jem::Appraisals::AppraisalsGenerator).to receive(:generate).and_return("# Appraisals\n")
 
         requirements = [">= 7.1", "< 7.2"]
@@ -471,7 +460,6 @@ RSpec.describe Kettle::Jem::Appraisals::CLI do
         ).and_return([{version: "7.1.1", bucket: "r3"}])
         allow(sub_resolver).to receive(:resolve).and_return({})
         allow(gemfile_gen).to receive(:generate).and_return("gemfiles/modular/activerecord/r3/v7.1.1.gemfile")
-        allow(workflow_gen).to receive(:generate).and_return({})
 
         cli.run
 

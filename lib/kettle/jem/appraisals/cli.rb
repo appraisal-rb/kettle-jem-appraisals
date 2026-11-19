@@ -18,7 +18,7 @@ module Kettle
       #
       # In *resolve* mode, queries RubyGems for version data, assigns gem
       # versions to Ruby-series buckets, generates modular gemfiles, an
-      # +Appraisals+ file, and workflow strategy matrix snippets.
+      # +Appraisals+ file.
       #
       # @example Run from the command line
       #   Kettle::Jem::Appraisals::CLI.run(["--resolve"])
@@ -311,16 +311,6 @@ module Kettle
           annotate_standard_appraisal_collapses(appraisal_entries, bucket_ranges, matrix)
 
           puts "  📊 Generated #{appraisal_entries.size} appraisal entries"
-
-          # Generate workflow strategy matrix snippets
-          workflow_gen = WorkflowStrategyGenerator.new(
-            bucket_ranges: bucket_ranges,
-            exec_cmd: matrix.dig("exec_cmd") || "rake spec"
-          )
-          workflow_groups = workflow_gen.generate(appraisal_entries)
-          workflow_groups.each do |lifecycle, entries|
-            puts "    🔧 #{lifecycle}.yml: #{entries.size} matrix entries"
-          end
 
           # Clean up stale kja-* flat gemfiles from previous runs
           cleanup_stale_gemfiles(appraisal_entries)

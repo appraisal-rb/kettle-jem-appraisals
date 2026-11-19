@@ -28,6 +28,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Removed
 
+- WorkflowStrategyGenerator and its resolve-mode output: it grouped appraisals into obsolete supported/legacy/unsupported/ancient workflow lifecycles and was never consumed
+
 ### Fixed
 
 ### Security
