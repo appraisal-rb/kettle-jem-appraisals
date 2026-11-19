@@ -28,7 +28,6 @@ seam points (where `required_ruby_version` changes), and produces:
 
 - **Modular gemfiles** under `gemfiles/modular/{gem}/{ruby_series}/v{version}.gemfile`
 - An **Appraisals** file for use with [appraisal2](https://github.com/appraisal-rb/appraisal2)
-- **Workflow strategy** matrix snippets for GitHub Actions CI
 
 If you want a lighter-weight DSL for the original
 [`appraisal`](https://github.com/thoughtbot/appraisal) gem, consider
@@ -529,19 +528,6 @@ appraisal_matrix:
 ```
 
 Produces entries like `kja-ar-7-1-oa-2-1-r3`, `kja-sq-5-0-oa-2-1-r3`.
-
-### Workflow strategy output
-
-The resolve step also generates CI lifecycle groupings:
-
-| Lifecycle     | Description                               |
-|---------------|-------------------------------------------|
-| `supported`   | Current Ruby series (actively maintained) |
-| `legacy`      | Older Ruby series (maintenance mode)      |
-| `unsupported` | Ruby versions past EOL                    |
-| `ancient`     | Very old Ruby (best-effort)               |
-
-These map to separate GitHub Actions workflow files for tiered CI execution.
 
 ## 🔐 Security
 
